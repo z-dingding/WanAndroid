@@ -1,0 +1,24 @@
+ext {
+    android = [
+            compileSdkVersion : 29,
+            buildToolsVersion : "29.0.3",
+            applicationId : 'com.hxzk.nj.yp.qxjy',
+            minSdkVersion : 21,
+            targetSdkVersion : 29,
+            versionCode : 1,
+            versionName : "1.0.0"
+    ]
+    dependencies = [
+            "kotlin-stdlib"   : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            "core-ktx"        : "androidx.core:core-ktx:1.3.2",
+            "appcompat"       : "androidx.appcompat:appcompat:1.2.0",
+            "constraintlayout": "androidx.constraintlayout:constraintlayout:2.0.4",
+            // avi进度框
+            "avi" : "com.wang.avi:library:2.1.3",
+            //design
+            "design":"com.android.support:design:28.0.0",
+            //eventbus
+            "eventbus":'org.greenrobot:eventbus:3.0.0'
+
+    ]
+}

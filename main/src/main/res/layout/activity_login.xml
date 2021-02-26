@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.hxzk.main.ui.activity.login.LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher"
+        android:transitionName="@string/transition_logo_splash"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/accountAreaLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:baselineAligned="false"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/accountInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="35dp"
+            app:errorTextAppearance="@style/EditTextErrorAppearance">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/accountEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/account_number"
+                android:imeOptions="actionGo"
+                android:inputType="text"
+                android:maxLength="16"
+                android:maxLines="1"
+                android:textColor="@color/white_text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="35dp"
+            app:errorTextAppearance="@style/EditTextErrorAppearance">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pwdEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/account_pwd"
+                android:imeOptions="actionGo"
+                 android:inputType="text"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:textColor="@color/white_text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_registerarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="35dp"
+        android:paddingEnd="35dp"
+        android:gravity="center_vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accountAreaLayout">
+
+        <TextView
+            android:id="@+id/registerAccaount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="@string/login_register"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_alignParentLeft="true"
+            />
+        <TextView
+            android:id="@+id/forgetPwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="@string/login_forgetpwd"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_registerarea"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="35dp"
+        android:background="@drawable/login_button_bg"
+        android:text="@string/login"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
