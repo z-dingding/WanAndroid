@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.hxzk.main.ui.activity.splash.SplashActivity">
+    tools:context=".OpenSourceSplashActivity"
+    tools:ignore="MissingDefaultResource">
 
     <ImageView
         android:id="@+id/ivLogo"

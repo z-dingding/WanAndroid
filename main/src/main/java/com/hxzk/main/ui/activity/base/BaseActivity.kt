@@ -1,16 +1,16 @@
 package com.hxzk.main.ui.activity.base
 
 import android.app.Activity
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.hxzk.main.event.MessageEvent
+import androidx.appcompat.app.AppCompatActivity
 import com.hxzk.base.util.ActivityCollector
+import com.hxzk.main.event.MessageEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.lang.ref.WeakReference
 
-open abstract class BaseActivity : AppCompatActivity() {
+open  abstract class BaseActivity : AppCompatActivity() {
 
 
     var activity : Activity? = null

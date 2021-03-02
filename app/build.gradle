@@ -33,6 +33,6 @@ android {
 
 dependencies {
     api project(path: ':main')
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    //implementation 'androidx.appcompat:appcompat:1.1.0'
+   // implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

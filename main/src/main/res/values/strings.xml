@@ -11,8 +11,9 @@
     <string name="login_forgetpwd">忘记密码</string>
 
 
-
     <!--    注册页面-->
     <string name="rigiter_pwdAgain">再次输入</string>
     <string name="rigiter_accountLgoin">账号登录</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

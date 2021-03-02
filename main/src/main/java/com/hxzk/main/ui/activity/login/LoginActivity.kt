@@ -4,66 +4,30 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.transition.Transition
 import android.view.View
+import androidx.viewpager2.widget.ViewPager2
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.main.R
-import com.hxzk.main.callback.SimpleTransitionListener
-import com.hxzk.main.event.FinishActivityEvent
 import com.hxzk.main.ui.activity.base.BaseActivity
-import com.hxzk.main.ui.activity.main.MainActivity
-import com.hxzk.main.ui.activity.register.RegisterActivity
-import com.hxzk.main.ui.activity.splash.SplashActivity
-import kotlinx.android.synthetic.main.activity_login.*
-import org.greenrobot.eventbus.EventBus
 
-class LoginActivity : BaseActivity() {
+  open class  LoginActivity : BaseActivity() {
+     lateinit var viewPager2 : ViewPager2
 
-    /**
-     * 是否正在进行transition动画。
-     */
-    protected var isTransitioning = false
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-    }
-
-    override fun setupViews() {
-        //Android5.0及其以上版本且有动画效果
-        if (AndroidVersion.hasLollipop()) {
-            isTransitioning = true
-            //转场动画监听
-            window.sharedElementEnterTransition.addListener(object : SimpleTransitionListener() {
-                override fun onTransitionEnd(transition: Transition) {
-                    val event = FinishActivityEvent()
-                    event.activityClass = SplashActivity::class.java
-                    EventBus.getDefault().post(event)
-                    isTransitioning = false
-                }
-            })
-        }
-
-        loginButton.setOnClickListener {
-           MainActivity.actionStart(this)
-            finish()
-        }
-
-        registerAccaount.setOnClickListener {
-           RegisterActivity.startAction(this)
-        }
-
-    }
-
-
-
-    override fun onBackPressed() {
-        if (!isTransitioning) {
-            finish()
-        }
-    }
-
+      override fun onCreate(savedInstanceState: Bundle?) {
+          super.onCreate(savedInstanceState)
+      }
+     /**
+      * 切换Fragment
+      * fakeDragBy接受一个float的参数，
+      * 当参数值为正数时表示向前一个页面滑动，当值为负数时表示向下一个页面滑动。
+      */
+     fun fakeDragBy(number: Float) {
+         //先beginFakeDrag方法来开启模拟拖拽
+         viewPager2.beginFakeDrag()
+         if (viewPager2.fakeDragBy(number))
+         //endFakeDrag方法来关闭模拟拖拽
+             viewPager2.endFakeDrag()
+     }
 
 
     companion object {
@@ -90,8 +54,13 @@ class LoginActivity : BaseActivity() {
         fun  startAction (activity :Activity){
             val  intent = Intent(activity,LoginActivity ::class.java)
             activity.startActivity(intent)
-            activity.overridePendingTransition(R.anim.rotate_start,R.anim.rotate_end)
             activity.finish()
         }
     }
-}
+
+      override fun setupViews() {
+          TODO("Not yet implemented")
+      }
+
+
+  }

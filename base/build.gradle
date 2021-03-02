@@ -38,7 +38,9 @@ dependencies {
     api  dependencies["avi"]
     api  dependencies["design"]
     api  dependencies["eventbus"]
+    api  dependencies["viewpager2"]
 
     api project(path: ':tencentx5')
     api project(path: ':network')
+
 }
