@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name">
-        <activity android:name=".OpenSourceLoginActivity"
-           />
+
         <activity
             android:name=".OpenSourceSplashActivity"
             android:theme="@style/SplashTheme">
@@ -21,6 +20,18 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+           android:name=".OpenSourceLoginActivity"
+            android:theme="@style/LoginActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="com.hxzk.app.ACTION_LOGIN_WITH_TRANSITION"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
     </application>

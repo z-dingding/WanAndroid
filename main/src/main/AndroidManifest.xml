@@ -3,8 +3,8 @@
     package="com.hxzk.main">
 
     <application>
-        <activity android:name=".ui.activity.login.LoginActivity"
-            android:theme="@style/LoginActivity"/>
+<!--        <activity android:name=".ui.activity.login.LoginActivity"-->
+<!--            android:theme="@style/LoginActivity"/>-->
         <activity android:name=".ui.activity.main.MainActivity" />
 
     </application>

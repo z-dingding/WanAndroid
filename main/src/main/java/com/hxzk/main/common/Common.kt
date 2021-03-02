@@ -18,7 +18,7 @@ object Common  {
 
     const val isDebug = true
 
-     fun initialize(context : Context){
+     fun initialize(context: Context){
         this.mContext = context
         mHandler = Handler(Looper.getMainLooper())
     }
@@ -38,5 +38,11 @@ object Common  {
         return mHandler
     }
 
+    /**
+     * 返回当前应用的包名。
+     */
+    fun getPackageName(): String? {
+        return mContext.packageName
+    }
 
 }

@@ -5,18 +5,45 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.main.R
+import com.hxzk.main.common.Common
 import com.hxzk.main.ui.activity.base.BaseActivity
+import com.hxzk.main.ui.adapter.AdapterFragmentPager
+import com.hxzk.main.util.RotateTransformer
 
-  open class  LoginActivity : BaseActivity() {
+open abstract class  LoginActivity : BaseActivity() {
      lateinit var viewPager2 : ViewPager2
 
-      override fun onCreate(savedInstanceState: Bundle?) {
-          super.onCreate(savedInstanceState)
+      /**
+       * 初始化ViewPager
+       */
+      fun initVP(){
+          viewPager2.adapter = AdapterFragmentPager(this)
+          viewPager2.offscreenPageLimit = 1
+          viewPager2.isUserInputEnabled=false
+          //设置页面间距
+          viewPager2.setPageTransformer(
+              MarginPageTransformer(0)
+          )
+          //设置页面切换动画
+          val compositePageTransformer = CompositePageTransformer()
+          compositePageTransformer.addTransformer(RotateTransformer())
+          viewPager2.setPageTransformer(compositePageTransformer)
+//        vp2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                super.onPageSelected(position)
+//                Toast.makeText(this@LoginActivity, "page selected $position", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
+//        })
       }
-     /**
+
+
+      /**
       * 切换Fragment
       * fakeDragBy接受一个float的参数，
       * 当参数值为正数时表示向前一个页面滑动，当值为负数时表示向下一个页面滑动。
@@ -31,11 +58,15 @@ import com.hxzk.main.ui.activity.base.BaseActivity
 
 
     companion object {
+        //隐士跳转到OpenSourceLoginActivity
+        private val ACTION_LOGIN_WITH_TRANSITION = "${Common.getPackageName()}.ACTION_LOGIN_WITH_TRANSITION"
+       //转场动画的标识
         @JvmStatic
         val START_WITH_TRANSITION = "start_with_transition"
 
         fun startActionWithTransition(activity: Activity, logo: View) {
-            val mIntent = Intent(activity, LoginActivity::class.java)
+            //注意此处使用的是隐士跳转
+            val mIntent = Intent(ACTION_LOGIN_WITH_TRANSITION)
             //android5.0支持转场动画
             if (AndroidVersion.hasLollipop()) {
                 mIntent.putExtra(START_WITH_TRANSITION, true)
@@ -58,9 +89,7 @@ import com.hxzk.main.ui.activity.base.BaseActivity
         }
     }
 
-      override fun setupViews() {
-          TODO("Not yet implemented")
-      }
+
 
 
   }

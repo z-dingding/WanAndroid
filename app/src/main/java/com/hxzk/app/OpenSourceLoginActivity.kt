@@ -26,12 +26,11 @@ class OpenSourceLoginActivity : LoginActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //overridePendingTransition(R.anim.anim_login_in,R.anim.anim_login_silent)
         super.onCreate(savedInstanceState)
-        viewPager2 =vp2
         setContentView(R.layout.activity_open_source_login)
-
     }
 
     override fun setupViews() {
+        viewPager2 =vp2
         //Android5.0及其以上版本且有动画效果
         if (AndroidVersion.hasLollipop()) {
             isTransitioning = true
@@ -55,29 +54,6 @@ class OpenSourceLoginActivity : LoginActivity() {
     }
 
 
-    /**
-     * 初始化ViewPager
-     */
-    fun initVP(){
-        viewPager2.adapter = AdapterFragmentPager(this)
-        viewPager2.offscreenPageLimit = 1
-        viewPager2.isUserInputEnabled=false
-        //设置页面间距
-        viewPager2.setPageTransformer(
-            MarginPageTransformer(0)
-        )
-        //设置页面切换动画
-        val compositePageTransformer = CompositePageTransformer()
-        compositePageTransformer.addTransformer(RotateTransformer())
-        viewPager2.setPageTransformer(compositePageTransformer)
-//        vp2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                Toast.makeText(this@LoginActivity, "page selected $position", Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//        })
-    }
 
 
 

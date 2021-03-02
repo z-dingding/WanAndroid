@@ -17,6 +17,9 @@ open  class SplashActivity : BaseActivity() {
         delayTimeStartAction()
     }
 
+    /**
+     * 延迟执行动画跳转
+     */
     fun delayTimeStartAction(){
         thread {
             Thread.sleep(WAIT_TIME)
