@@ -3,7 +3,6 @@ package com.hxzk.main.ui.activity.login
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -16,6 +15,7 @@ import com.hxzk.main.ui.adapter.AdapterFragmentPager
 import com.hxzk.main.util.RotateTransformer
 
 open abstract class  LoginActivity : BaseActivity() {
+
      lateinit var viewPager2 : ViewPager2
 
       /**
@@ -24,6 +24,7 @@ open abstract class  LoginActivity : BaseActivity() {
       fun initVP(){
           viewPager2.adapter = AdapterFragmentPager(this)
           viewPager2.offscreenPageLimit = 1
+          //禁止用户手势滑动
           viewPager2.isUserInputEnabled=false
           //设置页面间距
           viewPager2.setPageTransformer(
@@ -33,27 +34,14 @@ open abstract class  LoginActivity : BaseActivity() {
           val compositePageTransformer = CompositePageTransformer()
           compositePageTransformer.addTransformer(RotateTransformer())
           viewPager2.setPageTransformer(compositePageTransformer)
-//        vp2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                Toast.makeText(this@LoginActivity, "page selected $position", Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//        })
       }
 
 
       /**
-      * 切换Fragment
-      * fakeDragBy接受一个float的参数，
-      * 当参数值为正数时表示向前一个页面滑动，当值为负数时表示向下一个页面滑动。
+      * 切换Fragment:0切换到登录,1切换到注册
       */
-     fun fakeDragBy(number: Float) {
-         //先beginFakeDrag方法来开启模拟拖拽
-         viewPager2.beginFakeDrag()
-         if (viewPager2.fakeDragBy(number))
-         //endFakeDrag方法来关闭模拟拖拽
-             viewPager2.endFakeDrag()
+     fun  switchFrag(number: Int) {
+          if (number == 0) viewPager2.currentItem = 0   else viewPager2.currentItem = 1
      }
 
 
@@ -65,7 +53,7 @@ open abstract class  LoginActivity : BaseActivity() {
         val START_WITH_TRANSITION = "start_with_transition"
 
         fun startActionWithTransition(activity: Activity, logo: View) {
-            //注意此处使用的是隐士跳转
+            //注意此处使用的是隐士跳转(解决不在同意modele无法访问指定Activity的问题)
             val mIntent = Intent(ACTION_LOGIN_WITH_TRANSITION)
             //android5.0支持转场动画
             if (AndroidVersion.hasLollipop()) {
@@ -80,12 +68,6 @@ open abstract class  LoginActivity : BaseActivity() {
                 activity.startActivity(mIntent)
                 activity.finish()
             }
-        }
-
-        fun  startAction (activity :Activity){
-            val  intent = Intent(activity,LoginActivity ::class.java)
-            activity.startActivity(intent)
-            activity.finish()
         }
     }
 

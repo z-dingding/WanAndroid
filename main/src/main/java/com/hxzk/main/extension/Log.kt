@@ -67,6 +67,12 @@ fun Any.logError(msg: String?, tr: Throwable) {
         Log.e(javaClass.simpleName, msg.toString(), tr)
     }
 }
+fun Any.logError(msg: String?) {
+    if (level <= ERROR) {
+        Log.e(javaClass.simpleName, msg.toString())
+    }
+}
+
 
 fun logVerbose(tag: String, msg: String?) {
     if (level <= VERBOSE) {

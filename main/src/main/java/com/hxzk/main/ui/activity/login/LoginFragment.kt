@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.hxzk.base.extension.sToast
 import com.hxzk.main.R
 import com.hxzk.main.ui.activity.base.BaseFragment
 import com.hxzk.main.ui.activity.main.MainActivity
@@ -29,7 +30,10 @@ class LoginFragment : BaseFragment() {
         }
 
         registerAccaount.setOnClickListener {
-            (activity as LoginActivity).fakeDragBy(-1f)
+            (activity as LoginActivity).switchFrag(1)
+        }
+        forgetPwd.setOnClickListener {
+            getString(R.string.toast_isDeveloping).sToast()
         }
 
     }

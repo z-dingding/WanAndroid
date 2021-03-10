@@ -10,8 +10,6 @@ import com.hxzk.main.ui.activity.base.BaseActivity
 
 class MainActivity : BaseActivity() {
 
-    val lists = ArrayList<String>()
-    val listsTwo = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

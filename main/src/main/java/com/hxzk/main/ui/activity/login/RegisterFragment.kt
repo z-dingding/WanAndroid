@@ -23,10 +23,8 @@ class RegisterFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         accaountLogin.setOnClickListener {
-            (activity as LoginActivity).fakeDragBy(1f)
+            (activity as LoginActivity).switchFrag(0)
         }
-
-
     }
 
 

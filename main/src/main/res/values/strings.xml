@@ -12,8 +12,11 @@
 
 
     <!--    注册页面-->
+    <string name="register">注册</string>
     <string name="rigiter_pwdAgain">再次输入</string>
     <string name="rigiter_accountLgoin">账号登录</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+<!--    公用的toast-->
+    <string name="toast_isDeveloping">正在开发,敬请期待</string>
 </resources>

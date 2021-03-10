@@ -20,7 +20,9 @@ ext {
             //eventbus
             "eventbus":'org.greenrobot:eventbus:3.0.0',
             //ViewPager2
-            "viewpager2": 'androidx.viewpager2:viewpager2:1.0.0'
+            "viewpager2": 'androidx.viewpager2:viewpager2:1.0.0',
+            //x5
+            "x5":'com.tencent.tbs.tbssdk:sdk:43939'
 
     ]
 }

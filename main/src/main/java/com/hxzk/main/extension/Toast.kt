@@ -12,6 +12,10 @@ import com.hxzk.main.common.Common
 
 private var toast: Toast? = null
 
+
+/**
+ * 主线程的toast
+ */
 fun String.sToast(duration: Int =Toast.LENGTH_LONG){
     if(Looper.getMainLooper().equals(Looper.myLooper())){
         if(toast == null){
@@ -24,7 +28,9 @@ fun String.sToast(duration: Int =Toast.LENGTH_LONG){
 }
 
 
-
+/**
+ * 工作线程的toast
+ */
 fun sMainToast(msg : String ,duration: Int =Toast.LENGTH_LONG){
     Common.getMainHandler().post{
         if(toast == null){
