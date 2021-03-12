@@ -1,4 +1,7 @@
 ext {
+    //架构组件扩展库的版本
+    archLifecycleVersion = "2.2.0-rc02"
+
     android = [
             compileSdkVersion : 29,
             buildToolsVersion : "29.0.3",
@@ -22,7 +25,16 @@ ext {
             //ViewPager2
             "viewpager2": 'androidx.viewpager2:viewpager2:1.0.0',
             //x5
-            "x5":'com.tencent.tbs.tbssdk:sdk:43939'
-
+            "x5":'com.tencent.tbs.tbssdk:sdk:43939',
+            //viewModel的扩展库
+            "viewmodel-ktx": "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion",
+            'fragment-ktx': "androidx.navigation:navigation-fragment-ktx:$archLifecycleVersion",
+            //retrofit2
+            'retrofit2' :'com.squareup.retrofit2:retrofit:2.9.0',
+            //converter-gson
+            'converter-gson': 'com.squareup.retrofit2:converter-gson:2.9.0',
+            //okhttp相关
+            //'okhttp': 'com.squareup.okhttp3:okhttp:4.9.0'
+            'logging-interceptor' :'com.squareup.okhttp3:logging-interceptor:4.9.0'
     ]
 }

@@ -1,4 +1,4 @@
-package com.hxzk.main.ui.activity.login
+package com.hxzk.main.ui.login
 
 import android.app.Activity
 import android.app.ActivityOptions
@@ -10,8 +10,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.main.R
 import com.hxzk.main.common.Common
-import com.hxzk.main.ui.activity.base.BaseActivity
 import com.hxzk.main.ui.adapter.AdapterFragmentPager
+import com.hxzk.main.ui.base.BaseActivity
 import com.hxzk.main.util.RotateTransformer
 
 open abstract class  LoginActivity : BaseActivity() {

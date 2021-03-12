@@ -4,9 +4,9 @@ import android.util.SparseArray
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.hxzk.main.ui.activity.base.BaseFragment
-import com.hxzk.main.ui.activity.login.LoginFragment
-import com.hxzk.main.ui.activity.login.RegisterFragment
+import com.hxzk.main.ui.base.BaseFragment
+import com.hxzk.main.ui.login.LoginFragment
+import com.hxzk.main.ui.login.RegisterFragment
 
 
 /**

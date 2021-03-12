@@ -1,4 +1,4 @@
-package com.hxzk.main.ui.activity.base
+package com.hxzk.main.ui.base
 
 import android.app.Activity
 import android.os.Bundle

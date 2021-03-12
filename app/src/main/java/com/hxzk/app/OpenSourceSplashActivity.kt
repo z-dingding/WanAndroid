@@ -1,7 +1,7 @@
 package com.hxzk.app
 
 import android.os.Bundle
-import com.hxzk.main.ui.activity.splash.SplashActivity
+import com.hxzk.main.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.activity_open_source_splash.*
 
 class OpenSourceSplashActivity : SplashActivity() {

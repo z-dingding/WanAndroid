@@ -1,10 +1,10 @@
-package com.hxzk.main.ui.activity.splash
+package com.hxzk.main.ui.splash
 
 import android.view.View
 import com.hxzk.main.event.FinishActivityEvent
 import com.hxzk.main.event.MessageEvent
-import com.hxzk.main.ui.activity.base.BaseActivity
-import com.hxzk.main.ui.activity.login.LoginActivity
+import com.hxzk.main.ui.base.BaseActivity
+import com.hxzk.main.ui.login.LoginActivity
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import kotlin.concurrent.thread

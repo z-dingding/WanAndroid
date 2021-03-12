@@ -1,4 +1,4 @@
-package com.hxzk.main.ui.activity.base
+package com.hxzk.main.ui.base
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

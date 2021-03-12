@@ -1,5 +1,7 @@
 package com.hxzk.main.common
 
+import com.hxzk.main.data.source.Repository
+import com.hxzk.main.data.source.ServiceLocator
 import com.hxzk.tencentx5.X5Application
 import java.util.concurrent.Executors
 
@@ -9,6 +11,11 @@ import java.util.concurrent.Executors
  *
  */
 class MainApplication : X5Application(){
+
+
+    val repository : Repository
+    get() = ServiceLocator.provideTasksRepository(this)
+
 
     override fun onCreate() {
         super.onCreate()

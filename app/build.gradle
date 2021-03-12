@@ -26,6 +26,16 @@ android {
         }
     }
 
+    //解决Invoke-customs are only supported starting with Android O
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    //所有子模块module和主app的module都要添加dataBinding支持
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 
@@ -33,6 +43,4 @@ android {
 
 dependencies {
     api project(path: ':main')
-    //implementation 'androidx.appcompat:appcompat:1.1.0'
-   // implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

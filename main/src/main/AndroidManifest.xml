@@ -3,7 +3,7 @@
     package="com.hxzk.main">
 
     <application>
-        <activity android:name=".ui.activity.main.MainActivity" />
+        <activity android:name="com.hxzk.main.ui.main.MainActivity" />
     </application>
 
 </manifest>

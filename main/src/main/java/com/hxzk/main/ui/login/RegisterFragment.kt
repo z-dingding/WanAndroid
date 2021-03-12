@@ -1,11 +1,11 @@
-package com.hxzk.main.ui.activity.login
+package com.hxzk.main.ui.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hxzk.main.R
-import com.hxzk.main.ui.activity.base.BaseFragment
+import com.hxzk.main.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_rigister.*
 
 

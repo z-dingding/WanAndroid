@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data class="LoginFragBinding">
+
+        <variable
+            name="loginmodel"
+            type="com.hxzk.main.ui.login.LoginViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.activity.login.LoginFragment">
+    tools:context=".ui.login.LoginFragment">
 
 
     <LinearLayout
@@ -33,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/account_number"
+                android:text="@={loginmodel.accountText}"
                 android:imeOptions="actionGo"
                 android:inputType="text"
                 android:maxLength="16"
@@ -55,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/account_pwd"
+                android:text="@={loginmodel.pwdText}"
                 android:imeOptions="actionGo"
                 android:inputType="text"
                 android:maxLength="20"
@@ -109,6 +120,7 @@
         android:layout_marginLeft="35dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="35dp"
+        android:onClick="@{(view) -> loginmodel.login()}"
         android:background="@drawable/login_button_bg"
         android:text="@string/login"
         android:textColor="@color/colorPrimary"
@@ -116,3 +128,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

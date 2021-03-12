@@ -24,6 +24,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    //dataBinding配置
+    dataBinding {
+        enabled = true
+    }
+
+
 }
 
 dependencies {
@@ -39,6 +46,11 @@ dependencies {
     api  dependencies["design"]
     api  dependencies["eventbus"]
     api  dependencies["viewpager2"]
+
+
+    //架构组件
+     //api  dependencies['viewmodel-ktx']
+      api  dependencies['fragment-ktx']
 
     api project(path: ':tencentx5')
     api project(path: ':network')

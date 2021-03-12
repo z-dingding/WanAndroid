@@ -5,7 +5,7 @@ import android.transition.Transition
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.main.callback.SimpleTransitionListener
 import com.hxzk.main.event.FinishActivityEvent
-import com.hxzk.main.ui.activity.login.LoginActivity
+import com.hxzk.main.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_open_source_login.*
 import org.greenrobot.eventbus.EventBus
 

@@ -25,6 +25,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    //所有子模块module和主app的module都要添加dataBinding支持
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {

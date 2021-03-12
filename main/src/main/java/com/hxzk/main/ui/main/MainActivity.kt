@@ -1,11 +1,11 @@
-package com.hxzk.main.ui.activity.main
+package com.hxzk.main.ui.main
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.hxzk.main.R
 
-import com.hxzk.main.ui.activity.base.BaseActivity
+import com.hxzk.main.ui.base.BaseActivity
 
 
 class MainActivity : BaseActivity() {
