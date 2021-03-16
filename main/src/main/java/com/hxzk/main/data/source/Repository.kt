@@ -14,5 +14,5 @@ interface Repository {
     /**
      * 登录接口
      */
-    suspend fun  login(account: String , pwd : String ) : LiveData <ApiResponse<LoginModel>>
+       fun  login(account: String , pwd : String ) : LiveData<ApiResponse<LoginModel>>
 }

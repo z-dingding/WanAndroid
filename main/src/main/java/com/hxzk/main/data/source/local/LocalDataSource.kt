@@ -5,6 +5,7 @@ import com.hxzk.main.data.source.DataSource
 import com.hxzk.network.ApiResponse
 
 import com.hxzk.network.model.LoginModel
+import retrofit2.Call
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -13,7 +14,7 @@ import com.hxzk.network.model.LoginModel
  */
 class LocalDataSource : DataSource {
 
-    override suspend fun login(account: String, pwd: String): LiveData<ApiResponse<LoginModel>> {
+    override suspend fun login(account: String, pwd: String): ApiResponse<LoginModel> {
         TODO("Not yet implemented")
     }
 

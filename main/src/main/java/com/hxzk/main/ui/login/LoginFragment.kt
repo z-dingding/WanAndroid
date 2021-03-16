@@ -64,10 +64,12 @@ class LoginFragment : BaseFragment() {
         }
 
 
-     logViewModel.response?.observe(viewLifecycleOwner, Observer {
-         logDebug(it.data.toString())
+     logViewModel.response.observe(viewLifecycleOwner, Observer {
+         logDebug("sssssss"+it.data.toString())
      })
+
     }
+
 
 
 

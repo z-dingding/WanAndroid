@@ -29,6 +29,7 @@ ext {
             //viewModel的扩展库
             "viewmodel-ktx": "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion",
             'fragment-ktx': "androidx.navigation:navigation-fragment-ktx:$archLifecycleVersion",
+            'livedata-ktx' : "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion",
             //retrofit2
             'retrofit2' :'com.squareup.retrofit2:retrofit:2.9.0',
             //converter-gson

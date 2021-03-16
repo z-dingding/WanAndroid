@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.hxzk.network.model.LoginModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Field
@@ -12,8 +13,7 @@ import retrofit2.http.POST
 
 /**
  *作者：created by zjt on 2021/3/12
- *描述:
- *
+ *描述:访问网络的Retrofit的Api接口
  */
  interface WanApi {
 
@@ -53,5 +53,5 @@ import retrofit2.http.POST
      */
     @FormUrlEncoded
     @POST("user/login")
-    fun login(@Field("username") username : String, @Field("password") password : String ): LiveData<ApiResponse<LoginModel>>
+    fun login(@Field("username") username : String, @Field("password") password : String ): Call<ApiResponse<LoginModel>>
 }

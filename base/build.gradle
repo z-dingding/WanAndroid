@@ -50,6 +50,7 @@ dependencies {
 
     //架构组件
      //api  dependencies['viewmodel-ktx']
+     api  dependencies['livedata-ktx']
       api  dependencies['fragment-ktx']
 
     api project(path: ':tencentx5')

@@ -1,5 +1,9 @@
 package com.hxzk.main.data.source
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
+import com.hxzk.network.ApiResponse
+import com.hxzk.network.model.LoginModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,8 +18,10 @@ class DefaultRepository(private  val  localSource : DataSource,
                         private  val  ioDispatch: CoroutineDispatcher = Dispatchers.IO
 ) : Repository{
 
-    override suspend fun login(account: String, pwd: String) = withContext(ioDispatch){
-      return@withContext romtat.login(account,pwd)
+    override  fun login(account: String, pwd: String)  = liveData<ApiResponse<LoginModel>>(ioDispatch){
+        val result = romtat.login(account,pwd)
+        // TODO: 2021/3/16  
+        emit(result)
     }
 
 }

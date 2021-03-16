@@ -1,13 +1,12 @@
 package com.hxzk.main.ui.login
 
 import android.text.TextUtils
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.hxzk.base.extension.logDebug
 import com.hxzk.main.data.source.Repository
 import com.hxzk.network.ApiResponse
 import com.hxzk.network.model.LoginModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 /**
@@ -18,6 +17,7 @@ import kotlinx.coroutines.launch
 class LoginViewModel(
     private val repository: Repository
 ) : ViewModel() {
+
     /**
      * 输入账号
      */
@@ -30,20 +30,27 @@ class LoginViewModel(
 
     /**
      * 登录返回结果
+     * 暴露不可变的livedata给外部
      */
+    private val loginParams =  MutableLiveData<LoginBean>()
 
-    var response : LiveData<ApiResponse<LoginModel>>? = null
+    val response : LiveData<ApiResponse<LoginModel>>  = Transformations.switchMap(loginParams){
+        repository.login(it.account,it.pwd)
+    }
+
+
+
 
     /**
      * 执行登录的方法
      */
     fun login() {
         if (!TextUtils.isEmpty(accountText.value) && !TextUtils.isEmpty(pwdText.value)) {
-            //启动协程作用域，开启协程
-            viewModelScope.launch {
-                response = repository.login(accountText.value.toString(), pwdText.value.toString())
-            }
+            val parame = LoginBean(accountText.value.toString(),pwdText.value.toString())
+            loginParams.value =parame
         }
     }
+
+    data class LoginBean(var account : String ,var pwd : String)
 
 }
