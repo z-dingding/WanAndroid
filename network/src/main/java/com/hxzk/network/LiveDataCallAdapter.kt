@@ -17,6 +17,7 @@ class LiveDataCallAdapter <T>(private val responseType: Type) : CallAdapter<T, L
     override fun adapt(call: Call<T>): LiveData<T> {
         return object : LiveData<T>() {
             private val started = AtomicBoolean(false)
+            //LiveData的onActive
             override fun onActive() {
                 super.onActive()
                 if (started.compareAndSet(false, true)) {//确保执行一次
