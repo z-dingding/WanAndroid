@@ -1,6 +1,7 @@
 package com.hxzk.main.ui.base
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.hxzk.base.util.ActivityCollector
@@ -16,6 +17,7 @@ open  abstract class BaseActivity : AppCompatActivity() {
     var activity : Activity? = null
     var weakReference :WeakReference<Activity>? = null
 
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,4 +45,24 @@ open  abstract class BaseActivity : AppCompatActivity() {
 
     abstract fun  setupViews()
 
+    fun showProgressDialog(title: String?, message: String) {
+        if (progressDialog == null) {
+            progressDialog = ProgressDialog(this).apply {
+                if (title != null) {
+                    setTitle(title)
+                }
+                setMessage(message)
+                setCancelable(false)
+            }
+        }
+        progressDialog?.show()
+    }
+
+    fun closeProgressDialog() {
+        progressDialog?.let {
+            if (it.isShowing) {
+                it.dismiss()
+            }
+        }
+    }
 }

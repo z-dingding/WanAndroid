@@ -6,6 +6,8 @@
     android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="35dp"
+    android:paddingRight="35dp"
     tools:context=".ui.login.RegisterFragment">
 
 <LinearLayout
@@ -22,9 +24,7 @@
         android:id="@+id/accountInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="35dp"
         app:errorTextAppearance="@style/EditTextErrorAppearance">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -44,9 +44,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="35dp"
         app:errorTextAppearance="@style/EditTextErrorAppearance">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -65,9 +63,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="35dp"
         app:errorTextAppearance="@style/EditTextErrorAppearance">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -89,9 +85,7 @@
     android:id="@+id/rl_registerArea"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingLeft="35dp"
-    android:paddingEnd="35dp"
+    android:paddingTop="5dp"
     android:gravity="center_vertical"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
@@ -116,9 +110,7 @@
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toBottomOf="@id/rl_registerArea"
-    android:layout_marginLeft="35dp"
-    android:layout_marginTop="30dp"
-    android:layout_marginRight="35dp"
+    android:layout_marginTop="5dp"
     android:background="@drawable/login_button_bg"
     android:text="@string/register"
     android:textColor="@color/colorPrimary"

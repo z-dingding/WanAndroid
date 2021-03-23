@@ -1,13 +1,17 @@
 package com.hxzk.main.ui.login
 
 import android.text.TextUtils
-import androidx.lifecycle.*
-import com.hxzk.base.extension.logDebug
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import com.hxzk.base.extension.sMainToast
+import com.hxzk.base.util.GlobalUtil
+import com.hxzk.base.util.progressdialog.ProgressDialogUtil
+import com.hxzk.main.R
 import com.hxzk.main.data.source.Repository
 import com.hxzk.network.ApiResponse
 import com.hxzk.network.model.LoginModel
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -33,9 +37,8 @@ class LoginViewModel(
      * 暴露不可变的livedata给外部
      */
     private val loginParams =  MutableLiveData<LoginBean>()
-
     val response : LiveData<ApiResponse<LoginModel>>  = Transformations.switchMap(loginParams){
-        repository.login(it.account,it.pwd)
+    repository.login(it.account,it.pwd)
     }
 
 
@@ -48,6 +51,9 @@ class LoginViewModel(
         if (!TextUtils.isEmpty(accountText.value) && !TextUtils.isEmpty(pwdText.value)) {
             val parame = LoginBean(accountText.value.toString(),pwdText.value.toString())
             loginParams.value =parame
+        }else{
+            GlobalUtil.getString(R.string.common_tips_notnull).sMainToast()
+            ProgressDialogUtil.getInstance().dismissDialog()
         }
     }
 

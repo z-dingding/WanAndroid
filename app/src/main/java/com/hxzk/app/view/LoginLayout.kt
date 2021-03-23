@@ -28,7 +28,7 @@ class LoginLayout(context: Context, attributes: AttributeSet) : LinearLayout(con
                     close.visibility = View.INVISIBLE
                     //是针对在父控件中的View参数获取(本身)
                     val params = loginLayoutTop.layoutParams as LayoutParams
-                    params.weight = 2.5f
+                    params.weight = 1.5f
                     keyboardShowed = true
                     //从View树重新进行一次测量、布局、绘制这三个流程
                     loginLayoutTop.requestLayout()

@@ -1,4 +1,4 @@
-package com.hxzk.main.common
+package com.hxzk.base.util
 
 import android.content.Context
 import android.os.Handler
@@ -19,7 +19,7 @@ object Common  {
     const val isDebug = true
 
      fun initialize(context: Context){
-        this.mContext = context
+        mContext = context
         mHandler = Handler(Looper.getMainLooper())
     }
 
@@ -42,7 +42,7 @@ object Common  {
      * 返回当前应用的包名。
      */
     fun getPackageName(): String? {
-        return mContext.packageName
+        return mContext.getPackageName()
     }
 
 }

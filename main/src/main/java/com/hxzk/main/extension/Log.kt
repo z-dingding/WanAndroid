@@ -18,7 +18,7 @@
 package com.hxzk.base.extension
 
 import android.util.Log
-import com.hxzk.main.common.Common
+import com.hxzk.base.util.Common
 
 
 /**

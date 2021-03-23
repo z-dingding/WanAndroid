@@ -2,7 +2,7 @@ package com.hxzk.base.extension
 
 import android.os.Looper
 import android.widget.Toast
-import com.hxzk.main.common.Common
+import com.hxzk.base.util.Common
 
 /**
  *作者：created by zjt on 2020/11/11
@@ -31,12 +31,12 @@ fun String.sToast(duration: Int =Toast.LENGTH_LONG){
 /**
  * 工作线程的toast
  */
-fun sMainToast(msg : String ,duration: Int =Toast.LENGTH_LONG){
+fun String.sMainToast(duration: Int =Toast.LENGTH_LONG){
     Common.getMainHandler().post{
         if(toast == null){
-            toast =  Toast.makeText(Common.getContext(),msg,duration)
+            toast =  Toast.makeText(Common.getContext(),this,duration)
         }else{
-            toast?.setText(msg)
+            toast?.setText(this)
         }
         toast?.show()
     }

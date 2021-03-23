@@ -16,7 +16,7 @@
  */
 
 package com.hxzk.base.extension
-import com.hxzk.main.common.Common
+import com.hxzk.base.util.Common
 
 
 

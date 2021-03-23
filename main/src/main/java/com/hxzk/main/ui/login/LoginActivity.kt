@@ -8,8 +8,8 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.hxzk.base.util.AndroidVersion
+import com.hxzk.base.util.Common
 import com.hxzk.main.R
-import com.hxzk.main.common.Common
 import com.hxzk.main.ui.adapter.AdapterFragmentPager
 import com.hxzk.main.ui.base.BaseActivity
 import com.hxzk.main.util.RotateTransformer

@@ -1,5 +1,6 @@
 package com.hxzk.main.common
 
+import com.hxzk.base.util.Common
 import com.hxzk.main.data.source.Repository
 import com.hxzk.main.data.source.ServiceLocator
 import com.hxzk.tencentx5.X5Application
