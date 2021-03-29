@@ -1,6 +1,9 @@
 package com.hxzk.network
 
-import androidx.lifecycle.LiveData
+import com.franmontiel.persistentcookiejar.ClearableCookieJar
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.hxzk.network.model.LoginModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
+
 
 /**
  *作者：created by zjt on 2021/3/12
@@ -36,6 +40,11 @@ import retrofit2.http.POST
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
                 clientBuilder.addInterceptor(loggingInterceptor)
             }
+            val cookieJar: ClearableCookieJar =
+                PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(NetWork.context))
+            clientBuilder.cookieJar(cookieJar)
+
+
             return Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(clientBuilder.build())
@@ -53,5 +62,23 @@ import retrofit2.http.POST
      */
     @FormUrlEncoded
     @POST("user/login")
-    fun login(@Field("username") username : String, @Field("password") password : String ): Call<ApiResponse<LoginModel>>
+    fun login(@Field("username") username: String, @Field("password") password: String): Call<ApiResponse<LoginModel>>
+
+
+
+    /**
+     * 注册
+     */
+    @FormUrlEncoded
+    @POST("user/register")
+    fun register(@Field("username") username: String, @Field("password") password: String , @Field("repassword") repassword: String): Call<ApiResponse<LoginModel>>
+
+
+
+
+
+
+
+
+
 }

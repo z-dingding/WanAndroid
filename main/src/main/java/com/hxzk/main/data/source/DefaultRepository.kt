@@ -19,4 +19,9 @@ class DefaultRepository(private  val  localSource : DataSource,
         emit(result)
     }
 
+    override fun registerRequest(username: String,password: String,repassword: String) = liveData(ioDispatch){
+        val result = romtat.register(username,password,repassword)
+        emit(result)
+    }
+
 }

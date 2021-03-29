@@ -20,6 +20,7 @@ class RemoteDataSource : DataSource {
 
 
     override suspend fun login(account: String, pwd: String) = WanApi.get().login(account,pwd).await()
+    override suspend fun register(username: String,password: String,repassword: String) = WanApi.get().register(username,password,repassword).await()
 
 
     /**

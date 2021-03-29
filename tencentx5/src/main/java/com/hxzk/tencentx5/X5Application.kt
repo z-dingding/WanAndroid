@@ -1,6 +1,7 @@
 package com.hxzk.tencentx5
 
 import android.app.Application
+import android.content.Context
 import com.hxzk.base.extension.logDebug
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
@@ -12,7 +13,8 @@ import com.tencent.smtt.sdk.QbSdk
  */
 open class X5Application : Application(){
 
-    public fun initQbSdk() {
+  companion object{
+     fun initQbSdk(mContext: Context) {
         // 在调用TBS初始化、创建WebView之前进行如下配置，冷启动优化
         val map = HashMap<String, Any>()
         map[TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER] = true
@@ -28,6 +30,7 @@ open class X5Application : Application(){
             override fun onCoreInitFinished() {}
         }
         //x5内核初始化接口,可异步初始化
-        QbSdk.initX5Environment(this, cb)
+        QbSdk.initX5Environment(mContext, cb)
+    }
     }
 }

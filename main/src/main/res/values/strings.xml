@@ -27,6 +27,7 @@
     <string name="register">注册</string>
     <string name="rigiter_pwdAgain">再次输入</string>
     <string name="rigiter_accountLgoin">账号登录</string>
+    <string name="rigiter_pwdNotCommon">两次输入密码不一致</string>
 
 
 <!--    公用的toast-->

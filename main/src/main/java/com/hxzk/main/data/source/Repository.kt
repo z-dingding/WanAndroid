@@ -15,4 +15,9 @@ interface Repository {
      * 登录接口
      */
        fun  login(account: String , pwd : String ) : LiveData<ApiResponse<LoginModel>>
+
+    /**
+     * 注册接口
+     */
+    fun registerRequest( username: String,password: String,repassword: String): LiveData<ApiResponse<LoginModel>>
 }

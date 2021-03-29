@@ -30,10 +30,6 @@ class LoginFragment : BaseFragment() {
         viewDataBinding = LoginFragBinding.inflate(inflater, container, false).apply {
             loginmodel = logViewModel
         }
-//        val view = inflater.inflate(R.layout.fragment_login, container, false)
-//        viewDataBinding = LoginFragBinding.bind(view).apply {
-//            loginmodel = logViewModel
-//        }
 //        viewDataBinding =  DataBindingUtil.inflate(
 //            inflater,
 //            R.layout.fragment_login,
@@ -41,8 +37,6 @@ class LoginFragment : BaseFragment() {
 //            false
 //        )
 //        viewDataBinding.loginmodel = logViewModel
-
-
         return viewDataBinding.root
     }
 
@@ -54,8 +48,8 @@ class LoginFragment : BaseFragment() {
             logViewModel.login()
             logViewModel.response.observe(viewLifecycleOwner, Observer {
                 ProgressDialogUtil.getInstance().dismissDialog()
-                if (it.errorCode == 200) {
-
+                if (it.errorCode == 0) {
+                   // activity?.actionFinish<MainActivity>(context!!)
                 } else {
                     it.errorMsg.sToast()
                 }
@@ -69,7 +63,6 @@ class LoginFragment : BaseFragment() {
         forgetPwd.setOnClickListener {
             getString(R.string.toast_isDeveloping).sToast()
         }
-
 
     }
 

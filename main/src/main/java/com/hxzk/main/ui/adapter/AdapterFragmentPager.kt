@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.login.LoginFragment
-import com.hxzk.main.ui.login.RegisterFragment
+import com.hxzk.main.ui.register.RegisterFragment
 
 
 /**

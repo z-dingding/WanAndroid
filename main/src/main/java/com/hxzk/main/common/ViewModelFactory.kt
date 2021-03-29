@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.hxzk.main.data.source.Repository
 import com.hxzk.main.ui.login.LoginViewModel
+import com.hxzk.main.ui.register.RegisterViewModel
 
 /**
  *作者：created by zjt on 2021/3/12
@@ -26,6 +27,10 @@ class ViewModelFactory constructor(
         when{
             isAssignableFrom(LoginViewModel::class.java) ->
                  LoginViewModel(repository)
+
+            isAssignableFrom(RegisterViewModel::class.java) ->
+                RegisterViewModel(repository)
+
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

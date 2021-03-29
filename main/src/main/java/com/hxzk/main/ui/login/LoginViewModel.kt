@@ -38,7 +38,7 @@ class LoginViewModel(
      */
     private val loginParams =  MutableLiveData<LoginBean>()
     val response : LiveData<ApiResponse<LoginModel>>  = Transformations.switchMap(loginParams){
-    repository.login(it.account,it.pwd)
+      repository.login(it.account,it.pwd)
     }
 
 
