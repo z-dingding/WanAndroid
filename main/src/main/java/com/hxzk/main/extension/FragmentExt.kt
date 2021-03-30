@@ -1,4 +1,4 @@
-package com.hxzk.main.util
+package com.hxzk.main.extension
 
 import androidx.fragment.app.Fragment
 import com.hxzk.main.common.MainApplication

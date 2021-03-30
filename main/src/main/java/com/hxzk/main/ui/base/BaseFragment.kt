@@ -1,7 +1,11 @@
 package com.hxzk.main.ui.base
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import org.greenrobot.eventbus.EventBus
 
 /**
  *作者：created by zjt on 2021/3/2
@@ -33,5 +37,20 @@ import androidx.fragment.app.Fragment
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        EventBus.getDefault().register(this)
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        EventBus.getDefault().unregister(this)
+    }
 
 }

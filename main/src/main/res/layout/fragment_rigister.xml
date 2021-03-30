@@ -65,8 +65,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/account_pwd"
             android:text="@={registerFrag.pwd}"
+
             android:imeOptions="actionGo"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:maxLength="20"
             android:maxLines="1"
             android:textColor="@color/white_text" />
@@ -86,7 +87,7 @@
             android:hint="@string/rigiter_pwdAgain"
             android:text="@={registerFrag.surePwd}"
             android:imeOptions="actionGo"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:maxLength="20"
             android:maxLines="1"
             android:textColor="@color/white_text" />

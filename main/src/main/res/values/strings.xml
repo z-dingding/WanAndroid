@@ -30,6 +30,6 @@
     <string name="rigiter_pwdNotCommon">两次输入密码不一致</string>
 
 
-<!--    公用的toast-->
+    <!--    公用的toast-->
     <string name="toast_isDeveloping">正在开发,敬请期待</string>
 </resources>

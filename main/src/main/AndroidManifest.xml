@@ -3,7 +3,8 @@
     package="com.hxzk.main">
 
     <application>
-        <activity android:name="com.hxzk.main.ui.main.MainActivity" />
+        <activity android:name=".ui.login.AuthActivity"></activity>
+        <activity android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>

@@ -64,7 +64,7 @@
                 android:hint="@string/account_pwd"
                 android:text="@={loginmodel.pwdText}"
                 android:imeOptions="actionGo"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:maxLength="20"
                 android:maxLines="1"
                 android:textColor="@color/white_text" />
