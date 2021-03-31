@@ -43,7 +43,6 @@ class RegisterFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         accaountLogin.setOnClickListener {
             (activity as LoginActivity).switchFrag(0)
-
         }
 
 
@@ -67,9 +66,7 @@ class RegisterFragment : BaseFragment() {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-     fun onMessageEvent(messageEvent: MessageEvent) {
-
-    }
+     fun onMessageEvent(messageEvent: MessageEvent) {}
 
 
 }

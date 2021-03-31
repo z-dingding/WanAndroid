@@ -46,7 +46,8 @@
                 android:inputType="text"
                 android:maxLength="16"
                 android:maxLines="1"
-                android:textColor="@color/white_text" />
+                android:textColor="@color/white_text"
+               />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,8 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            app:errorTextAppearance="@style/EditTextErrorAppearance">
-
+            app:errorTextAppearance="@style/EditTextErrorAppearance"
+            >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/pwdEdit"
                 android:layout_width="match_parent"
@@ -67,7 +68,7 @@
                 android:inputType="textPassword"
                 android:maxLength="20"
                 android:maxLines="1"
-                android:textColor="@color/white_text" />
+                android:textColor="@color/white_text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

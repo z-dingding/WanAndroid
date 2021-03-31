@@ -69,17 +69,17 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         var account  by Preference<String>(Const.Auth.KEY_ACCOUNT,"default")
         var pwd by Preference<String>(Const.Auth.KEY_PWD,"default")
         //如果本地有存储的账号密码信息则赋值
         if (!account.equals("default")) {
-            accountEdit.setText(account)
-            pwdEdit.setText(pwd)
+            logViewModel.accountText.value = account
+            logViewModel.pwdText.value =pwd
         }
     }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(messageEvent: MessageEvent) {
