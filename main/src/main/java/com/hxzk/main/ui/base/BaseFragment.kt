@@ -31,7 +31,7 @@ import org.greenrobot.eventbus.EventBus
                 e.printStackTrace()
             }
             if (args != null) {
-                mFragment?.setArguments(args)
+                mFragment?.arguments = args
             }
             return mFragment
         }

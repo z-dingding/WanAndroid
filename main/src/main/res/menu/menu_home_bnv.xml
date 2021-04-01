@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tab_home"
+        android:icon="@drawable/tab_home_selector"
+        android:title="@string/tab_home"
+        app:showAsAction="always"
+        android:orderInCategory="0"/>
+    <item
+        android:id="@+id/tab_answer"
+        android:icon="@drawable/tab_answer_selector"
+        android:title="@string/tab_answer"
+        app:showAsAction="always"
+        android:orderInCategory="1"/>
+    <item
+        android:id="@+id/tab_system"
+        android:icon="@drawable/tab_system_selector"
+        android:title="@string/tab_system"
+        app:showAsAction="always"
+        android:orderInCategory="2"/>
+    <item
+        android:id="@+id/tab_public"
+        android:icon="@drawable/tab_public_selector"
+        android:title="@string/tab_public"
+        app:showAsAction="always"
+        android:orderInCategory="3"/>
+    <item
+    android:id="@+id/tab_mine"
+    android:icon="@drawable/tab_mine_selector"
+    android:title="@string/tab_mine"
+    app:showAsAction="always"
+    android:orderInCategory="4"/>
+
+</menu>

@@ -11,4 +11,8 @@
 
     <color name="wall">#fff5f5f5</color>
     <color name="secondary_text">#757575</color>
+
+<!--    首页bnv选择和不选中的文字颜色-->
+    <color name="bnv_textcolor_checked">#FFF</color>
+    <color name="bnv_textcolor_enabled">#cdcdcd</color>
 </resources>

@@ -37,5 +37,6 @@ android {
 dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
     api project(path: ':base')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
 }

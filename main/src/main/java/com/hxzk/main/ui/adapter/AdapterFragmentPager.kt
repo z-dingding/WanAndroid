@@ -11,7 +11,7 @@ import com.hxzk.main.ui.register.RegisterFragment
 
 /**
  *作者：created by zjt on 2021/3/2
- *描述:
+ *描述:登录和注册的Fragment
  *
  */
 class AdapterFragmentPager( fragmentActivity : FragmentActivity) : FragmentStateAdapter(fragmentActivity) {

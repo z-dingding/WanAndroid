@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewStub
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.hxzk.base.util.ActivityCollector
 import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.R
@@ -37,6 +38,7 @@ open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
      */
     private var noContentView: View? = null
 
+    var toolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +55,7 @@ open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
         setupViews()
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         activity = null
@@ -66,6 +69,13 @@ open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
 
     abstract fun  setupViews()
 
+    protected fun setupToolbar() {
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        val actionBar = supportActionBar
+        //给左上角图标的左边加上一个返回的图标
+        actionBar?.setDisplayHomeAsUpEnabled(false)
+    }
 
 
     override fun startLoading() {
