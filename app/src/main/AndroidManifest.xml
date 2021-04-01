@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.hxzk.app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.hxzk.main.common.MainApplication"
         android:allowBackup="true"
@@ -14,7 +16,7 @@
         tools:replace="android:name">
 
         <activity
-            android:name=".OpenSourceSplashActivity"
+            android:name="com.hxzk.app.OpenSourceSplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

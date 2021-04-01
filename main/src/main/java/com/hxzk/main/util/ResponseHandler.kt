@@ -24,6 +24,7 @@ import com.hxzk.main.R
 import java.net.ConnectException
 import java.net.NoRouteToHostException
 import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 /**
  * 对服务器的返回进行相应的逻辑处理。注意此类只处理公众的返回逻辑，涉及具体的业务逻辑，仍然交由接口调用处自行处理。
@@ -44,6 +45,7 @@ object ResponseHandler {
             is ConnectException -> GlobalUtil.getString(R.string.network_connect_error).sMainToast()
             is SocketTimeoutException -> GlobalUtil.getString(R.string.network_connect_timeout).sMainToast()
             is NoRouteToHostException -> GlobalUtil.getString(R.string.no_route_to_host).sMainToast()
+            is UnknownHostException -> GlobalUtil.getString(R.string.network_no_host).sMainToast()
             else -> {
                 logWarn(TAG, "handleFailure exception is $e")
                 (GlobalUtil.getString(R.string.unknown_error)).sMainToast()

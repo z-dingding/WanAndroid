@@ -10,8 +10,7 @@ import com.hxzk.base.util.GlobalUtil
 import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.R
 import com.hxzk.main.data.source.Repository
-import com.hxzk.network.ApiResponse
-import com.hxzk.network.model.LoginModel
+import com.hxzk.network.Result
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -37,7 +36,7 @@ class LoginViewModel(
      * 暴露不可变的livedata给外部
      */
     private val loginParams =  MutableLiveData<LoginBean>()
-    val response : LiveData<ApiResponse<LoginModel>>  = Transformations.switchMap(loginParams){
+    val response : LiveData<Result<*>>  = Transformations.switchMap(loginParams){
       repository.login(it.account,it.pwd)
     }
 

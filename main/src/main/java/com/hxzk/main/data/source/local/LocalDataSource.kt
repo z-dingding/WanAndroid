@@ -1,8 +1,7 @@
 package com.hxzk.main.data.source.local
 
 import com.hxzk.main.data.source.DataSource
-import com.hxzk.network.ApiResponse
-import com.hxzk.network.model.LoginModel
+import com.hxzk.network.Result
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -11,7 +10,7 @@ import com.hxzk.network.model.LoginModel
  */
 class LocalDataSource : DataSource {
 
-    override suspend fun login(account: String, pwd: String): ApiResponse<LoginModel> {
+    override suspend fun login(account: String, pwd: String): Result<*> {
         TODO("Not yet implemented")
     }
 
@@ -19,7 +18,11 @@ class LocalDataSource : DataSource {
         username: String,
         password: String,
         repassword: String
-    ): ApiResponse<LoginModel> {
+    ): Result<*> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun banner(): Result<*> {
         TODO("Not yet implemented")
     }
 

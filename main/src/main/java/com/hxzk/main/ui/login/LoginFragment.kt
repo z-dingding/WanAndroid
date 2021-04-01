@@ -18,6 +18,10 @@ import com.hxzk.main.event.RegisterSuccessEvent
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.main.MainActivity
+import com.hxzk.main.util.ResponseHandler
+import com.hxzk.network.Result
+import com.hxzk.network.model.ApiResponse
+import com.hxzk.network.succeeded
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -50,12 +54,18 @@ class LoginFragment : BaseFragment() {
             logViewModel.login()
             logViewModel.response.observe(viewLifecycleOwner, Observer {
                 ProgressDialogUtil.getInstance().dismissDialog()
-                if (it.errorCode == 0) {
+                if(it.succeeded){
+                    val bean = (it as Result.Success<*>).res as ApiResponse<*>
+                if (bean.errorCode == 0) {
                     //不管是首次注册登录还是直接登录都保存一次
                     (activity as LoginActivity).saveAuthData(logViewModel.accountText.value.toString(),logViewModel.pwdText.value.toString())
                     activity?.actionFinish<MainActivity>(context!!)
                 } else {
-                    it.errorMsg.sToast()
+                    bean.errorMsg.sToast()
+                }
+                }else{
+                    val res = it as Result.Error
+                    ResponseHandler.handleFailure(res.e)
                 }
             })
         }

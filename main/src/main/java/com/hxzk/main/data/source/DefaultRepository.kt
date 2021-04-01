@@ -24,4 +24,9 @@ class DefaultRepository(private  val  localSource : DataSource,
         emit(result)
     }
 
+    override suspend fun banner()= liveData {
+        val result = romtat.banner()
+        emit(result)
+    }
+
 }

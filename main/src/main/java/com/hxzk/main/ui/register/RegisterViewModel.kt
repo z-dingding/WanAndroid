@@ -8,8 +8,7 @@ import com.hxzk.base.extension.sMainToast
 import com.hxzk.base.util.GlobalUtil
 import com.hxzk.main.R
 import com.hxzk.main.data.source.Repository
-import com.hxzk.network.ApiResponse
-import com.hxzk.network.model.LoginModel
+import com.hxzk.network.Result
 
 /**
  *作者：created by zjt on 2021/3/24
@@ -42,7 +41,7 @@ class RegisterViewModel(private val repository: Repository) : ViewModel() {
 
     private val refershLiveData = MutableLiveData<Any?>()
     //switchMap将转化函数中返回的livedata对象转化为可以观察的livedata对象
-    val register : LiveData<ApiResponse<LoginModel>> = Transformations.switchMap(refershLiveData){
+    val register : LiveData<Result<*>> = Transformations.switchMap(refershLiveData){
         //执行网络请求每次返回的livedata都是new的，所以如果直接用var类型的livedata接受会出问题。
         repository.registerRequest(account.value!!, pwd.value!!, surePwd.value!!)
     }

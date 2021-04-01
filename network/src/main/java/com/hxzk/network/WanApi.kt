@@ -1,9 +1,9 @@
 package com.hxzk.network
 
-import com.franmontiel.persistentcookiejar.ClearableCookieJar
-import com.franmontiel.persistentcookiejar.PersistentCookieJar
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
+import com.hxzk.network.interceptor.HeaderInterceptor
+import com.hxzk.network.interceptor.NetCacheInterceptor
+import com.hxzk.network.model.ApiResponse
+import com.hxzk.network.model.HomeBanner
 import com.hxzk.network.model.LoginModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,6 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 
@@ -35,15 +36,16 @@ import retrofit2.http.POST
         fun get(): WanApi {
             val clientBuilder = OkHttpClient.Builder()
                 .connectTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
+                .addInterceptor(HeaderInterceptor())
+                .addNetworkInterceptor(NetCacheInterceptor)
             if (isDebug) {
                 val loggingInterceptor = HttpLoggingInterceptor()
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
                 clientBuilder.addInterceptor(loggingInterceptor)
             }
-            val cookieJar: ClearableCookieJar =
-                PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(NetWork.context))
-            clientBuilder.cookieJar(cookieJar)
-
+//            val cookieJar =
+//                PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(NetWork.context))
+//            clientBuilder.cookieJar(cookieJar)
 
             return Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -64,14 +66,18 @@ import retrofit2.http.POST
     @POST("user/login")
     fun login(@Field("username") username: String, @Field("password") password: String): Call<ApiResponse<LoginModel>>
 
-
-
     /**
      * 注册
      */
     @FormUrlEncoded
     @POST("user/register")
     fun register(@Field("username") username: String, @Field("password") password: String , @Field("repassword") repassword: String): Call<ApiResponse<LoginModel>>
+
+    /**
+     * 首页Banner
+     */
+    @GET("banner/json")
+    fun banner(): Call<ApiResponse<HomeBanner>>
 
 
 

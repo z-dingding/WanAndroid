@@ -13,13 +13,13 @@ import com.hxzk.main.data.source.romote.RemoteDataSource
 
     var tasksRepository: Repository? = null
 
-    fun provideTasksRepository(context: Context): Repository {
+    fun provideRepository(context: Context): Repository {
         synchronized(this) {
-            return tasksRepository ?: createTasksRepository(context)
+            return tasksRepository ?: createRepository(context)
         }
     }
 
-    private fun createTasksRepository(context: Context): Repository {
+    private fun createRepository(context: Context): Repository {
         //获取仓库分为远程仓库和本地仓库
         val newRepo = DefaultRepository(createLocalDataSource(context),RemoteDataSource())
         tasksRepository = newRepo

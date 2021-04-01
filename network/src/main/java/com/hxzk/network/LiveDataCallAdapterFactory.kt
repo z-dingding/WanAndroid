@@ -1,6 +1,7 @@
 package com.hxzk.network
 
 import androidx.lifecycle.LiveData
+import com.hxzk.network.model.ApiResponse
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType

@@ -1,7 +1,6 @@
 package com.hxzk.main.data.source
 
-import com.hxzk.network.ApiResponse
-import com.hxzk.network.model.LoginModel
+import com.hxzk.network.Result
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -12,7 +11,12 @@ interface DataSource {
     /**
      * 登录接口
      */
-    suspend fun   login(account: String , pwd : String ): ApiResponse<LoginModel>
-
-    suspend fun register(username: String,password: String,repassword: String) : ApiResponse<LoginModel>
+    suspend fun   login(account: String , pwd : String ): Result<*>
+    /**
+     * 登录接口
+     */
+    suspend fun register(username: String,password: String,repassword: String) : Result<*>  /**
+     * 首页Banner接口
+     */
+    suspend fun banner() : Result<*>
 }

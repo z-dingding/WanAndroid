@@ -40,7 +40,7 @@ open  class SplashActivity : BaseActivity() {
         if (messageEvent is FinishActivityEvent) {
             if (javaClass == messageEvent.activityClass) {
                 if (!isFinishing) {
-                    finish()
+                   finish()
                 }
             }
         }

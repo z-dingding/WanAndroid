@@ -1,6 +1,8 @@
 package com.hxzk.main.common
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.hxzk.base.util.Common
 import com.hxzk.main.data.source.Repository
 import com.hxzk.main.data.source.ServiceLocator
@@ -15,9 +17,12 @@ import java.util.concurrent.Executors
  */
 class MainApplication : Application(){
 
-
+    /**
+     *创建仓库
+     */
     val repository : Repository
-    get() = ServiceLocator.provideTasksRepository(this)
+    get() = ServiceLocator.provideRepository(this)
+
 
 
     override fun onCreate() {
@@ -39,5 +44,10 @@ class MainApplication : Application(){
 
     companion object{
         private const val TAG = "MainApplication"
+        //双重校验锁式
+        val loadingLiveData : LiveData<Boolean> by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            MutableLiveData<Boolean>()
+        }
+
     }
 }

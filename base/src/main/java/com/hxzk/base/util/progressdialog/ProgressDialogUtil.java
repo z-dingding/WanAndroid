@@ -37,7 +37,7 @@ public class ProgressDialogUtil {
 
 
     /**
-     * 显示dialog
+     * 显示Loading
      * @param mContext 上下文
      */
     public void showDialog(Context mContext) {
@@ -56,7 +56,7 @@ public class ProgressDialogUtil {
     }
 
     /**
-     * 让dialog消失
+     * 让Loading消失
      */
     public void dismissDialog() {
         if (null != loadingDialog && loadingDialog.isShowing()) {

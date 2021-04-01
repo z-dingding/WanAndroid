@@ -47,10 +47,10 @@ class OpenSourceLoginActivity : LoginActivity() {
         initVP()
     }
 
-    override fun finish() {
-        super.finish()
-        //只能用在一个页面显示另一个页面消失的情况
-        //overridePendingTransition(R.anim.anim_login_in,R.anim.anim_login_out)
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
+
 
 }

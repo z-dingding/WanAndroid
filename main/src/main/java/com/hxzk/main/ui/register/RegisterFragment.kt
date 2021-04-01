@@ -14,6 +14,10 @@ import com.hxzk.main.event.RegisterSuccessEvent
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.login.LoginActivity
+import com.hxzk.main.util.ResponseHandler
+import com.hxzk.network.Result
+import com.hxzk.network.model.ApiResponse
+import com.hxzk.network.succeeded
 import kotlinx.android.synthetic.main.fragment_rigister.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -52,13 +56,19 @@ class RegisterFragment : BaseFragment() {
 
         registerViewModel.register?.observe(viewLifecycleOwner,{
             registerViewModel._isStartLoading.value = false
-            if (it.errorCode == 0) {
+            if(it.succeeded){
+                val bean = (it as Result.Success<*>).res as ApiResponse<*>
+            if (bean.errorCode == 0) {
                 (activity as LoginActivity).switchFrag(0)
                 //将注册成功的账号密码发送给登录页面
                 val registerEvent = RegisterSuccessEvent(registerViewModel.account.value.toString(),registerViewModel.pwd.value.toString())
                 EventBus.getDefault().post(registerEvent)
             } else {
-                it.errorMsg.sToast()
+                bean.errorMsg.sToast()
+            }
+            }else{
+                val res = it as Result.Error
+                ResponseHandler.handleFailure(res.e)
             }
         })
     }
