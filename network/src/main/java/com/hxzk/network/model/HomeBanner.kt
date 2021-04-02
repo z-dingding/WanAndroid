@@ -6,10 +6,6 @@ package com.hxzk.network.model
  *
  */
 data class HomeBanner(
-    val `data`: List<Data>,
-)
-
-data class Data(
     val desc: String,
     val id: Int,
     val imagePath: String,

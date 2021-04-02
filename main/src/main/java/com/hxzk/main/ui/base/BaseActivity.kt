@@ -38,6 +38,7 @@ open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
      */
     private var noContentView: View? = null
 
+
     var toolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

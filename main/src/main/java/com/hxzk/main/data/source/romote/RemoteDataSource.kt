@@ -36,7 +36,6 @@ class RemoteDataSource : DataSource {
                 }
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     continuation.resume(Result.Error(t as Exception))
-
                 }
             })
         }

@@ -13,7 +13,7 @@ interface Repository {
     /**
      * 登录接口
      */
-       fun  login(account: String , pwd : String ) : LiveData<Result<*>>
+    fun  login(account: String , pwd : String ) : LiveData<Result<*>>
 
     /**
      * 注册接口
@@ -22,5 +22,5 @@ interface Repository {
     /*
     * 首页Banner接口
     */
-    suspend fun banner() :  LiveData<Result<*>>
+     fun banner() :  LiveData<Result<*>>
 }

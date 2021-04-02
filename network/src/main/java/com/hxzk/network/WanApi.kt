@@ -77,7 +77,7 @@ import retrofit2.http.POST
      * 首页Banner
      */
     @GET("banner/json")
-    fun banner(): Call<ApiResponse<HomeBanner>>
+    fun banner(): Call<ApiResponse<List<HomeBanner>>>
 
 
 

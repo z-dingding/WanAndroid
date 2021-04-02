@@ -38,6 +38,8 @@
     <string name="tab_system">体系</string>
     <string name="tab_public">公众号</string>
     <string name="tab_mine">我的</string>
+    <string name="home_search">搜索</string>
+    <string name="transition_search_back" translatable="false">transition_search_back</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -1,11 +1,8 @@
 package com.hxzk.main.ui.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import org.greenrobot.eventbus.EventBus
 
 /**
  *作者：created by zjt on 2021/3/2
@@ -13,6 +10,25 @@ import org.greenrobot.eventbus.EventBus
  *
  */
  open class BaseFragment : Fragment() {
+
+    /**
+     * Fragment中inflate出来的布局。
+     */
+    protected var rootView: View? = null
+
+
+
+
+    /**
+     * 在Fragment基类中获取通用的控件，会将传入的View实例原封不动返回。
+     * @param view
+     * Fragment中inflate出来的View实例。
+     * @return  Fragment中inflate出来的View实例原封不动返回。
+     */
+    fun onCreateView(view: View): View {
+        rootView = view
+        return view
+    }
 
 
     companion object{
@@ -35,22 +51,6 @@ import org.greenrobot.eventbus.EventBus
             }
             return mFragment
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        EventBus.getDefault().register(this)
-
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        EventBus.getDefault().unregister(this)
     }
 
 }

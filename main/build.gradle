@@ -12,7 +12,6 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,5 +37,10 @@ dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
     api project(path: ':base')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+
+    def dependencies = rootProject.ext.dependencies
+    api  dependencies["appcompat"]
+    api  dependencies["constraintlayout"]
 
 }

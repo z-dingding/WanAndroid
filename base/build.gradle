@@ -40,18 +40,25 @@ dependencies {
     def dependencies = rootProject.ext.dependencies
     api dependencies["kotlin-stdlib"]
     api dependencies["core-ktx"]
-    api  dependencies["appcompat"]
-    api  dependencies["constraintlayout"]
-    api  dependencies["avi"]
-    api  dependencies["design"]
-    api  dependencies["eventbus"]
-    api  dependencies["viewpager2"]
-
+    api dependencies["appcompat"]
+    api dependencies["constraintlayout"]
+    api dependencies["avi"]
+    api dependencies["design"]
+    api dependencies["eventbus"]
+    api dependencies["viewpager2"]
 
     //架构组件
-     //api  dependencies['viewmodel-ktx']
-     api  dependencies['livedata-ktx']
-      api  dependencies['fragment-ktx']
+    api dependencies['livedata-ktx']
+    api dependencies['fragment-ktx']
+    //刷新相关
+    api dependencies['refresh-layout']
+    api dependencies['refresh-header']
+    //轮播
+    api dependencies['banner']
+    //Glide
+    annotationProcessor dependencies['glide_compiler']
+    api dependencies['glide']
+
 
     api project(path: ':tencentx5')
     api project(path: ':network')

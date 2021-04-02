@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.hxzk.main.R
 import com.hxzk.main.ui.adapter.ViewPagerFragmentAdapter
+import com.hxzk.main.ui.answer.AnswerFragment
 import com.hxzk.main.ui.base.BaseActivity
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.home.HomeFragment
+import com.hxzk.main.ui.mine.MineFragment
+import com.hxzk.main.ui.publics.PublicFragment
+import com.hxzk.main.ui.system.SystemFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -21,9 +25,6 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupViews(){
-        setupToolbar()
-        //首页隐藏返回按钮
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         initVp()
         bnv.setOnNavigationItemSelectedListener {
             vp.setCurrentItem(it.order,false)
@@ -34,10 +35,10 @@ class MainActivity : BaseActivity() {
     private fun initVp() {
         val frags = LinkedList<Fragment>()
         frags.add(BaseFragment.getInstance(HomeFragment::class.java, null)!!)
-        frags.add(BaseFragment.getInstance(HomeFragment::class.java, null)!!)
-        frags.add(BaseFragment.getInstance(HomeFragment::class.java, null)!!)
-        frags.add(BaseFragment.getInstance(HomeFragment::class.java, null)!!)
-        frags.add(BaseFragment.getInstance(HomeFragment::class.java, null)!!)
+        frags.add(BaseFragment.getInstance(AnswerFragment::class.java, null)!!)
+        frags.add(BaseFragment.getInstance(SystemFragment::class.java, null)!!)
+        frags.add(BaseFragment.getInstance(PublicFragment::class.java, null)!!)
+        frags.add(BaseFragment.getInstance(MineFragment::class.java, null)!!)
         val vpAdapter =  ViewPagerFragmentAdapter(this, frags)
         vp.apply {
             adapter = vpAdapter
