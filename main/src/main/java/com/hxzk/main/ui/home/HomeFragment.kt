@@ -9,8 +9,10 @@ import com.hxzk.base.extension.sToast
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.main.R
 import com.hxzk.main.common.Const
+import com.hxzk.main.databinding.FragmentHomeBinding
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.adapter.BannerImageAdapter
+import com.hxzk.main.ui.adapter.HomeItemAdapter
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.search.SearchActivity
@@ -28,28 +30,45 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : BaseFragment() {
 
     val homeViewModel by viewModels<HomeViewModel> { getViewModelFactory() }
+    lateinit var  homeFragDataBinding : FragmentHomeBinding
 
     lateinit var activity: MainActivity
 
+    private lateinit var listAdapter: HomeItemAdapter
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        homeFragDataBinding = FragmentHomeBinding.inflate(inflater, container, false).apply {
+            this.viewModel = homeViewModel
+        }
         //Frament中显示Toolbar
         setHasOptionsMenu(true)
-        return super.onCreateView(view)
+        return super.onCreateView(homeFragDataBinding.root)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity = getActivity() as MainActivity
         initToolbar()
+        setupListAdapter()
         bannerLiveData()
+        topAriticla()
     }
 
+
+    private fun setupListAdapter() {
+        val viewModel = homeFragDataBinding.viewModel
+        if (viewModel != null) {
+            listAdapter = HomeItemAdapter(viewModel)
+            homeFragDataBinding.recycler.adapter = listAdapter
+        }
+    }
+    /**
+     * 首页banner的监听
+     */
     private fun bannerLiveData() {
         homeViewModel.banners.observe(viewLifecycleOwner, {
             if (it.succeeded) {
@@ -62,6 +81,18 @@ class HomeFragment : BaseFragment() {
             } else {
                 val res = it as Result.Error
                 ResponseHandler.handleFailure(res.e)
+            }
+        })
+    }
+
+    /**
+     * 首页置顶的请求
+     */
+    fun topAriticla(){
+        homeViewModel.loadTopArticle()
+        homeViewModel.topArticle.observe(viewLifecycleOwner,{
+            if (it.isNotEmpty()) {
+                (recycler.adapter as HomeItemAdapter).submitList(it)
             }
         })
     }

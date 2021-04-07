@@ -15,8 +15,13 @@ interface DataSource {
     /**
      * 登录接口
      */
-    suspend fun register(username: String,password: String,repassword: String) : Result<*>  /**
+    suspend fun register(username: String,password: String,repassword: String) : Result<*>
+    /**
      * 首页Banner接口
      */
     suspend fun banner() : Result<*>
+    /**
+     * 首页置顶文章
+     */
+    suspend fun topArticle() : Result<*>
 }

@@ -48,7 +48,7 @@
             android:inputType="text"
             android:maxLength="16"
             android:maxLines="1"
-            android:textColor="@color/white_text" />
+            android:textColor="@color/text_white" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +70,7 @@
             android:inputType="textPassword"
             android:maxLength="20"
             android:maxLines="1"
-            android:textColor="@color/white_text" />
+            android:textColor="@color/text_white" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,7 +90,7 @@
             android:inputType="textPassword"
             android:maxLength="20"
             android:maxLines="1"
-            android:textColor="@color/white_text" />
+            android:textColor="@color/text_white" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -5,6 +5,7 @@ import com.hxzk.network.interceptor.NetCacheInterceptor
 import com.hxzk.network.model.ApiResponse
 import com.hxzk.network.model.HomeBanner
 import com.hxzk.network.model.LoginModel
+import com.hxzk.network.model.TopArticleModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -78,6 +79,14 @@ import retrofit2.http.POST
      */
     @GET("banner/json")
     fun banner(): Call<ApiResponse<List<HomeBanner>>>
+
+    /**
+     * 首页置顶文章
+     */
+    @GET("article/top/json")
+    fun topArticle(): Call<ApiResponse<List<TopArticleModel>>>
+
+
 
 
 

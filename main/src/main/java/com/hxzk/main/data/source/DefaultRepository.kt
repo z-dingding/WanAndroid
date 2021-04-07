@@ -29,4 +29,9 @@ class DefaultRepository(private  val  localSource : DataSource,
         emit(result)
     }
 
+    override fun topArticle() = liveData{
+        val result = romtat.topArticle()
+        emit(result)
+    }
+
 }

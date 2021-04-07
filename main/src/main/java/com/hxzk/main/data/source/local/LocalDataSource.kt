@@ -26,4 +26,8 @@ class LocalDataSource : DataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun topArticle(): Result<*> {
+        TODO("Not yet implemented")
+    }
+
 }

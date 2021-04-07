@@ -18,8 +18,6 @@ open abstract class  LoginActivity : AuthActivity(){
      lateinit var viewPager2 : ViewPager2
 
 
-
-
       /**
        * 初始化ViewPager
        */

@@ -15,16 +15,16 @@
 
     <!--    TextInputLayout相关样式-->
     <style name="EditTextErrorAppearance" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/white_text</item>
+        <item name="android:textColor">@color/text_white</item>
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="LoginActivity" parent="AppTheme">
         <item name="colorAccent">@color/white</item>
-        <item name="android:textColor">@color/white_text</item>
-        <item name="android:textColorHint">@color/white_text</item>
-        <item name="colorControlNormal">@color/white_text</item>
-        <item name="colorControlHighlight">@color/white_text</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textColorHint">@color/text_white</item>
+        <item name="colorControlNormal">@color/text_white</item>
+        <item name="colorControlHighlight">@color/text_white</item>
     </style>
 
 </resources>

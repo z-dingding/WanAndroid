@@ -19,6 +19,7 @@ class RemoteDataSource : DataSource {
     override suspend fun login(account: String, pwd: String) = WanApi.get().login(account,pwd).await()
     override suspend fun register(username: String,password: String,repassword: String) = WanApi.get().register(username,password,repassword).await()
     override suspend fun banner() = WanApi.get().banner().await()
+    override suspend fun topArticle() =  WanApi.get().topArticle().await()
 
 
     /**
@@ -31,8 +32,8 @@ class RemoteDataSource : DataSource {
                 override fun onResponse(call: Call<T>, response: Response<T>) {
                     val body = response.body()
                     if (body != null) continuation.resume(Result.Success(body))
-                    //else continuation.resumeWithException(RuntimeException("response body is null"))
                     else continuation.resume(Result.Error(RuntimeException("response body is null")))
+                    //else continuation.resumeWithException(RuntimeException("response body is null"))
                 }
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     continuation.resume(Result.Error(t as Exception))

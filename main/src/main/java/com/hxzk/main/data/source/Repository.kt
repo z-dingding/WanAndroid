@@ -23,4 +23,8 @@ interface Repository {
     * 首页Banner接口
     */
      fun banner() :  LiveData<Result<*>>
+    /**
+     * 首页置顶文章
+     */
+    fun topArticle() :  LiveData<Result<*>>
 }
