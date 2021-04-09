@@ -5,35 +5,29 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
-import com.hxzk.base.extension.sToast
+import com.hxzk.base.extension.sMainToast
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.main.R
+import com.hxzk.main.callback.BannerItemListener
 import com.hxzk.main.common.Const
 import com.hxzk.main.databinding.FragmentHomeBinding
 import com.hxzk.main.extension.getViewModelFactory
-import com.hxzk.main.ui.adapter.BannerImageAdapter
 import com.hxzk.main.ui.adapter.HomeItemAdapter
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.search.SearchActivity
-import com.hxzk.main.util.ResponseHandler
-import com.hxzk.network.Result
-import com.hxzk.network.model.ApiResponse
 import com.hxzk.network.model.HomeBanner
-import com.hxzk.network.succeeded
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 /**
  * 首页Fragment
  */
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), BannerItemListener {
 
     val homeViewModel by viewModels<HomeViewModel> { getViewModelFactory() }
     lateinit var  homeFragDataBinding : FragmentHomeBinding
-
     lateinit var activity: MainActivity
-
     private lateinit var listAdapter: HomeItemAdapter
 
 
@@ -44,71 +38,75 @@ class HomeFragment : BaseFragment() {
         homeFragDataBinding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             this.viewModel = homeViewModel
         }
-        //Frament中显示Toolbar
         setHasOptionsMenu(true)
         return super.onCreateView(homeFragDataBinding.root)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        //设置了lifecycleOwner后绑定了LiveData数据源的xml控件才会随着数据变化而改变
+        homeFragDataBinding.lifecycleOwner = this.viewLifecycleOwner
         activity = getActivity() as MainActivity
         initToolbar()
         setupListAdapter()
-        bannerLiveData()
-        topAriticla()
+        onItemClick()
+        smartListener()
     }
 
+    private fun smartListener() {
+        //刷新
+        homeFragDataBinding.smartRefresh.setOnRefreshListener {
+            //刷新数据
+            homeViewModel.refresh(true)
+        }
+        //加载更多
+        homeFragDataBinding.smartRefresh.setOnLoadMoreListener {
 
+        }
+        homeViewModel.isRefreshing.observe(viewLifecycleOwner,{
+            if (!it){
+                homeFragDataBinding.smartRefresh.finishRefresh()
+            }
+        })
+        homeViewModel.isLoadMoreing.observe(viewLifecycleOwner,{
+            if (!it){
+                homeFragDataBinding.smartRefresh.finishLoadMore()
+            }
+        })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //刷新数据
+        homeViewModel.banners.observe(viewLifecycleOwner,{})
+    }
+
+    /**
+     * 列表项的点击
+     */
+  private fun onItemClick(){
+       homeViewModel.openItem.observe(viewLifecycleOwner,{
+           it.toString().sMainToast()
+       })
+   }
+
+    /**
+     * 设置RecyclerView的Adapter
+     */
     private fun setupListAdapter() {
         val viewModel = homeFragDataBinding.viewModel
         if (viewModel != null) {
             listAdapter = HomeItemAdapter(viewModel)
+            listAdapter.setBannerItemListener(this)
             homeFragDataBinding.recycler.adapter = listAdapter
         }
     }
-    /**
-     * 首页banner的监听
-     */
-    private fun bannerLiveData() {
-        homeViewModel.banners.observe(viewLifecycleOwner, {
-            if (it.succeeded) {
-                val bean = (it as Result.Success<*>).res as ApiResponse<*>
-                if (bean.errorCode == 0) {
-                    initBanner(bean.data as List<HomeBanner>)
-                } else {
-                    bean.errorMsg.sToast()
-                }
-            } else {
-                val res = it as Result.Error
-                ResponseHandler.handleFailure(res.e)
-            }
-        })
-    }
+
 
     /**
-     * 首页置顶的请求
+     * 设置toolbar,由于只有首页用到了boolbar,就不妨到baseFrag中了
      */
-    fun topAriticla(){
-        homeViewModel.loadTopArticle()
-        homeViewModel.topArticle.observe(viewLifecycleOwner,{
-            if (it.isNotEmpty()) {
-                (recycler.adapter as HomeItemAdapter).submitList(it)
-            }
-        })
-    }
-
-    private fun initBanner(mData: List<HomeBanner>) {
-        // 暂时不支持kotlin,所以只能这样写
-        mBanner.adapter = BannerImageAdapter(mData, activity)
-        //添加生命周期观察者
-        mBanner.addBannerLifecycleObserver(this)
-        //banner设置方法全部调用完毕时最后调用
-        mBanner.start()
-    }
-
-
     private fun initToolbar() {
-        //toolbar = rootView?.findViewById(R.id.toolbar)
         activity.setSupportActionBar(toolbar)
         val actionBar = activity.supportActionBar
         //隐藏左侧图标
@@ -143,5 +141,9 @@ class HomeFragment : BaseFragment() {
             }
         }
         return true
+    }
+
+    override fun onItemClick(data: HomeBanner, position: Int) {
+        position.toString().sMainToast()
     }
 }

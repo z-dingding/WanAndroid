@@ -22,18 +22,34 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hxzk.main.R
+import com.hxzk.main.ui.adapter.BannerImageAdapter
 import com.hxzk.main.ui.adapter.HomeItemAdapter
+import com.hxzk.network.model.HomeBanner
 import com.hxzk.network.model.TopArticleModel
-
+import com.youth.banner.Banner
 
 /**
  * 首页列表的展示数据源(目前不能正常使用)
  */
 @BindingAdapter("app:items")
- fun setItems(listView: RecyclerView, items: List<TopArticleModel>) {
+ fun setItems(listView: RecyclerView, items: List<TopArticleModel>?) {
     items?.let {
         //submitList()更新现有列表
         (listView.adapter as HomeItemAdapter).submitList(items)
+    }
+}
+
+/**
+ * 首页轮播展示数据源(目前不能正常使用)
+ */
+@BindingAdapter("bannerItems")
+fun setBannerItems(mBanner:Banner<HomeBanner, BannerImageAdapter>, items: List<HomeBanner>?) {
+    items?.let {
+        // 暂时不支持kotlin,所以只能这样写
+        mBanner.adapter = BannerImageAdapter(items,mBanner.context)
+        //添加生命周期观察者
+        //mBanner.addBannerLifecycleObserver(mContext)
+        mBanner.start()
     }
 }
 

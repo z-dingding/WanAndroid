@@ -3,6 +3,7 @@ package com.hxzk.main.data.source
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -28,6 +29,7 @@ class DefaultRepository(private  val  localSource : DataSource,
         val result = romtat.banner()
         emit(result)
     }
+
 
     override fun topArticle() = liveData{
         val result = romtat.topArticle()

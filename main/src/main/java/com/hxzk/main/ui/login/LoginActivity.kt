@@ -11,7 +11,7 @@ import com.hxzk.base.util.AndroidVersion
 import com.hxzk.base.util.Common
 import com.hxzk.main.R
 import com.hxzk.main.ui.adapter.AdapterFragmentPager
-import com.hxzk.main.util.RotateTransformer
+import com.hxzk.main.widget.RotateTransformer
 
 open abstract class  LoginActivity : AuthActivity(){
 

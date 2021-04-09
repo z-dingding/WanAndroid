@@ -23,20 +23,11 @@
         android:layout_height="56dp"
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <com.youth.banner.Banner
-        android:id="@+id/mBanner"
-        android:layout_width="match_parent"
-        android:layout_height="195dp"
-        app:layout_constraintBottom_toTopOf="@id/smartRefresh"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/smartRefresh"
@@ -45,23 +36,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mBanner"
-
-        >
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <com.scwang.smart.refresh.header.ClassicsHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-<!--app:items="@{viewModel.topArticle}"-->
-        <androidx.recyclerview.widget.RecyclerView
+
+        <com.hxzk.main.widget.recycler.WrapRecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-
+            app:items="@{viewModel.topArticle}"
              />
 
         <com.scwang.smart.refresh.footer.ClassicsFooter

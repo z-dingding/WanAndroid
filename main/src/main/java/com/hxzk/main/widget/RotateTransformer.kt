@@ -1,4 +1,4 @@
-package com.hxzk.main.util
+package com.hxzk.main.widget
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2

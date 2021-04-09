@@ -43,6 +43,7 @@ class LoginFragment : BaseFragment() {
         viewDataBinding = LoginFragBinding.inflate(inflater, container, false).apply {
             loginmodel = logViewModel
         }
+
         return viewDataBinding.root
     }
 
