@@ -30,4 +30,8 @@ class LocalDataSource : DataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun articleList(pageIndex : Int): Result<*> {
+        TODO("Not yet implemented")
+    }
+
 }

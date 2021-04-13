@@ -19,6 +19,7 @@ class RemoteDataSource : DataSource {
     override suspend fun register(username: String,password: String,repassword: String) = WanApi.get().register(username,password,repassword).await()
     override suspend fun banner() = WanApi.get().banner().await()
     override suspend fun topArticle() =  WanApi.get().topArticle().await()
+    override suspend fun articleList(pageIndex : Int) =  WanApi.get().articleList(pageIndex).await()
 
 
     /**

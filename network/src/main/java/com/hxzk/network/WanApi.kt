@@ -2,19 +2,13 @@ package com.hxzk.network
 
 import com.hxzk.network.interceptor.HeaderInterceptor
 import com.hxzk.network.interceptor.NetCacheInterceptor
-import com.hxzk.network.model.ApiResponse
-import com.hxzk.network.model.HomeBanner
-import com.hxzk.network.model.LoginModel
-import com.hxzk.network.model.TopArticleModel
+import com.hxzk.network.model.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 /**
@@ -84,7 +78,12 @@ import retrofit2.http.POST
      * 首页置顶文章
      */
     @GET("article/top/json")
-    fun topArticle(): Call<ApiResponse<List<TopArticleModel>>>
+    fun topArticle(): Call<ApiResponse<List<DataX>>>
+    /**
+     * 首页置顶文章
+     */
+    @GET("article/list/{pageIndex}/json")
+    fun articleList(@Path("pageIndex") pageIndex : Int): Call<ApiResponse<ArticleListModel>>
 
 
 

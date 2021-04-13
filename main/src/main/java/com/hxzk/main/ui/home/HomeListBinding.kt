@@ -24,18 +24,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hxzk.main.R
 import com.hxzk.main.ui.adapter.BannerImageAdapter
 import com.hxzk.main.ui.adapter.HomeItemAdapter
+import com.hxzk.network.model.ArticleListModel
 import com.hxzk.network.model.HomeBanner
-import com.hxzk.network.model.TopArticleModel
 import com.youth.banner.Banner
 
 /**
- * 首页列表的展示数据源(目前不能正常使用)
+ * 首页列表的展示数据源
  */
 @BindingAdapter("app:items")
- fun setItems(listView: RecyclerView, items: List<TopArticleModel>?) {
+ fun setItems(listView: RecyclerView, items: ArticleListModel?) {
     items?.let {
         //submitList()更新现有列表
-        (listView.adapter as HomeItemAdapter).submitList(items)
+        (listView.adapter as HomeItemAdapter).submitList(items.datas)
     }
 }
 

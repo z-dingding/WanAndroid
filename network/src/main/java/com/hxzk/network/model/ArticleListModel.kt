@@ -1,11 +1,27 @@
 package com.hxzk.network.model
 
 /**
- *作者：created by zjt on 2021/4/6
- *描述:首页置顶文章
- *
+ *作者：created by zjt on 2021/4/13
+
  */
-data class TopArticleModel(
+
+/**
+ * 首页文章列表
+ */
+ class ArticleListModel(
+    var curPage: Int,
+    var datas: ArrayList<DataX>,
+    var offset: Int,
+    var over: Boolean,
+    var pageCount: Int,
+    var size: Int,
+    var total: Int
+)
+
+/**
+ * 首页置顶文章列表
+ */
+data class DataX(
     val apkLink: String,
     val audit: Int,
     val author: String,

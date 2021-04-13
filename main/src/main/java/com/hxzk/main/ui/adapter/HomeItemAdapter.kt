@@ -9,8 +9,8 @@ import com.hxzk.main.callback.BannerItemListener
 import com.hxzk.main.databinding.AdapterHomeitemBinding
 import com.hxzk.main.databinding.BannerFragmentBinding
 import com.hxzk.main.ui.home.HomeViewModel
+import com.hxzk.network.model.DataX
 import com.hxzk.network.model.HomeBanner
-import com.hxzk.network.model.TopArticleModel
 
 /**
  *作者：created by zjt on 2021/4/6
@@ -18,7 +18,7 @@ import com.hxzk.network.model.TopArticleModel
  *
  */
 class HomeItemAdapter(private val homeViewModel: HomeViewModel) :
-    ListAdapter<TopArticleModel, RecyclerView.ViewHolder>(TaskDiffCallback()) {
+    ListAdapter<DataX, RecyclerView.ViewHolder>(TaskDiffCallback()) {
 
     val ITEM_TYEP_BANNER = 0
     val ITEM_TYEP_NORMAL = 1
@@ -63,7 +63,7 @@ class HomeItemAdapter(private val homeViewModel: HomeViewModel) :
 class ItemViewHolder private constructor(private val binding: AdapterHomeitemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(viewModel: HomeViewModel, item: TopArticleModel) {
+    fun bind(viewModel: HomeViewModel, item: DataX) {
         //此处将布局中的data赋值
         binding.viewModel = viewModel
         binding.topArticle = item
@@ -109,14 +109,14 @@ class ItemViewHolder private constructor(private val binding: AdapterHomeitemBin
 }
 
 // DiffUtil将自动为我们处理然后进行调用，其功能 就是比较两个数据集，用newList和oldList进行比较
-class TaskDiffCallback : DiffUtil.ItemCallback<TopArticleModel>() {
-    override fun areItemsTheSame(oldItem: TopArticleModel, newItem: TopArticleModel): Boolean {
+class TaskDiffCallback : DiffUtil.ItemCallback<DataX>() {
+    override fun areItemsTheSame(oldItem: DataX, newItem: DataX): Boolean {
         //判断这个两个对象是否是同一个对象。
         return oldItem.id == newItem.id
     }
 
     //判断两个对象的内容是否一致，如果不一致，那么 它就将对列表进行重绘和动画加载
-    override fun areContentsTheSame(oldItem: TopArticleModel, newItem: TopArticleModel): Boolean {
+    override fun areContentsTheSame(oldItem: DataX, newItem: DataX): Boolean {
         return oldItem == newItem
     }
 

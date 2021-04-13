@@ -51,18 +51,19 @@ class HomeFragment : BaseFragment(), BannerItemListener {
         setupListAdapter()
         onItemClick()
         smartListener()
+        homeViewModel.refresh()
     }
 
     private fun smartListener() {
         //刷新
         homeFragDataBinding.smartRefresh.setOnRefreshListener {
-            //刷新数据
-            homeViewModel.refresh(true)
+            homeViewModel.refresh()
         }
         //加载更多
         homeFragDataBinding.smartRefresh.setOnLoadMoreListener {
 
         }
+
         homeViewModel.isRefreshing.observe(viewLifecycleOwner,{
             if (!it){
                 homeFragDataBinding.smartRefresh.finishRefresh()
@@ -77,8 +78,10 @@ class HomeFragment : BaseFragment(), BannerItemListener {
 
     override fun onStart() {
         super.onStart()
-        //刷新数据
+        //刷新数据(如果断点,会影响)
         homeViewModel.banners.observe(viewLifecycleOwner,{})
+        homeViewModel.itemList.observe(viewLifecycleOwner,{})
+
     }
 
     /**

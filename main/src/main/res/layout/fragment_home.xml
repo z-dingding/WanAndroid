@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:items="@{viewModel.topArticle}"
+            app:items="@{viewModel.itemList}"
              />
 
         <com.scwang.smart.refresh.footer.ClassicsFooter

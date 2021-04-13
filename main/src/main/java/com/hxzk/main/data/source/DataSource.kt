@@ -24,4 +24,8 @@ interface DataSource {
      * 首页置顶文章
      */
     suspend fun topArticle() : Result<*>
+    /**
+     * 首页文章列表
+     */
+    suspend fun articleList(pageIndex : Int) : Result<*>
 }

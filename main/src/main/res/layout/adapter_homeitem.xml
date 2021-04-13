@@ -14,7 +14,7 @@
 
         <variable
             name="topArticle"
-            type="com.hxzk.network.model.TopArticleModel" />
+            type="com.hxzk.network.model.DataX" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

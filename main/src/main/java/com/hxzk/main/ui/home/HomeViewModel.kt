@@ -6,9 +6,10 @@ import com.hxzk.main.data.source.Repository
 import com.hxzk.main.util.ResponseHandler
 import com.hxzk.network.Result
 import com.hxzk.network.model.ApiResponse
+import com.hxzk.network.model.ArticleListModel
 import com.hxzk.network.model.HomeBanner
-import com.hxzk.network.model.TopArticleModel
 import com.hxzk.network.succeeded
+import kotlinx.coroutines.launch
 
 /**
  *作者：created by zjt on 2021/4/2
@@ -18,9 +19,9 @@ import com.hxzk.network.succeeded
 class HomeViewModel(private val repository: Repository) : ViewModel() {
 
     /**
-     * 是否进行刷新的标识(默认不刷新)
+     * 是否进行刷新的标识
      */
-    private val _forceUpdate = MutableLiveData(false)
+    private val _forceUpdate = MutableLiveData<Any?>()
 
     /**
      * 是否正在刷新
@@ -32,12 +33,13 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
      val isLoadMoreing =MutableLiveData(false)
 
     /**
-     * 首页banner数据源
+     * 首页banner数据源(用_forceUpdate来控制，主要是因为livedata感知，只会在onResume和onPause)
      */
-    private val _banners: LiveData<List<HomeBanner>> =
-        repository.banner().distinctUntilChanged().switchMap {
+    private val _banners: LiveData<List<HomeBanner>> = _forceUpdate.switchMap {
+        repository.banner().switchMap {
             transitionBannerItem(it)
         }
+    }
 
     private fun transitionBannerItem(it: Result<*>): LiveData<List<HomeBanner>> {
         val result = MutableLiveData<List<HomeBanner>>()
@@ -58,47 +60,14 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
 
     val banners: LiveData<List<HomeBanner>> = _banners
 
-
-    /**
-     * 首页置顶文章数据源
-     */
-    private val _topArticle: LiveData<List<TopArticleModel>> = _forceUpdate.switchMap {
-             isRefreshing.value = true
-            //distinctUntilChanged()只有数据内容变化，才会执行
-            repository.topArticle().distinctUntilChanged().switchMap {
-                isRefreshing.value = false
-                transitionItem(it)
-            }
-
-    }
-
-    private fun transitionItem(res: Result<*>): LiveData<List<TopArticleModel>> {
-        val result = MutableLiveData<List<TopArticleModel>>()
-        if (res.succeeded) {
-            val bean = (res as Result.Success<*>).res as ApiResponse<*>
-            if (bean.errorCode == 0) {
-                result.value = bean.data as List<TopArticleModel>
-                _topArticleSize.value = result.value!!.size
-            } else {
-                bean.errorMsg.sToast()
-            }
-        } else {
-            result.value = emptyList()
-            ResponseHandler.handleFailure((res as Result.Error).e)
-        }
-        return result
-    }
-
-    val topArticle: LiveData<List<TopArticleModel>> = _topArticle
-
     /**
      * 获取item的条目,adapter中的getItemCount要用
      */
     val _topArticleSize = MutableLiveData<Int>()
 
 
-    fun refresh(refresh: Boolean) {
-        _forceUpdate.value = refresh
+    fun refresh() {
+        _forceUpdate.value = _forceUpdate.value
     }
 
 
@@ -111,4 +80,29 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
     fun clickItem(url: Int) {
         _openItem.value = url
     }
+
+    /**
+     * 请求首页文章列表(包括置顶文章和一般文章列表)
+     */
+     var curPage : Int = 0
+    var pageCount : Int =0
+
+    private val _itemList :  LiveData<ArticleListModel> = _forceUpdate.switchMap {
+        itemList()
+    }
+    private fun itemList() :  LiveData<ArticleListModel> {
+        isRefreshing.value = true
+        val result =  MutableLiveData<ArticleListModel>()
+        viewModelScope.launch {
+           val data =  repository.articleList(curPage)
+            curPage =data.curPage
+            pageCount =data.pageCount
+            result.value = data
+            _topArticleSize.value = data.datas.size
+        }
+        isRefreshing.value = false
+       return  result
+    }
+    val itemList :  LiveData<ArticleListModel>  = _itemList
+
 }
