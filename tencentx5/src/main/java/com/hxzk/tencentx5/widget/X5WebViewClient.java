@@ -122,7 +122,6 @@ public class X5WebViewClient extends WebViewClient {
         } else {
             url = webResourceRequest.toString();
         }
-        LogKt.logDebug(TAG, "{onReceivedHttpError}url=" + url);
     }
 
     @Override

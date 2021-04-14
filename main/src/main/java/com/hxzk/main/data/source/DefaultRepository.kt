@@ -43,52 +43,83 @@ class DefaultRepository(
     }
 
 
-    override suspend fun articleList(pageIndex: Int): ArticleListModel =
+    override suspend fun articleList(pageIndex: Int,origin: ArticleListModel?): ArticleListModel =
         withContext(ioDispatch) {
-            //首页列表
-            val result = async { romtat.articleList(pageIndex) }
-            //首页置顶
-            val result2 =  async{romtat.topArticle()}
-
-
             lateinit var articleListModel: ArticleListModel
-
-            val res2= result2.await()
-            if (res2.succeeded) {
-                val bean = (res2 as Result.Success<*>).res as ApiResponse<*>
-                if (bean.errorCode == 0) {
-                    val list  = bean.data  as ArrayList<DataX>
-                    articleListModel = ArticleListModel(0,list,0,false,0,0,0)
-                } else {
-                    bean.errorMsg.sToast()
-                }
-            } else {
-                ResponseHandler.handleFailure((res2 as Result.Error).e)
-            }
+            //刷新
+            if (pageIndex == 0) {
+                //首页列表
+                val result = async { romtat.articleList(pageIndex) }
+                //首页置顶
+                val result2 = async { romtat.topArticle() }
 
 
-            val res1 = result.await()
-            if (res1.succeeded) {
-                val bean = (res1 as Result.Success<*>).res as ApiResponse<*>
-                if (bean.errorCode == 0) {
-                    val model  = bean.data  as ArticleListModel
-                    articleListModel.curPage =model.curPage
-                    articleListModel.offset =model.offset
-                    articleListModel.over =model.over
-                    articleListModel.pageCount =model.pageCount
-                    articleListModel.size =model.size
-                    articleListModel.total =model.total
-                    //两个集合相加
-                    //articleListModel.datas.plus(model.datas)
-                    model.datas.forEach {
-                        articleListModel.datas.add(it)
+                val res2 = result2.await()
+                if (res2.succeeded) {
+                    val bean = (res2 as Result.Success<*>).res as ApiResponse<*>
+                    if (bean.errorCode == 0) {
+                        val list = bean.data as ArrayList<DataX>
+                        articleListModel = ArticleListModel(0, list, 0, false, 0, 0, 0)
+                    } else {
+                        bean.errorMsg.sToast()
                     }
                 } else {
-                    bean.errorMsg.sToast()
+                    ResponseHandler.handleFailure((res2 as Result.Error).e)
+                }
+
+
+                val res1 = result.await()
+                if (res1.succeeded) {
+                    val bean = (res1 as Result.Success<*>).res as ApiResponse<*>
+                    if (bean.errorCode == 0) {
+                        val model = bean.data as ArticleListModel
+                        articleListModel.curPage = model.curPage
+                        articleListModel.offset = model.offset
+                        articleListModel.over = model.over
+                        articleListModel.pageCount = model.pageCount
+                        articleListModel.size = model.size
+                        articleListModel.total = model.total
+                        //两个集合相加
+                        //articleListModel.datas.plus(model.datas)
+                        model.datas.forEach {
+                            articleListModel.datas.add(it)
+                        }
+                    } else {
+                        bean.errorMsg.sToast()
+                    }
+                } else {
+                    ResponseHandler.handleFailure((res1 as Result.Error).e)
                 }
             } else {
-                ResponseHandler.handleFailure((res1 as Result.Error).e)
+                //加载更多
+                val deferred = async { romtat.articleList(pageIndex)}
+                val  it = deferred.await()
+                if (it.succeeded) {
+                    val bean = (it as Result.Success<*>).res as ApiResponse<*>
+                    if (bean.errorCode == 0) {
+                        val model = (bean.data as ArticleListModel)
+                        //将请求到的数据，放到到之前的livedata中
+                        articleListModel = origin!!
+                        articleListModel.curPage = model.curPage
+                        articleListModel.offset = model.offset
+                        articleListModel.over = model.over
+                        articleListModel.pageCount = model.pageCount
+                        articleListModel.size = model.size
+                        articleListModel.total = model.total
+                        model.datas.forEach {
+                            articleListModel.datas.add(it)
+                        }
+                    } else {
+                        bean.errorMsg.sToast()
+                    }
+                } else {
+                    val res = it as Result.Error
+                    ResponseHandler.handleFailure(res.e)
+                }
             }
             articleListModel
         }
+
+
+
 }

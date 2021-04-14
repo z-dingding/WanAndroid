@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
-import com.hxzk.base.extension.sMainToast
+import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.main.R
 import com.hxzk.main.callback.BannerItemListener
@@ -16,7 +16,10 @@ import com.hxzk.main.ui.adapter.HomeItemAdapter
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.search.SearchActivity
+import com.hxzk.network.model.CommonItemModel
 import com.hxzk.network.model.HomeBanner
+import com.hxzk.tencentx5.X5MainActivity
+import com.hxzk.tencentx5.X5MainActivity.Companion.KEY_ITEMBEAN
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -51,17 +54,17 @@ class HomeFragment : BaseFragment(), BannerItemListener {
         setupListAdapter()
         onItemClick()
         smartListener()
-        homeViewModel.refresh()
+        homeViewModel.forceUpdate(true)
     }
 
     private fun smartListener() {
         //刷新
         homeFragDataBinding.smartRefresh.setOnRefreshListener {
-            homeViewModel.refresh()
+            homeViewModel.forceUpdate(true)
         }
         //加载更多
         homeFragDataBinding.smartRefresh.setOnLoadMoreListener {
-
+            homeViewModel.forceUpdate(false)
         }
 
         homeViewModel.isRefreshing.observe(viewLifecycleOwner,{
@@ -81,7 +84,6 @@ class HomeFragment : BaseFragment(), BannerItemListener {
         //刷新数据(如果断点,会影响)
         homeViewModel.banners.observe(viewLifecycleOwner,{})
         homeViewModel.itemList.observe(viewLifecycleOwner,{})
-
     }
 
     /**
@@ -89,7 +91,9 @@ class HomeFragment : BaseFragment(), BannerItemListener {
      */
   private fun onItemClick(){
        homeViewModel.openItem.observe(viewLifecycleOwner,{
-           it.toString().sMainToast()
+           val mBundle =Bundle()
+           mBundle.putParcelable(KEY_ITEMBEAN,it)
+          activity.actionBundle<X5MainActivity>(activity,mBundle)
        })
    }
 
@@ -147,6 +151,9 @@ class HomeFragment : BaseFragment(), BannerItemListener {
     }
 
     override fun onItemClick(data: HomeBanner, position: Int) {
-        position.toString().sMainToast()
+        val model = CommonItemModel(data.id,data.url,data.url)
+        val mBundle =Bundle()
+        mBundle.putParcelable(KEY_ITEMBEAN,model)
+        activity.actionBundle<X5MainActivity>(activity,mBundle)
     }
 }

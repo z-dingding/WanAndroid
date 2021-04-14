@@ -19,4 +19,8 @@ interface Const {
             const val  REQUEST_SEARCH = 10000
         }
     }
+
+    interface X5{
+
+    }
 }

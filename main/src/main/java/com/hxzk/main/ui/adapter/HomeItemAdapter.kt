@@ -57,8 +57,10 @@ class HomeItemAdapter(private val homeViewModel: HomeViewModel) :
         mBannerItemListener = listener
     }
 
-
-
+  //解决不及时刷新问题
+    override fun submitList(list: MutableList<DataX>?) {
+        super.submitList(if (list != null) ArrayList(list) else null)
+    }
 
 class ItemViewHolder private constructor(private val binding: AdapterHomeitemBinding) :
     RecyclerView.ViewHolder(binding.root) {

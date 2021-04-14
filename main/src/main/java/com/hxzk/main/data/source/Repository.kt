@@ -28,6 +28,7 @@ interface Repository {
     /**
      * 首页文章列表
      */
-    suspend fun articleList(pageIndex: Int): ArticleListModel
+    suspend fun articleList(pageIndex: Int,origin: ArticleListModel?): ArticleListModel
+
 
 }

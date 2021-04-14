@@ -29,6 +29,9 @@ android {
     dataBinding {
         enabled = true
     }
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
@@ -40,4 +43,7 @@ dependencies {
     api  dependencies["constraintlayout"]
     //腾讯x5
     api  dependencies["x5"]
+
+    api project(path: ':network')
+
 }

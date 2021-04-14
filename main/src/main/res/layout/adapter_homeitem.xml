@@ -23,7 +23,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="20dp"
-        android:onClick="@{() -> viewModel.clickItem(topArticle.id)}"
+        android:onClick="@{() -> viewModel.clickItem(topArticle)}"
         >
 
 

@@ -10,6 +10,9 @@ import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
 import com.tencent.smtt.sdk.WebView;
 
+/**
+ * @author hxzk
+ */
 public class X5WebView extends WebView {
 
 	private static final String TAG = "X5WebView";
@@ -23,20 +26,10 @@ public class X5WebView extends WebView {
 
 	/**是否可以直接退出，还是返回到上一页(true:可以直接返回，默认；false：不可以直接返回)*/
 	private boolean canReturn = true;
-	/**当前Webview所处的上下文（默认大家使用的是DialogFragment）*/
+	/**当前Webview所处的上下文**/
 	private Activity mActivity;
 
-	/*
-     * 在Code中new实例化一个ew会调用第一个构造函数
-     * 如果在xml中定义会调用第二个构造函数
-     * 而第三个函数系统是不调用的，要由View（我们自定义的或系统预定义的View）显式调用，一般用于自定义属性的相关操作
-     * */
-	/**在Java代码中new实例化的时候调用*/
-	public X5WebView(Context context) {
-		super(context);
-		mContext = context;
-		initWebViewSettings();
-	}
+
 	/**在xml布局文件中定义的时候调用*/
 	public X5WebView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -49,27 +42,39 @@ public class X5WebView extends WebView {
 		WebSettings webSetting = this.getSettings();
 
 		/*=============================JS的相关设置===========================================*/
-		webSetting.setJavaScriptEnabled(true);//设置WebView是否允许执行JavaScript脚本，默认false，不允许。
-		webSetting.setJavaScriptCanOpenWindowsAutomatically(true);//让JavaScript自动打开窗口，默认false。适用于JavaScript方法window.open()。
+		//设置WebView是否允许执行JavaScript脚本，默认false，不允许。
+		webSetting.setJavaScriptEnabled(true);
+		//让JavaScript自动打开窗口，默认false。适用于JavaScript方法window.open()。
+		webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
 
 		/*=============================缓存机制的相关设置===========================================*/
-		webSetting.setAllowFileAccess(true);//是否允许访问文件，默认允许。注意，这里只是允许或禁止对文件系统的访问，Assets 和 resources 文件使用file:///android_asset和file:///android_res仍是可访问的。
-		webSetting.setAppCacheEnabled(true);//应用缓存API是否可用，默认值false, 结合setAppCachePath(String)使用。
-		webSetting.setAppCacheMaxSize(Long.MAX_VALUE);//设置app缓存容量
-		webSetting.setAppCachePath(mContext.getApplicationContext().getDir("appcache", 0).getPath());//设置缓存路径
-		webSetting.setDomStorageEnabled(true);// 使用localStorage则必须打开, 支持文件存储
+		//是否允许访问文件，默认允许。注意，这里只是允许或禁止对文件系统的访问，Assets 和 resources 文件使用file:///android_asset和file:///android_res仍是可访问的。
+		webSetting.setAllowFileAccess(true);
+		//应用缓存API是否可用，默认值false, 结合setAppCachePath(String)使用。
+		webSetting.setAppCacheEnabled(true);
+		//设置app缓存容量
+		webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
+		//设置缓存路径
+		webSetting.setAppCachePath(mContext.getApplicationContext().getDir("appcache", 0).getPath());
+		// 使用localStorage则必须打开, 支持文件存储
+		webSetting.setDomStorageEnabled(true);
 		webSetting.setGeolocationEnabled(true);
-		webSetting.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);//只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据
+		//只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据
+		webSetting.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		webSetting.setGeolocationDatabasePath(mContext.getApplicationContext().getDir("geolocation", 0)
 				.getPath());
 
 		/*==============================webview页面自适应屏幕的相关设置===========================================*/
+		// 排版适应屏幕 设置布局，会引起WebView的重新布局（relayout）,默认值NARROW_COLUMNS
 		webSetting.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-		//webSetting.setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);// 排版适应屏幕 设置布局，会引起WebView的重新布局（relayout）,默认值NARROW_COLUMNS
-		webSetting.setSupportZoom(true);//是否应该支持使用其屏幕缩放控件和手势缩放,默认值true
-		webSetting.setBuiltInZoomControls(true);//设置触摸可缩放  ，默认值为false。
-		webSetting.setSupportMultipleWindows(false);//设置WebView是否支持多窗口。如果设置为true，主程序要实现onCreateWindow(WebView, boolean, boolean, Message)，默认false。
-		webSetting.setDefaultTextEncodingName(ENCODENAME);//设置网页默认编码
+		//是否应该支持使用其屏幕缩放控件和手势缩放,默认值true
+		webSetting.setSupportZoom(true);
+		//设置触摸可缩放  ，默认值为false。
+		webSetting.setBuiltInZoomControls(true);
+		//设置WebView是否支持多窗口。如果设置为true，主程序要实现onCreateWindow(WebView, boolean, boolean, Message)，默认false。
+		webSetting.setSupportMultipleWindows(false);
+		//设置网页默认编码
+		webSetting.setDefaultTextEncodingName(ENCODENAME);
 		webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
 		webSetting.setCacheMode(WebSettings.LOAD_DEFAULT);
 		//使WebView能自适应手机屏幕大

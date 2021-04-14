@@ -28,4 +28,5 @@ interface DataSource {
      * 首页文章列表
      */
     suspend fun articleList(pageIndex : Int) : Result<*>
+
 }

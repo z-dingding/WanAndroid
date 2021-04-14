@@ -14,8 +14,6 @@ import com.tencent.smtt.sdk.WebView;
  */
 public class X5WebChromeClient extends WebChromeClient {
 
-
-
 	private static final String TAG = "X5WebChromeClient";
 
 	/**依赖的窗口*/
