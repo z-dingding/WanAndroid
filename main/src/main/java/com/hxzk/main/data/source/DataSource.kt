@@ -29,4 +29,9 @@ interface DataSource {
      */
     suspend fun articleList(pageIndex : Int) : Result<*>
 
+    /**
+     * 获取个人积分接口
+     */
+    suspend fun integral(): Result<*>
+
 }

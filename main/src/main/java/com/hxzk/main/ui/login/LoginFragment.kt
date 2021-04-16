@@ -32,9 +32,9 @@ class LoginFragment : BaseFragment() {
      * 初始化对应的ViewModel
      */
     private val logViewModel by viewModels<LoginViewModel> { getViewModelFactory() }
-
     private lateinit var viewDataBinding: LoginFragBinding
 
+    lateinit var  activity : LoginActivity
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +49,7 @@ class LoginFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        activity = getActivity() as LoginActivity
         loginButton.setOnClickListener {
             ProgressDialogUtil.getInstance().showDialog(context)
             logViewModel.login()
@@ -59,8 +59,8 @@ class LoginFragment : BaseFragment() {
                     val bean = (it as Result.Success<*>).res as ApiResponse<*>
                 if (bean.errorCode == 0) {
                     //不管是首次注册登录还是直接登录都保存一次
-                    (activity as LoginActivity).saveAuthData(logViewModel.accountText.value.toString(),logViewModel.pwdText.value.toString())
-                    activity?.actionFinish<MainActivity>(context!!)
+                    activity.saveAuthData(logViewModel.accountText.value.toString(),logViewModel.pwdText.value.toString())
+                    activity?.actionFinish<MainActivity>(requireContext())
                 } else {
                     bean.errorMsg.sToast()
                 }
@@ -72,7 +72,7 @@ class LoginFragment : BaseFragment() {
         }
 
         registerAccaount.setOnClickListener {
-            (activity as LoginActivity).switchFrag(1)
+            activity.switchFrag(1)
         }
 
         forgetPwd.setOnClickListener {
@@ -82,10 +82,10 @@ class LoginFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        var account  by Preference<String>(Const.Auth.KEY_ACCOUNT,"default")
-        var pwd by Preference<String>(Const.Auth.KEY_PWD,"default")
+        val account  by Preference<String>(Const.Auth.KEY_ACCOUNT,"")
+        val pwd by Preference<String>(Const.Auth.KEY_PWD,"")
         //如果本地有存储的账号密码信息则赋值
-        if (!account.equals("default")) {
+        if (account != "") {
             logViewModel.accountText.value = account
             logViewModel.pwdText.value =pwd
         }

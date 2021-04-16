@@ -1,10 +1,14 @@
 package com.hxzk.main.ui.splash
 
 import android.view.View
+import com.hxzk.base.extension.actionFinish
+import com.hxzk.base.util.Preference
 import com.hxzk.main.event.FinishActivityEvent
 import com.hxzk.main.event.MessageEvent
 import com.hxzk.main.ui.base.BaseActivity
 import com.hxzk.main.ui.login.LoginActivity
+import com.hxzk.main.ui.main.MainActivity
+import com.hxzk.network.NetWork
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import kotlin.concurrent.thread
@@ -20,12 +24,17 @@ open  class SplashActivity : BaseActivity() {
     /**
      * 延迟执行动画跳转
      */
-    fun delayTimeStartAction(){
+    private fun delayTimeStartAction(){
         thread {
             Thread.sleep(WAIT_TIME)
             //线程睡醒了执行跳转
             runOnUiThread {
-                LoginActivity.startActionWithTransition(this, logoView)
+                val account  by Preference<String>(NetWork.KEY_COOKIES,"")
+                if(account.isNotEmpty()){
+                    activity?.actionFinish<MainActivity>(this)
+                }else {
+                    LoginActivity.startActionWithTransition(this, logoView)
+                }
             }
         }
     }

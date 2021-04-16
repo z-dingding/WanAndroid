@@ -34,6 +34,9 @@ class LocalDataSource : DataSource {
         TODO("Not yet implemented")
     }
 
+    suspend override fun integral(): Result<*> {
+        TODO("Not yet implemented")
+    }
 
 
 }

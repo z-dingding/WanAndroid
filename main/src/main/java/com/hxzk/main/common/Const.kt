@@ -20,7 +20,6 @@ interface Const {
         }
     }
 
-    interface X5{
 
-    }
+
 }

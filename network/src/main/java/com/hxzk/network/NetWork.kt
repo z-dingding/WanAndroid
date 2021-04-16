@@ -10,10 +10,15 @@ import android.content.Context
 class NetWork {
 
     companion object {
-         var context: Context? = null
+        var context: Context? = null
+        /**
+         * cookie的key
+         */
+        const val KEY_COOKIES = "key_cookies"
 
         fun initialize(c: Context) {
             context = c
         }
     }
+
 }

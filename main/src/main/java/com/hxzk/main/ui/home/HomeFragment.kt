@@ -30,10 +30,10 @@ class HomeFragment : BaseFragment(), BannerItemListener {
 
     val homeViewModel by viewModels<HomeViewModel> { getViewModelFactory() }
     lateinit var  homeFragDataBinding : FragmentHomeBinding
-    lateinit var activity: MainActivity
+
     private lateinit var listAdapter: HomeItemAdapter
 
-
+    lateinit var activity: MainActivity
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,9 +47,9 @@ class HomeFragment : BaseFragment(), BannerItemListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        activity = getActivity() as MainActivity
         //设置了lifecycleOwner后绑定了LiveData数据源的xml控件才会随着数据变化而改变
         homeFragDataBinding.lifecycleOwner = this.viewLifecycleOwner
-        activity = getActivity() as MainActivity
         initToolbar()
         setupListAdapter()
         onItemClick()

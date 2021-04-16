@@ -1,7 +1,6 @@
 package com.hxzk.network
 
-import com.hxzk.network.interceptor.HeaderInterceptor
-import com.hxzk.network.interceptor.NetCacheInterceptor
+import com.hxzk.network.interceptor.CookieInterceptor
 import com.hxzk.network.model.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -28,20 +27,16 @@ import retrofit2.http.*
          */
         const val baseUrl ="https://www.wanandroid.com/"
 
+
         fun get(): WanApi {
             val clientBuilder = OkHttpClient.Builder()
                 .connectTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
-                .addInterceptor(HeaderInterceptor())
-                .addNetworkInterceptor(NetCacheInterceptor)
+                .addInterceptor(CookieInterceptor())
             if (isDebug) {
                 val loggingInterceptor = HttpLoggingInterceptor()
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
                 clientBuilder.addInterceptor(loggingInterceptor)
             }
-//            val cookieJar =
-//                PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(NetWork.context))
-//            clientBuilder.cookieJar(cookieJar)
-
             return Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(clientBuilder.build())
@@ -66,7 +61,11 @@ import retrofit2.http.*
      */
     @FormUrlEncoded
     @POST("user/register")
-    fun register(@Field("username") username: String, @Field("password") password: String , @Field("repassword") repassword: String): Call<ApiResponse<LoginModel>>
+    fun register(
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("repassword") repassword: String
+    ): Call<ApiResponse<LoginModel>>
 
     /**
      * 首页Banner
@@ -83,7 +82,15 @@ import retrofit2.http.*
      * 首页置顶文章
      */
     @GET("article/list/{pageIndex}/json")
-    fun articleList(@Path("pageIndex") pageIndex : Int): Call<ApiResponse<ArticleListModel>>
+    fun articleList(@Path("pageIndex") pageIndex: Int): Call<ApiResponse<ArticleListModel>>
+
+
+    /**
+     * 我的积分接口
+     */
+    @GET("lg/coin/userinfo/json")
+    fun integralApi():Call<ApiResponse<IntegralModel>>
+
 
 
 

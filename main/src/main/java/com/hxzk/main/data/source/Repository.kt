@@ -29,6 +29,8 @@ interface Repository {
      * 首页文章列表
      */
     suspend fun articleList(pageIndex: Int,origin: ArticleListModel?): ArticleListModel
-
-
+    /**
+     * 获取个人积分接口
+     */
+   fun integral(): LiveData<Result<*>>
 }

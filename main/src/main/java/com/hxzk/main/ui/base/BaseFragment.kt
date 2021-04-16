@@ -1,5 +1,6 @@
 package com.hxzk.main.ui.base
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment
      * Fragment中inflate出来的布局。
      */
     protected var rootView: View? = null
+
 
 
 
