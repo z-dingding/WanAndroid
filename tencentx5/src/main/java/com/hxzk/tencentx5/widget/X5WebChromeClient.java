@@ -2,8 +2,8 @@ package com.hxzk.tencentx5.widget;
 
 import android.content.Context;
 import android.net.Uri;
-import android.view.ViewGroup;
 
+import com.hxzk.tencentx5.callback.WebViewProgress;
 import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
@@ -16,53 +16,47 @@ public class X5WebChromeClient extends WebChromeClient {
 
 	private static final String TAG = "X5WebChromeClient";
 
-	/**依赖的窗口*/
+
 	private Context mContext;
 	private X5WebView x5WebView;
+
+
 
 	public X5WebChromeClient(Context context, X5WebView x5WebView) {
 		this.mContext = context;
 		this.x5WebView = x5WebView;
 	}
 
-	//更改加载进度值
-	//throw、throws：这是用于抛出异常，区别在于throw是在语句中抛出、throws是在方法体抛出；
+	/**
+	 * 加载进度值
+	 */
 	@Override
-	public void onProgressChanged(WebView view, int newProgress) throws NullPointerException {
+	public void onProgressChanged(WebView view, int newProgress) {
 		super.onProgressChanged(view, newProgress);
-
-			if(newProgress == 100){
-				ViewGroup contentParent = (ViewGroup) view.getParent();
-				if(contentParent != null){
-					if(contentParent.getChildCount() > 1){
-						contentParent.removeViewAt(1);
-					}
-				}else{
-				System.out.println("{contentParent为空}");
-			}
+		if(mWebViewProgress != null){
+			mWebViewProgress.onProgressChanged(view,newProgress);
 		}
+
+	}
+
+	WebViewProgress mWebViewProgress;
+	public void setOnProgressChanged(WebViewProgress webViewProgress){
+		mWebViewProgress = webViewProgress;
 	}
 
 
 
 	/*=========================================实现webview打开文件管理器功能==============================================*/
+
+    //5.0--版本用到的
+	private static  com.tencent.smtt.sdk.ValueCallback<Uri> choseFileUri;
+	//5.0++版本用到的
+	private  static com.tencent.smtt.sdk.ValueCallback <Uri[]> choseFileUriArr;
+
+
 	/**
-	 * HTML界面：
-	 * <input accept="image/*" capture="camera" id="imgFile" name="imgFile" type="file">
-	 * <input type="file" capture="camera" accept="* /*" name="image">
-	 *  */
-
-	/**
-	 * 重写WebChromeClient 的openFileChooser方法
-	 * 这里有个漏洞，4.4.x的由于系统内核发生了改变，没法调用以上方法，现在仍然找不到解决办法，唯一的方法就是4.4直接使用手机浏览器打开，这个是可以的。
-	 * */
-
-	private static  com.tencent.smtt.sdk.ValueCallback<Uri> mUploadMessage;//5.0--版本用到的
-	private  static com.tencent.smtt.sdk.ValueCallback <Uri[]> mUploadCallbackAboveL;//5.0++版本用到的
-
-
-
-	//5.0及以上系统回调onShowFileChooser
+	 * 5.0及以上系统回调onShowFileChooser
+	 */
 	@Override
 	public boolean onShowFileChooser(WebView webView,
                                      ValueCallback<Uri[]> filePathCallback,
@@ -72,52 +66,52 @@ public class X5WebChromeClient extends WebChromeClient {
 		return true;
 	}
 
-   //5.0以下系统回调openFileChooser方法(没有包括3.0及其以下,因为几乎不存在3.0的手机了，所以没有考虑)
+	/**
+	 * 5.0++的调用
+	 */
+	private void openFileChooserImplForAndroid5(com.tencent.smtt.sdk.ValueCallback <Uri[]> filePathCallback) {
+		choseFileUriArr = filePathCallback;
+		dispatchTakePictureIntent();
+	}
+	/**
+	 * 	5.0以下系统回调openFileChooser方法(没有包括3.0及其以下,因为几乎不存在3.0的手机了，所以没有考虑)
+	 */
 	@Override
 	public void openFileChooser(ValueCallback<Uri> valueCallback, String s, String s1) {
 		openFileChooserImpl(valueCallback);
 	}
 
 
+	/**
+	 * 5.0--的调用
+	 */
 
-
-	//5.0--的调用
-	private void openFileChooserImpl(com.tencent.smtt.sdk.ValueCallback <Uri> uploadMsg) {
-		mUploadMessage = uploadMsg;
-		dispatchTakePictureIntent();
-	}
-	//5.0++的调用
-	private void openFileChooserImplForAndroid5(com.tencent.smtt.sdk.ValueCallback <Uri[]> uploadMsg) {
-		mUploadCallbackAboveL = uploadMsg;
+	private void openFileChooserImpl(com.tencent.smtt.sdk.ValueCallback <Uri> valueCallback) {
+		choseFileUri = valueCallback ;
 		dispatchTakePictureIntent();
 	}
 
-	//拍照或者打开文件管理器
+
+	/**
+	 * 拍照或者打开文件管理器
+	 */
 	private void dispatchTakePictureIntent() {
 
-		//在这里调用选取图片的方法choosePicByPhotoPicker
-
-
 	}
 
+
 	public com.tencent.smtt.sdk.ValueCallback <Uri> getmUploadMessage() {
-		return mUploadMessage;
+		return choseFileUri;
+	}
+	public void setChoseFileUri(com.tencent.smtt.sdk.ValueCallback<Uri> choseFileUri) {
+		X5WebChromeClient.choseFileUri = choseFileUri;
 	}
 
 	public com.tencent.smtt.sdk.ValueCallback <Uri[]> getmUploadCallbackAboveL() {
-		return mUploadCallbackAboveL;
+		return choseFileUriArr;
 	}
-
-	public void setmUploadMessage(com.tencent.smtt.sdk.ValueCallback<Uri> mUploadMessage) {
-		X5WebChromeClient.mUploadMessage = mUploadMessage;
+	public void setChoseFileUriArr(com.tencent.smtt.sdk.ValueCallback <Uri[]> choseFileUriArr) {
+		X5WebChromeClient.choseFileUriArr = choseFileUriArr;
 	}
-
-	public void setmUploadCallbackAboveL(com.tencent.smtt.sdk.ValueCallback <Uri[]> mUploadCallbackAboveL) {
-		X5WebChromeClient.mUploadCallbackAboveL = mUploadCallbackAboveL;
-	}
-
-
-
-
 
 }

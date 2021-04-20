@@ -1,6 +1,7 @@
 package com.hxzk.main.ui.base
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.ViewStub
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.hxzk.base.util.ActivityCollector
+import com.hxzk.base.util.AndroidVersion
 import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.R
 import com.hxzk.main.callback.RequestLifecycle
@@ -64,6 +66,16 @@ open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
         EventBus.getDefault().unregister(this)
     }
 
+    /**
+     * 将状态栏设置成透明。只适配Android 5.0以上系统的手机。
+     */
+    protected fun transparentStatusBar() {
+        if (AndroidVersion.hasLollipop()) {
+            val decorView = window.decorView
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            window.statusBarColor = Color.TRANSPARENT
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun onMessageEvent(messageEvent: MessageEvent) {}

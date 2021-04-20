@@ -3,7 +3,6 @@ package com.hxzk.tencentx5.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import com.tencent.smtt.sdk.WebSettings;
@@ -124,17 +123,13 @@ public class X5WebView extends WebView {
 	/**按返回键时， 是不退出当前界面而是返回上一浏览页面还是直接退出当前界面*/
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		Log.e(TAG,"{onKeyDown}canReturn="+canReturn);
 		if(!canReturn){
 			if ((keyCode == KeyEvent.KEYCODE_BACK) && canGoBack()) {
 				goBack();
 				return true;
 			}else if((keyCode == KeyEvent.KEYCODE_BACK) && !canGoBack()){
-				if(mActivity != null){
-					//将操作返回到activity处理
-					return  false;
-				}
-				return true;
+				//将操作返回到activity处理
+				return mActivity == null;
 			}
 		}
 		return super.onKeyDown(keyCode, event);

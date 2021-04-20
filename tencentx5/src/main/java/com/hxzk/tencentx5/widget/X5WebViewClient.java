@@ -26,8 +26,8 @@ public class X5WebViewClient extends WebViewClient {
     /**
      * 依赖的窗口
      */
-    private  static Context context;
-    private static X5WebView x5WebView;
+    private   Context context;
+    private  X5WebView x5WebView;
     /**
      * 是否需要清除历史记录
      */
@@ -35,7 +35,7 @@ public class X5WebViewClient extends WebViewClient {
 
     public X5WebViewClient(Context conx, X5WebView webView) {
         context = conx;
-       x5WebView = webView;
+        x5WebView = webView;
     }
 
 
