@@ -11,6 +11,9 @@ import com.tencent.smtt.sdk.WebView
 import kotlinx.android.synthetic.main.activity_x5main.*
 
 class X5MainActivity : AppCompatActivity() , WebViewProgress {
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_x5main)
@@ -23,6 +26,7 @@ class X5MainActivity : AppCompatActivity() , WebViewProgress {
             finish()
         }
     }
+
 
 
     /**

@@ -88,7 +88,6 @@ public class X5WebView extends WebView {
 		this.setHorizontalScrollBarEnabled(false);
 
 
-
 		//使用WebChormClient的特性处理html页面
 		x5WebChromeClient = new X5WebChromeClient(getContext(),this);
 		this.setWebChromeClient(x5WebChromeClient);
@@ -97,7 +96,8 @@ public class X5WebView extends WebView {
 		this.setWebViewClient(x5WebViewClient);
 
 		//实现html文件中可以调用java方法
-		addJavascriptInterface(X5WebViewJSInterface.getInstance(mContext,this), "androidMethod");
+		X5WebViewJSInterface jsInterface =new X5WebViewJSInterface(getContext(),this);
+		this.addJavascriptInterface(jsInterface, "jsInterface");
 	}
 
 

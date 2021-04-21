@@ -8,13 +8,17 @@ import android.os.Build;
 import android.text.TextUtils;
 
 import com.hxzk.base.extension.LogKt;
-
+import com.hxzk.tencentx5.R;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Used 主要处理解析，渲染网页等浏览器做的事情。
@@ -32,10 +36,16 @@ public class X5WebViewClient extends WebViewClient {
      * 是否需要清除历史记录
      */
     private boolean needClearHistory = false;
+    /**
+     * js代码的字符串
+     */
+    String initJs ="";
+
 
     public X5WebViewClient(Context conx, X5WebView webView) {
         context = conx;
         x5WebView = webView;
+        initJs = loadJSFromRaw();
     }
 
 
@@ -93,6 +103,8 @@ public class X5WebViewClient extends WebViewClient {
     public void onPageFinished(WebView webView, String url) {
         super.onPageFinished(webView, url);
         LogKt.logDebug(TAG, "{onPageFinished}url=" + url);
+        //android调用jsd
+        webView.evaluateJavascript("javascript:" + initJs, null);
     }
 
 
@@ -101,7 +113,6 @@ public class X5WebViewClient extends WebViewClient {
      * 网页加载失败时调用，隐藏加载提示旋转进度条
      * 捕获的是 文件找不到，网络连不上，服务器找不到等问题
      */
-
     @Override
     public void onReceivedError(WebView webView, int errorCode,
                                 String description, String failingUrl) {
@@ -149,6 +160,26 @@ public class X5WebViewClient extends WebViewClient {
         this.needClearHistory = needClearHistory;
     }
 
-
+    /**
+     * 将raw中的js内容读取转为字符串
+     */
+    private String loadJSFromRaw() {
+        String initJs  ="";
+        InputStream inputStream = context.getResources().openRawResource(R.raw.init);
+        int len = 0;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        try {
+            while ((len =inputStream.read(buffer)) >= 0) {
+                bos.write(buffer, 0, len);
+            }
+            inputStream.close();
+            initJs = bos.toString();
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return initJs;
+    }
 
 }
