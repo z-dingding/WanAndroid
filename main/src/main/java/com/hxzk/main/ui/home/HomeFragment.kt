@@ -18,8 +18,8 @@ import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.search.SearchActivity
 import com.hxzk.network.model.CommonItemModel
 import com.hxzk.network.model.HomeBanner
-import com.hxzk.tencentx5.X5MainActivity
-import com.hxzk.tencentx5.X5MainActivity.Companion.KEY_ITEMBEAN
+import com.hxzk.main.ui.x5Webview.X5MainActivity
+import com.hxzk.main.ui.x5Webview.X5MainActivity.Companion.KEY_ITEMBEAN
 import kotlinx.android.synthetic.main.fragment_home.*
 
 

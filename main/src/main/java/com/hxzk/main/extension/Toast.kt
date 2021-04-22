@@ -29,7 +29,7 @@ fun String.sToast(duration: Int =Toast.LENGTH_LONG){
 
 
 /**
- * 工作线程的toast
+ * 工作线程的toast(切换到主线程)
  */
 fun String.sMainToast(duration: Int =Toast.LENGTH_LONG){
     Common.getMainHandler().post{

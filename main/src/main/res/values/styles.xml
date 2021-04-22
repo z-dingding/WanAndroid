@@ -13,7 +13,7 @@
         <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
-    <!--    TextInputLayout相关样式-->
+    <!-- 登录注册等页面TextInputLayout相关样式-->
     <style name="EditTextErrorAppearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/text_white</item>
         <item name="android:textSize">12sp</item>
@@ -27,4 +27,16 @@
         <item name="colorControlHighlight">@color/text_white</item>
     </style>
 
+<!--     授权Fragment的按钮-->
+    <style name="MaterialButton">
+        <item name="colorControlHighlight">@color/ripple_light</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+<!--    授权Fragment的dialog的样式-->
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@color/white</item>
+    </style>
 </resources>

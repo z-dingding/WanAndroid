@@ -39,29 +39,27 @@ public class X5WebView extends WebView {
 	private void initWebViewSettings(){
 		// settings 的设计
 		WebSettings webSetting = this.getSettings();
-
 		/*=============================JS的相关设置===========================================*/
-		//设置WebView是否允许执行JavaScript脚本，默认false，不允许。
+		//设置WebView是否允许执行JavaScript脚本
 		webSetting.setJavaScriptEnabled(true);
 		//让JavaScript自动打开窗口，默认false。适用于JavaScript方法window.open()。
 		webSetting.setJavaScriptCanOpenWindowsAutomatically(true);
-
 		/*=============================缓存机制的相关设置===========================================*/
-		//是否允许访问文件，默认允许。注意，这里只是允许或禁止对文件系统的访问，Assets 和 resources 文件使用file:///android_asset和file:///android_res仍是可访问的。
-		webSetting.setAllowFileAccess(true);
-		//应用缓存API是否可用，默认值false, 结合setAppCachePath(String)使用。
-		webSetting.setAppCacheEnabled(true);
-		//设置app缓存容量
-		webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
-		//设置缓存路径
-		webSetting.setAppCachePath(mContext.getApplicationContext().getDir("appcache", 0).getPath());
-		// 使用localStorage则必须打开, 支持文件存储
-		webSetting.setDomStorageEnabled(true);
-		webSetting.setGeolocationEnabled(true);
-		//只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据
-		webSetting.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-		webSetting.setGeolocationDatabasePath(mContext.getApplicationContext().getDir("geolocation", 0)
-				.getPath());
+//		//是否允许访问文件，默认允许。注意，这里只是允许或禁止对文件系统的访问，Assets 和 resources 文件使用file:///android_asset和file:///android_res仍是可访问的。
+//		webSetting.setAllowFileAccess(true);
+//		//应用缓存API是否可用，默认值false, 结合setAppCachePath(String)使用。
+//		webSetting.setAppCacheEnabled(true);
+//		//设置app缓存容量
+//		webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
+//		//设置缓存路径
+//		webSetting.setAppCachePath(mContext.getApplicationContext().getDir("appcache", 0).getPath());
+//		// 使用localStorage则必须打开, 支持文件存储
+//		webSetting.setDomStorageEnabled(true);
+//		webSetting.setGeolocationEnabled(true);
+//		//只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据
+//		webSetting.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+//		webSetting.setGeolocationDatabasePath(mContext.getApplicationContext().getDir("geolocation", 0)
+//				.getPath());
 
 		/*==============================webview页面自适应屏幕的相关设置===========================================*/
 		// 排版适应屏幕 设置布局，会引起WebView的重新布局（relayout）,默认值NARROW_COLUMNS
@@ -74,8 +72,8 @@ public class X5WebView extends WebView {
 		webSetting.setSupportMultipleWindows(false);
 		//设置网页默认编码
 		webSetting.setDefaultTextEncodingName(ENCODENAME);
-		webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
-		webSetting.setCacheMode(WebSettings.LOAD_DEFAULT);
+//		webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
+//		webSetting.setCacheMode(WebSettings.LOAD_DEFAULT);
 		//使WebView能自适应手机屏幕大
 		webSetting.setUseWideViewPort(true);
 		webSetting.setLoadWithOverviewMode(true);

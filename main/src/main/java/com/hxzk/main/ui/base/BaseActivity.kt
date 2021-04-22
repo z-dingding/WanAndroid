@@ -1,6 +1,8 @@
 package com.hxzk.main.ui.base
 
 import android.app.Activity
+import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -8,22 +10,26 @@ import android.view.ViewStub
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.hxzk.base.util.ActivityCollector
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.R
+import com.hxzk.main.callback.PermissionListener
 import com.hxzk.main.callback.RequestLifecycle
 import com.hxzk.main.event.MessageEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.lang.ref.WeakReference
+import java.util.*
 
-open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
+open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
 
 
-    var activity : Activity? = null
-    var weakReference :WeakReference<Activity>? = null
+    var activity: Activity? = null
+    var weakReference: WeakReference<Activity>? = null
 
     /**
      * Activity中由于服务器异常导致加载失败显示的布局。
@@ -43,6 +49,8 @@ open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
 
     var toolbar: Toolbar? = null
 
+    private var mListener: PermissionListener? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity = this
@@ -52,8 +60,9 @@ open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
     }
 
 
-
     override fun setContentView(layoutResID: Int) {
+        //设置竖屏
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.setContentView(layoutResID)
         setupViews()
     }
@@ -72,15 +81,18 @@ open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
     protected fun transparentStatusBar() {
         if (AndroidVersion.hasLollipop()) {
             val decorView = window.decorView
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             window.statusBarColor = Color.TRANSPARENT
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    open fun onMessageEvent(messageEvent: MessageEvent) {}
 
-    abstract fun  setupViews()
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    open fun onMessageEvent(messageEvent: MessageEvent) {
+    }
+
+    abstract fun setupViews()
 
     protected fun setupToolbar() {
         toolbar = findViewById(R.id.toolbar)
@@ -109,11 +121,12 @@ open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
      * 隐藏服务器异常，没有网络，没有数据三种状态的View
      */
 
-    fun hideAllStateView(){
+    fun hideAllStateView() {
         badNetworkView?.visibility = View.GONE
         noContentView?.visibility = View.GONE
         loadErrorView?.visibility = View.GONE
     }
+
     /**
      * 当Activity中的加载内容服务器返回失败，通过此方法显示提示界面给用户。
      *
@@ -167,6 +180,71 @@ open  abstract class BaseActivity : AppCompatActivity() , RequestLifecycle {
             noContentView = viewStub.inflate()
             val noContentText = noContentView?.findViewById<TextView>(R.id.noContentText)
             noContentText?.text = tip
+        }
+    }
+
+    /**
+     * 检查和处理运行时权限，并将用户授权的结果通过PermissionListener进行回调。
+     *
+     * @param permissions
+     * 要检查和处理的运行时权限数组
+     * @param listener
+     * 用于接收授权结果的监听器
+     */
+    protected fun handlePermissions(permissions: Array<String>?, listener: PermissionListener) {
+        if (permissions == null || activity == null) {
+            return
+        }
+        mListener = listener
+        //过滤出需要请求的权限(部分权限已经授权)进行请求
+        val requestPermissionList = ArrayList<String>()
+        for (permission in permissions) {
+            //如果权限没有授予
+            if (ContextCompat.checkSelfPermission(
+                    activity!!,
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermissionList.add(permission)
+            }
+        }
+        if (!requestPermissionList.isEmpty()) {
+            ActivityCompat.requestPermissions(activity!!, requestPermissionList.toTypedArray(), 1)
+        } else {
+            listener.onGranted()
+        }
+    }
+
+    open fun permissionsGranted() {
+        // 由子类来进行具体实现
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        //请求授权的权限数组
+        permissions: Array<String>,
+        //授权结果,包括授权和拒绝的
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        //处理没有授权权限的申请结果
+        when (requestCode) {
+            1 -> if (grantResults.isNotEmpty()) {
+                val deniedPermissions = ArrayList<String>()
+                for (i in grantResults.indices) {
+                    val grantResult = grantResults[i]
+                    val permission = permissions[i]
+                    //0授权，-1拒绝授权
+                    if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                        deniedPermissions.add(permission)
+                    }
+                }
+                if (deniedPermissions.isEmpty()) {
+                    mListener!!.onGranted()
+                } else {
+                    mListener!!.onDenied(deniedPermissions)
+                }
+            }
         }
     }
 }

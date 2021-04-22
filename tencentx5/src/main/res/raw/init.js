@@ -1,6 +1,7 @@
 var objs = document.getElementsByTagName("img");
 var timeOutEvent=0;
 var imageUrl="";
+ console.log("enterjs");
 for(var i=0; i<objs.length; i++) {
   	var img=objs[i];
   	//检测类型是不是我们定义的mobile,jsInterface为变量名
@@ -20,7 +21,7 @@ for(var i=0; i<objs.length; i++) {
 }
 function touchstart(e){
        console.log("touchstart");
-      timeOutEvent = setTimeout("longPress()",500);
+      timeOutEvent = setTimeout("longPress()",2000);
      imageUrl=this.src;
 }
 

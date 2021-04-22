@@ -3,9 +3,10 @@
     package="com.hxzk.main">
 
     <application>
-        <activity android:name=".ui.search.SearchActivity"></activity>
+        <activity android:name=".ui.search.SearchActivity"/>
         <activity android:name=".ui.login.AuthActivity" />
         <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.x5Webview.X5MainActivity" />
     </application>
 
 </manifest>

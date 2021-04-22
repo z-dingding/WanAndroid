@@ -37,7 +37,6 @@ public class X5WebChromeClient extends WebChromeClient {
 		if(mWebViewProgress != null){
 			mWebViewProgress.onProgressChanged(view,newProgress);
 		}
-
 	}
 
 	WebViewProgress mWebViewProgress;
@@ -46,8 +45,8 @@ public class X5WebChromeClient extends WebChromeClient {
 	}
 
 	@Override
-	public boolean onJsAlert(WebView webView, String s, String s1, JsResult jsResult) {
-		return false;
+	public boolean onJsAlert(WebView webView, String url, String message, JsResult result) {
+		return super.onJsAlert(webView, url, message, result);
 	}
 
 	/*=========================================实现webview打开文件管理器功能==============================================*/

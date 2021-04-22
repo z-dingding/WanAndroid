@@ -18,6 +18,8 @@
 <!--    首页bnv选择和不选中的文字颜色-->
     <color name="bnv_textcolor_checked">#FFF</color>
     <color name="bnv_textcolor_enabled">#cdcdcd</color>
-
-
+<!--    授权页面按钮选中-->
+    <color name="ripple_light">#77ffffff</color>
+    <!--    授权页面alert上的文字颜色-->
+    <color name="primary_text">#444444</color>
 </resources>
