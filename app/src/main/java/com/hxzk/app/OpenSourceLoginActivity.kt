@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.transition.Transition
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.main.callback.SimpleTransitionListener
+import com.hxzk.main.common.Const
 import com.hxzk.main.event.FinishActivityEvent
 import com.hxzk.main.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_open_source_login.*
@@ -17,10 +18,18 @@ class OpenSourceLoginActivity : LoginActivity() {
      */
     protected var isTransitioning = false
 
+    /**
+     * 是否cookie失效需要重新登录
+     */
+    protected var isLoginAgain = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_source_login)
+         intent?.let {
+             isLoginAgain = it.getBooleanExtra(Const.Auth.KEY_ISLOGINAGAIN,false)
+         }
+
     }
 
     override fun setupViews() {
@@ -40,7 +49,10 @@ class OpenSourceLoginActivity : LoginActivity() {
         }
 
         close.setOnClickListener {
-            if (!isTransitioning) {
+            //动画执行完成才可以结束
+            if (!isTransitioning && !isLoginAgain) {
+                finish()
+            }else{
                 finish()
             }
         }

@@ -28,7 +28,7 @@ class CookieInterceptor : Interceptor {
             //获取磁盘里面的Cookie字符串
             val spCookie = sp.getString(NetWork.KEY_COOKIES, "")
             if (!TextUtils.isEmpty(spCookie)) {
-                //获取spCookie解密放到内存中
+                //获取spCookie放到内存中
                 memoryCookie= spCookie.toString()
             }
         }
@@ -41,7 +41,7 @@ class CookieInterceptor : Interceptor {
 
         //拦截返回数据
         val originalResponse: Response = chain.proceed(request)
-        //判断请求头里面是否有Set-Cookie值,更新Cookie
+        //判断请求头里面是否有Set-Cookie值,更新Cookie(通常只有登录时才有)
         if (originalResponse.headers("Set-Cookie").isNotEmpty()) {
             //字符串集
             val stringBuilder: StringBuilder = StringBuilder()

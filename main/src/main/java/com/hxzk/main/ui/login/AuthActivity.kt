@@ -11,10 +11,11 @@ abstract class AuthActivity : BaseActivity() {
      * 存储登录用户的账号密码
      */
     fun saveAuthData(account: String, pwd: String) {
-        var sAcount by Preference(Const.Auth.KEY_ACCOUNT,"default")
+        var sAcount by Preference(Const.Auth.KEY_ACCOUNT,"")
         sAcount = account
-        var sPwd by Preference(Const.Auth.KEY_PWD,"default")
+        var sPwd by Preference(Const.Auth.KEY_PWD,"")
         sPwd = pwd
     }
+
 
 }

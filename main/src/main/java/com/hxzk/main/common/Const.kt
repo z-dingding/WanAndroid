@@ -10,6 +10,7 @@ interface Const {
         companion object {
           const val KEY_ACCOUNT = "key_account"
           const val KEY_PWD = "key_pwd"
+          const val KEY_ISLOGINAGAIN = "key_isloginagain"
         }
     }
 

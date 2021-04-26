@@ -9,21 +9,21 @@ import com.hxzk.main.data.source.Repository
 import com.hxzk.main.util.ResponseHandler
 import com.hxzk.network.Result
 import com.hxzk.network.model.ApiResponse
-import com.hxzk.network.model.IntegralModel
+import com.hxzk.network.model.UserInfoModel
 import com.hxzk.network.succeeded
 
 class MineViewModel(private val repository: Repository) : ViewModel() {
 
 
-    private  val _userInfo :LiveData<IntegralModel> = repository.integral().switchMap {
+    private  val _userInfo :LiveData<UserInfoModel> = repository.integral().switchMap {
          transition(it)
     }
-    private fun transition(it : Result<*>) : LiveData<IntegralModel> {
-        val result =MutableLiveData<IntegralModel>()
+    private fun transition(it : Result<*>) : LiveData<UserInfoModel> {
+        val result =MutableLiveData<UserInfoModel>()
         if (it.succeeded) {
             val bean = (it as Result.Success<*>).res as ApiResponse<*>
             if (bean.errorCode == 0) {
-                result.value = bean.data as IntegralModel
+                result.value = bean.data as UserInfoModel
             } else {
                 bean.errorMsg.sToast()
             }
@@ -34,5 +34,5 @@ class MineViewModel(private val repository: Repository) : ViewModel() {
         return result
     }
 
-    val userInfo = _userInfo
+    val userInfo : LiveData<UserInfoModel> = _userInfo
 }

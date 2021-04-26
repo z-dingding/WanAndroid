@@ -53,7 +53,7 @@ open abstract class  LoginActivity : AuthActivity(){
         val START_WITH_TRANSITION = "start_with_transition"
 
         fun startActionWithTransition(activity: Activity, logo: View) {
-            //注意此处使用的是隐士跳转(解决不在同意modele无法访问指定Activity的问题)
+            //注意此处使用的是隐士跳转(解决不在同一modele无法访问指定Activity的问题)
             val mIntent = Intent(ACTION_LOGIN_WITH_TRANSITION)
             //android5.0支持转场动画
             if (AndroidVersion.hasLollipop()) {

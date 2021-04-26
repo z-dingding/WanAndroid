@@ -169,7 +169,9 @@ public class X5WebViewClient extends WebViewClient {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         try {
+            //将数据读入一个字节数组，同时返回实际读取的字节数。如果返回-1，表示读到了输入流的末尾
             while ((len = inputStream.read(buffer)) >= 0) {
+                //往输出流中写入数组 b 中从偏移量 off 开始的 len 个字节的数据。
                 bos.write(buffer, 0, len);
             }
             inputStream.close();

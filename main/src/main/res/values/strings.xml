@@ -51,5 +51,8 @@
     <!-- 首页 -->
     <string name="home_tag_new">新</string>
 
-
+<!-- 我的-->
+  <string name="mine_userid">ID:%d</string>
+  <string name="mine_level">等级:%s</string>
+  <string name="mine_ranking">排名:%d</string>
 </resources>

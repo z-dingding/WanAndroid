@@ -3,8 +3,7 @@
     <data>
          <variable
              name="viewmodel"
-             type="com.hxzk.main.ui.mine.MineViewModel" />
-
+             type="com.hxzk.main.ui.mine.MineViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,7 +15,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/head"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:background="@color/colorPrimary"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -27,24 +26,73 @@
                 android:id="@+id/iv_integral"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:src="@drawable/mine_integral"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintVertical_bias="0.05"
                 />
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="15dp"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintLeft_toLeftOf="parent"
+               app:layout_constraintRight_toRightOf="parent"
+               android:gravity="center_horizontal"
+               android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewmodel.userInfo.username}"
-                tools:text="张三"
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView
+                    android:id="@+id/iv_userPhoto"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/ic_launcher"/>
+               <TextView
+                   android:id="@+id/tv_userName"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="7dp"
+                   android:text="@{viewmodel.userInfo.username}"
+                   android:textSize="@dimen/textSize_large"
+                   android:textColor="@color/text_white"/>
+               <TextView
+                   android:id="@+id/tv_userId"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="5dp"
+                   android:text="@{@string/mine_userid(viewmodel.userInfo.userId)}"
+                   android:textSize="@dimen/textSize_samll"
+                   android:textColor="@color/text_gray2"/>
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="20dp"
+                   android:layout_gravity="center"
+                   android:gravity="center_vertical"
+                   android:layout_marginTop="5dp"
+                >
+                   <TextView
+                       android:id="@+id/tv_level"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@{@string/mine_level(viewmodel.userInfo.level)}"
+                       android:textSize="@dimen/textSize_samll"
+                       android:textColor="@color/text_gray2"/>
+                   <TextView
+                       android:id="@+id/tv_ranking"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="10dp"
+                       android:text="@{@string/mine_ranking(viewmodel.userInfo.rank)}"
+                       android:textSize="@dimen/textSize_samll"
+                       android:textColor="@color/text_gray2"/>
+               </LinearLayout>
+
+           </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

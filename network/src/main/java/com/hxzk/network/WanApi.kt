@@ -1,6 +1,7 @@
 package com.hxzk.network
 
 import com.hxzk.network.interceptor.CookieInterceptor
+import com.hxzk.network.interceptor.LoginIntercepte
 import com.hxzk.network.model.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,6 +33,7 @@ import retrofit2.http.*
             val clientBuilder = OkHttpClient.Builder()
                 .connectTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
                 .addInterceptor(CookieInterceptor())
+                .addNetworkInterceptor(LoginIntercepte())
             if (isDebug) {
                 val loggingInterceptor = HttpLoggingInterceptor()
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -89,7 +91,7 @@ import retrofit2.http.*
      * 我的积分接口
      */
     @GET("lg/coin/userinfo/json")
-    fun integralApi():Call<ApiResponse<IntegralModel>>
+    fun integralApi():Call<ApiResponse<UserInfoModel>>
 
 
 
