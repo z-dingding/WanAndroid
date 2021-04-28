@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.hxzk.tencentx5.callback.WebViewProgress;
-import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.sdk.ValueCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
@@ -44,10 +43,6 @@ public class X5WebChromeClient extends WebChromeClient {
 		mWebViewProgress = webViewProgress;
 	}
 
-	@Override
-	public boolean onJsAlert(WebView webView, String url, String message, JsResult result) {
-		return super.onJsAlert(webView, url, message, result);
-	}
 
 	/*=========================================实现webview打开文件管理器功能==============================================*/
 

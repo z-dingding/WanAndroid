@@ -21,6 +21,13 @@ interface Const {
         }
     }
 
+    interface  PhotoView{
+        companion object{
+            const val KEY_CURRENT_RUL = "key_current_url"
+            const val KEY_IMGS_RUL = "key_imgs_url"
+        }
+    }
+
 
 
 }

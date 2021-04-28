@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.hxzk.base.extension.LogKt;
 import com.hxzk.tencentx5.R;
@@ -75,7 +76,15 @@ public class X5WebViewClient extends WebViewClient {
                 //处理文件
 
             } else if (url.contains("http") || url.contains("https")) {
-                //view.loadUrl(url);
+                //如果连接中包含淘宝等字眼则不跳转
+                if(url.contains("taobao") || url.contains("api.interactive.xianyujoy.cn")){
+                    LogKt.logDebug(TAG, "拦截到植入广告，广告的url——"+url);
+                    Toast.makeText(context, "拦截到植入广告，广告的url",Toast.LENGTH_LONG).show();
+                }
+                //如果是跳转到webview的预览则拦截
+                if(url.contains("https://wanandroid.com/blogimgs")){
+                    return true;
+                }
                 return super.shouldOverrideUrlLoading(view, request);
             }
         }

@@ -59,6 +59,10 @@ dependencies {
     //Glide
     annotationProcessor dependencies['glide_compiler']
     api dependencies['glide']
+    //SuperTextView
+    api dependencies['superTextView']
+    //photoView,webview中的图片预览
+    api dependencies['photoView']
 
 
     api project(path: ':tencentx5')

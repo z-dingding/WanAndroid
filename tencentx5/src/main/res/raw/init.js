@@ -21,7 +21,7 @@ for(var i=0; i<objs.length; i++) {
 }
 function touchstart(e){
        console.log("touchstart");
-      timeOutEvent = setTimeout("longPress()",2000);
+      timeOutEvent = setTimeout("longPress()",1000);
      imageUrl=this.src;
 }
 

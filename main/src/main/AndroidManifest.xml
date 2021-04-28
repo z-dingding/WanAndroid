@@ -3,7 +3,13 @@
     package="com.hxzk.main">
 
     <application>
-        <activity android:name=".ui.search.SearchActivity"/>
+        <activity android:name=".ui.photoview.PhotoViewActivity">
+            <intent-filter>
+                <action android:name="com.hxzk.app.ACTION_PHOTOVIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.login.AuthActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.x5Webview.X5MainActivity" />

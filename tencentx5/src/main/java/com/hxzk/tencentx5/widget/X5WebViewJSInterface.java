@@ -2,11 +2,10 @@ package com.hxzk.tencentx5.widget;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -60,13 +59,12 @@ public class X5WebViewJSInterface {
 
     @JavascriptInterface
     public void showImage(String url) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "run: 点击了图片");
-                Toast.makeText(mContext, "点击了图片", Toast.LENGTH_LONG).show();
-            }
-        });
+         //单击跳转到Photo预览页面
+        String action ="com.hxzk.app.ACTION_PHOTOVIEW";
+        Intent mIntent = new Intent(action);
+        mIntent.putExtra("key_current_url",url);
+        mIntent.putStringArrayListExtra("key_imgs_url",imageURLList);
+        mContext.startActivity(mIntent);
     }
 
     /**
@@ -78,8 +76,7 @@ public class X5WebViewJSInterface {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "run: 点击了二维码识别");
-                Toast.makeText(mContext, "点击了二维码识别", Toast.LENGTH_LONG).show();
+
             }
         });
     }

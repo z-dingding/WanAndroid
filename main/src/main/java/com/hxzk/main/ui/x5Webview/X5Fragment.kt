@@ -62,7 +62,10 @@ class X5Fragment : BaseFragment(), WebViewProgress {
     }
 
     override fun onProgressChanged(view: WebView, newProgress: Int) {
-        webProgressView.setmCurrent(newProgress)
+        if(webProgressView != null){
+            webProgressView.setmCurrent(newProgress)
+        }
+
     }
 
 }
