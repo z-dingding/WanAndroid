@@ -98,8 +98,8 @@ open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
-        //给左上角图标的左边加上一个返回的图标
-        actionBar?.setDisplayHomeAsUpEnabled(false)
+        //true给左上角图标的左边加上一个返回的图标
+        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 

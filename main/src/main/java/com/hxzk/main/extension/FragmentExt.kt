@@ -15,3 +15,5 @@ fun Fragment.getViewModelFactory() : ViewModelFactory {
     val repository = (requireContext().applicationContext as MainApplication).repository
     return  ViewModelFactory(repository,this)
 }
+
+

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.main.R
@@ -67,16 +68,16 @@ class HomeFragment : BaseFragment(), BannerItemListener {
             homeViewModel.forceUpdate(false)
         }
 
-        homeViewModel.isRefreshing.observe(viewLifecycleOwner,{
+        homeViewModel.isRefreshing.observe(viewLifecycleOwner) {
             if (!it){
                 homeFragDataBinding.smartRefresh.finishRefresh()
             }
-        })
-        homeViewModel.isLoadMoreing.observe(viewLifecycleOwner,{
+        }
+        homeViewModel.isLoadMoreing.observe(viewLifecycleOwner){
             if (!it){
                 homeFragDataBinding.smartRefresh.finishLoadMore()
             }
-        })
+        }
     }
 
     override fun onStart() {
@@ -90,12 +91,12 @@ class HomeFragment : BaseFragment(), BannerItemListener {
      * 列表项的点击
      */
   private fun onItemClick(){
-       homeViewModel.openItem.observe(viewLifecycleOwner,{
+       homeViewModel.openItem.observe(viewLifecycleOwner) {
            val mBundle =Bundle()
            mBundle.putParcelable(KEY_ITEMBEAN,it)
-          activity.actionBundle<X5MainActivity>(activity,mBundle)
-       })
-   }
+           activity.actionBundle<X5MainActivity>(activity,mBundle)
+       }
+    }
 
     /**
      * 设置RecyclerView的Adapter

@@ -1,7 +1,7 @@
 var objs = document.getElementsByTagName("img");
 var timeOutEvent=0;
 var imageUrl="";
- console.log("enterjs");
+
 for(var i=0; i<objs.length; i++) {
   	var img=objs[i];
   	//检测类型是不是我们定义的mobile,jsInterface为变量名

@@ -53,7 +53,4 @@ class PhotoViewActivity : AppCompatActivity() {
        }
    }
 
-
-
-
 }

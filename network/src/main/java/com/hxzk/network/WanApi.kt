@@ -81,17 +81,22 @@ import retrofit2.http.*
     @GET("article/top/json")
     fun topArticle(): Call<ApiResponse<List<DataX>>>
     /**
-     * 首页置顶文章
+     * 首页普通文章
      */
     @GET("article/list/{pageIndex}/json")
     fun articleList(@Path("pageIndex") pageIndex: Int): Call<ApiResponse<ArticleListModel>>
 
 
     /**
-     * 我的积分接口
+     * 我的(信息)积分接口
      */
     @GET("lg/coin/userinfo/json")
     fun integralApi():Call<ApiResponse<UserInfoModel>>
+    /**
+     * 我的积分接口(索引从1开始)
+     */
+    @GET("lg/coin/list/{index}/json")
+    fun integralListApi(@Path("index") index: Int):Call<ApiResponse<IntegralItemModel>>
 
 
 

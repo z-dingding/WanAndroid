@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.hxzk.main.data.source.Repository
 import com.hxzk.main.ui.home.HomeViewModel
+import com.hxzk.main.ui.integral.IntegraListModel
 import com.hxzk.main.ui.login.LoginViewModel
 import com.hxzk.main.ui.mine.MineViewModel
 import com.hxzk.main.ui.register.RegisterViewModel
@@ -38,6 +39,9 @@ class ViewModelFactory constructor(
 
             isAssignableFrom(MineViewModel::class.java) ->
                 MineViewModel(repository)
+
+           isAssignableFrom(IntegraListModel::class.java) ->
+               IntegraListModel(repository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
