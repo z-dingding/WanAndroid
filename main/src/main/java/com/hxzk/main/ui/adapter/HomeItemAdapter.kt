@@ -18,7 +18,7 @@ import com.hxzk.network.model.HomeBanner
  *
  */
 class HomeItemAdapter(private val homeViewModel: HomeViewModel) :
-    ListAdapter<DataX, RecyclerView.ViewHolder>(TaskDiffCallback()) {
+    ListAdapter<DataX, RecyclerView.ViewHolder>(IntegralDiffCallback()) {
 
     val ITEM_TYEP_BANNER = 0
     val ITEM_TYEP_NORMAL = 1
@@ -111,7 +111,7 @@ class ItemViewHolder private constructor(private val binding: AdapterHomeitemBin
 }
 
 // DiffUtil将自动为我们处理然后进行调用，其功能 就是比较两个数据集，用newList和oldList进行比较
-class TaskDiffCallback : DiffUtil.ItemCallback<DataX>() {
+class IntegralDiffCallback : DiffUtil.ItemCallback<DataX>() {
     override fun areItemsTheSame(oldItem: DataX, newItem: DataX): Boolean {
         //判断这个两个对象是否是同一个对象。
         return oldItem.id == newItem.id

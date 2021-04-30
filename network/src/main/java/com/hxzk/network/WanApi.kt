@@ -93,7 +93,7 @@ import retrofit2.http.*
     @GET("lg/coin/userinfo/json")
     fun integralApi():Call<ApiResponse<UserInfoModel>>
     /**
-     * 我的积分接口(索引从1开始)
+     * 我的积分列表接口(索引从1开始)
      */
     @GET("lg/coin/list/{index}/json")
     fun integralListApi(@Path("index") index: Int):Call<ApiResponse<IntegralItemModel>>

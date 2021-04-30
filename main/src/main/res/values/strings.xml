@@ -4,6 +4,7 @@
 
     <string name="common_tips_notnull">输入内容不能为空</string>
     <string name="common_tips_wating">敬请期待</string>
+    <string name="common_tips_pleasewaiting">请稍后操作</string>
     <!-- 全局-->
     <string name="agree">同 意</string>"
     <string name="cancel">取消</string>

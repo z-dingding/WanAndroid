@@ -21,6 +21,7 @@ class RemoteDataSource : DataSource {
     override suspend fun topArticle() =  WanApi.get().topArticle().await()
     override suspend fun articleList(pageIndex : Int) =  WanApi.get().articleList(pageIndex).await()
     override suspend fun integral()=  WanApi.get().integralApi().await()
+    override suspend fun integralList(pageIndex : Int)= WanApi.get().integralListApi(pageIndex).await()
 
     /**
      * Call的扩展函数(默认持有该对象的引用)

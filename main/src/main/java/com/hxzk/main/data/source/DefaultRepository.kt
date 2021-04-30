@@ -1,5 +1,6 @@
 package com.hxzk.main.data.source
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.hxzk.base.extension.sToast
 import com.hxzk.main.util.ResponseHandler
@@ -122,6 +123,11 @@ class DefaultRepository(
 
     override fun integral()= liveData {
         val result = romtat.integral()
+        emit(result)
+    }
+
+    override fun integralList(pageIndex : Int): LiveData<Result<*>> = liveData {
+        val result = romtat.integralList(pageIndex)
         emit(result)
     }
 

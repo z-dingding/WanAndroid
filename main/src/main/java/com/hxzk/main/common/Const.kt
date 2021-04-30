@@ -28,6 +28,10 @@ interface Const {
         }
     }
 
-
+    interface  IntegralList{
+        companion object{
+            const val KEY_COINCOUNT = "key_count"
+        }
+    }
 
 }

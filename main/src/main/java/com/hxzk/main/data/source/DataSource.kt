@@ -1,5 +1,6 @@
 package com.hxzk.main.data.source
 
+import androidx.lifecycle.LiveData
 import com.hxzk.network.Result
 
 /**
@@ -33,5 +34,10 @@ interface DataSource {
      * 获取个人积分接口
      */
     suspend fun integral(): Result<*>
+
+    /**
+     * 获取个人积分列表接口
+     */
+    suspend fun integralList(pageIndex : Int): Result<*>
 
 }

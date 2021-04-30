@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+
+        <variable
+            name="veiwModel"
+            type="com.hxzk.main.ui.integral.IntegraViewModel" />
+        <variable
+            name="item"
+            type="com.hxzk.network.model.DataItem" />
+    </data>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="50dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:stv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <com.allen.library.SuperTextView
+        android:id="@+id/stv_integral"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:sLeftTopTextString="签到积分10+18"
+        stv:stvLeftTopTextString="@{item.reason}"
+        app:sLeftViewGravity="left_center"
+        tools:sLeftBottomTextString="2021-04-28 10:15:20"
+        stv:stvLeftBottomTextString="@{item.desc}"
+        app:sLeftBottomTextColor="@color/text_gray"
+        app:sLeftBottomTextSize="@dimen/textSize_samll"
+        tools:sRightTextString="+28"
+        stv:stvRightTextString="@{Integer.toString(item.coinCount)}"
+        app:sRightTextColor="@color/colorPrimary"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

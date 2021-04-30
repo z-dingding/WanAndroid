@@ -38,5 +38,9 @@ class LocalDataSource : DataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun integralList(pageIndex : Int): Result<*> {
+        TODO("Not yet implemented")
+    }
+
 
 }

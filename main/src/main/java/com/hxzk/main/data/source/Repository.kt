@@ -21,7 +21,7 @@ interface Repository {
      */
     fun registerRequest(username: String, password: String, repassword: String): LiveData<Result<*>>
 
-    /*
+    /**
     * 首页Banner接口
     */
     fun banner(): LiveData<Result<*>>
@@ -30,7 +30,12 @@ interface Repository {
      */
     suspend fun articleList(pageIndex: Int,origin: ArticleListModel?): ArticleListModel
     /**
-     * 获取个人积分接口
+     * 获取个人积分(信息)接口
      */
    fun integral(): LiveData<Result<*>>
+
+    /**
+     * 获取个人积分列表接口
+     */
+    fun integralList(pageIndex : Int): LiveData<Result<*>>
 }
