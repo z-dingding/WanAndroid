@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/stvItem"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        tools:sLeftTextString="1"
+        app:sLeftTextColor="@color/text_gray"
+        app:sLeftTextSize="@dimen/textSize_large"
+        tools:sCenterTextString="张三"
+        app:sCenterViewGravity="left_center"
+        app:sCenterViewMarginLeft="15dp"
+        app:sRightTextColor="@color/colorPrimary"
+        tools:sRightTextString="14356"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

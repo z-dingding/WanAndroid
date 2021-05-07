@@ -41,6 +41,6 @@ fun setstvLeftBottomTextString(stv: SuperTextView, content : String) {
 @BindingAdapter("stv:stvRightTextString")
 fun setstvRightTextString(stv: SuperTextView, content : String) {
     content?.let {
-        stv.setRightString(content)
+        stv.setRightString("+$content")
     }
 }

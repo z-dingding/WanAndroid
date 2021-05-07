@@ -38,6 +38,7 @@
         tools:sRightTextString="+28"
         stv:stvRightTextString="@{Integer.toString(item.coinCount)}"
         app:sRightTextColor="@color/colorPrimary"
+        app:sRightTextSize="@dimen/textSize_large"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

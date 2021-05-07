@@ -119,7 +119,7 @@ class DefaultRepository(
                 }
             }
             articleListModel
-        }
+       }
 
     override fun integral()= liveData {
         val result = romtat.integral()

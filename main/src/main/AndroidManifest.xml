@@ -3,7 +3,8 @@
     package="com.hxzk.main">
 
     <application>
-        <activity android:name=".ui.integral.IntegralActivity"></activity>
+        <activity android:name=".ui.rank.RankActivity"></activity>
+        <activity android:name=".ui.integral.IntegralActivity" />
         <activity android:name=".ui.photoview.PhotoViewActivity">
             <intent-filter>
                 <action android:name="com.hxzk.app.ACTION_PHOTOVIEW" />

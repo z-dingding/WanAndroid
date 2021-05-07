@@ -23,7 +23,7 @@
 
     <!--    公用的toast-->
     <string name="toast_isDeveloping">正在开发,敬请期待</string>
-    <string name="toast_deniedPermission">拒绝授权,可能会印象后续功能的使用</string>
+    <string name="toast_deniedPermission">拒绝授权,可能会影响后续功能的使用</string>
 
     <!--    登录页面-->
     <string name="transition_logo_splash">transition_logo_splash</string>
@@ -64,6 +64,14 @@
     <string name="mine_readHistory">阅读历史</string>
     <string name="mine_setting">系统设置</string>
 
-<!--我的积分-->
+    <!--我的积分-->
     <string name="interal_title">我的积分</string>
+
+  <!--积分排行榜-->
+    <string name="rank_title">积分排行榜</string>
+
+
+
+
+
 </resources>

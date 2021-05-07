@@ -23,4 +23,5 @@
     <color name="ripple_light">#77ffffff</color>
     <!--    授权页面alert上的文字颜色-->
     <color name="primary_text">#444444</color>
+    <color name="loading">#e2e2e2</color>
 </resources>

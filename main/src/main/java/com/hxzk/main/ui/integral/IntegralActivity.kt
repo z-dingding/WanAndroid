@@ -29,30 +29,30 @@ class IntegralActivity : BaseActivity() {
          integralBinding = DataBindingUtil.setContentView(this,R.layout.activity_integral)
          integralBinding.viewmodel = viewModel
          integralBinding.lifecycleOwner = this
-
-        val listAdapter  = IntegralItemAdapter(viewModel)
-        integralBinding.recycler.adapter = listAdapter
     }
 
 
-    override fun setupViews() {
+    override fun setupViews() {}
+
+    override fun onStart() {
+        super.onStart()
         intent.extras?.let{
             val coinCount  = it.getInt(Const.IntegralList.KEY_COINCOUNT).toFloat()
             tv_iconCount.runWithAnimation(coinCount)
         }
-       setupToolbar()
-       title=resources.getString(R.string.interal_title)
-        //setupListAdapter()
+        setupToolbar()
+        title=resources.getString(R.string.interal_title)
+        setupListAdapter()
     }
 
 
-//    /**
-//     * 设置RecyclerView的Adapter
-//     */
-//    private fun setupListAdapter() {
-//            val listAdapter = IntegralItemAdapter(viewModel)
-//             recycler.adapter = listAdapter
-//    }
+    /**
+     * 设置RecyclerView的Adapter
+     */
+    private fun setupListAdapter() {
+        val listAdapter = IntegralItemAdapter(viewModel)
+        integralBinding.recycler.adapter = listAdapter
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_mine_integral,menu)

@@ -98,6 +98,11 @@ import retrofit2.http.*
     @GET("lg/coin/list/{index}/json")
     fun integralListApi(@Path("index") index: Int):Call<ApiResponse<IntegralItemModel>>
 
+    /**
+     * 积分排行榜接口
+     */
+    @GET("coin/rank/{index}/json")
+     suspend fun  rankApi(@Path("index") index: Int):ApiResponse<RankModel>
 
 
 
