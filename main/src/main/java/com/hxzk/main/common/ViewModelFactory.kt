@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.hxzk.main.data.source.Repository
+import com.hxzk.main.ui.answer.AnswerViewModel
 import com.hxzk.main.ui.home.HomeViewModel
 import com.hxzk.main.ui.integral.IntegraViewModel
 import com.hxzk.main.ui.login.LoginViewModel
@@ -42,6 +43,9 @@ class ViewModelFactory constructor(
 
            isAssignableFrom(IntegraViewModel::class.java) ->
                IntegraViewModel(repository)
+
+           isAssignableFrom(AnswerViewModel::class.java) ->
+               AnswerViewModel(repository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

@@ -22,7 +22,8 @@ class RemoteDataSource : DataSource {
     override suspend fun articleList(pageIndex : Int) =  WanApi.get().articleList(pageIndex).await()
     override suspend fun integral()=  WanApi.get().integralApi().await()
     override suspend fun integralList(pageIndex : Int)= WanApi.get().integralListApi(pageIndex).await()
-
+    //需要转成Deferred，answerList()则不需要添加suspend关键字
+    override suspend fun answerList(pageIndex: Int)=WanApi.get().answerList(pageIndex).await()
     /**
      * Call的扩展函数(默认持有该对象的引用)
      */
@@ -34,9 +35,9 @@ class RemoteDataSource : DataSource {
                     val body = response.body()
                     if (body != null) continuation.resume(Result.Success(body))
                     else continuation.resume(Result.Error(RuntimeException("response body is null")))
-                    //else continuation.resumeWithException(RuntimeException("response body is null"))
                 }
                 override fun onFailure(call: Call<T>, t: Throwable) {
+                    //多是由于外因所致
                     continuation.resume(Result.Error(t as Exception))
                 }
             })

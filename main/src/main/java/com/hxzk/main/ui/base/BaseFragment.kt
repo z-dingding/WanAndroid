@@ -1,11 +1,13 @@
 package com.hxzk.main.ui.base
 
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.hxzk.main.callback.PermissionListener
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.ArrayList
 
 /**
@@ -65,7 +67,7 @@ import java.util.ArrayList
         mListener = listener
         val requestPermissionList = ArrayList<String>()
         for (permission in permissions) {
-            if (ContextCompat.checkSelfPermission(activity!!, permission) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(requireActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissionList.add(permission)
             }
         }

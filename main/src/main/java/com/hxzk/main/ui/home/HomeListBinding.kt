@@ -16,6 +16,7 @@
 package com.hxzk.main.ui.home
 
 import android.text.Html
+import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -47,8 +48,6 @@ fun setBannerItems(mBanner:Banner<HomeBanner, BannerImageAdapter>, items: List<H
     items?.let {
         // 暂时不支持kotlin,所以只能这样写
         mBanner.adapter = BannerImageAdapter(items,mBanner.context)
-        //添加生命周期观察者
-        //mBanner.addBannerLifecycleObserver(mContext)
         mBanner.start()
     }
 }
@@ -94,5 +93,10 @@ fun setTagName(textView: TextView, isShow: Boolean){
  */
 @BindingAdapter("app:desc")
 fun setDesc(textView: TextView, desc: String){
-    if(desc != "") textView.text = Html.fromHtml(desc)  else  textView.visibility = View.GONE
+    if(!TextUtils.isEmpty(desc)) {
+        textView.visibility = View.VISIBLE
+        textView.text = Html.fromHtml(desc)
+    } else {
+        textView.visibility = View.GONE
+    }
 }

@@ -131,5 +131,10 @@ class DefaultRepository(
         emit(result)
     }
 
+    override  fun answerList(pageIndex: Int): LiveData<Result<*>> = liveData {
+        val result = romtat.answerList(pageIndex)
+        emit(result)
+    }
+
 
 }

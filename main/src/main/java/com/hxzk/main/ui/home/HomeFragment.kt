@@ -112,7 +112,7 @@ class HomeFragment : BaseFragment(), BannerItemListener {
 
 
     /**
-     * 设置toolbar,由于只有首页用到了boolbar,就不妨到baseFrag中了
+     * 设置toolbar
      */
     private fun initToolbar() {
         activity.setSupportActionBar(toolbar)

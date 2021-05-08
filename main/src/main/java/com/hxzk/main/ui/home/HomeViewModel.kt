@@ -77,7 +77,7 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
 
 
     val _openItem = MutableLiveData<CommonItemModel>()
-    val openItem = _openItem
+    val openItem : LiveData<CommonItemModel> = _openItem
 
     /**
      * 点击Item

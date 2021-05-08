@@ -38,4 +38,9 @@ interface Repository {
      * 获取个人积分列表接口
      */
     fun integralList(pageIndex : Int): LiveData<Result<*>>
+
+    /**
+     * 问答别表数据接口
+     */
+     fun answerList(pageIndex: Int) : LiveData<Result<*>>
 }

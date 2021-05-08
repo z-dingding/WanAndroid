@@ -104,7 +104,11 @@ import retrofit2.http.*
     @GET("coin/rank/{index}/json")
      suspend fun  rankApi(@Path("index") index: Int):ApiResponse<RankModel>
 
-
+    /**
+     * 问答列表
+     */
+    @GET("wenda/list/{index}/json")
+     fun answerList(@Path("index") index: Int):Call<ApiResponse<AnswerModel>>
 
 
 

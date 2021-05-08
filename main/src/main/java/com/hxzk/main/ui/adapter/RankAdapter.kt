@@ -54,16 +54,3 @@ class ItemViewHolder private constructor(private val mItemView : View): Recycler
 
 }
 
-// DiffUtil将自动为我们处理然后进行调用，其功能 就是比较两个数据集，用newList和oldList进行比较
-class DiffCallback : DiffUtil.ItemCallback<RankDataX>() {
-    override fun areItemsTheSame(oldItem: RankDataX, newItem: RankDataX): Boolean {
-        //判断这个两个对象是否是同一个对象。
-        return oldItem.userId == newItem.userId
-    }
-
-    //判断两个对象的内容是否一致，如果不一致，那么 它就将对列表进行重绘和动画加载
-    override fun areContentsTheSame(oldItem: RankDataX, newItem: RankDataX): Boolean {
-        return oldItem == newItem
-    }
-
-}

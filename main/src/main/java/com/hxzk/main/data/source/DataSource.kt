@@ -39,5 +39,9 @@ interface DataSource {
      * 获取个人积分列表接口
      */
     suspend fun integralList(pageIndex : Int): Result<*>
+    /**
+     * 问答别表数据接口
+     */
+    suspend  fun answerList(pageIndex: Int) :Result<*>
 
 }
