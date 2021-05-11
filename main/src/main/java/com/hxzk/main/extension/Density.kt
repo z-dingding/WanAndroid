@@ -16,6 +16,7 @@
  */
 
 package com.hxzk.base.extension
+import android.content.Context
 import com.hxzk.base.util.Common
 
 
@@ -30,15 +31,17 @@ import com.hxzk.base.util.Common
 /**
  * 根据手机的分辨率将dp转成为px
  */
-fun dp2px(dp: Float): Int {
-    val scale = Common.getContext().resources.displayMetrics.density
-    return (dp * scale + 0.5f).toInt()
+fun Context.dpToPixel(dp: Int): Int {
+    val displayMetrics = this.resources.displayMetrics
+    //Math.round()四舍五入的原理是在参数上加0.5然后进行下取整。
+    return if (dp < 0) dp else Math.round(dp * displayMetrics.density)
 }
+
 
 /**
  * 根据手机的分辨率将px转成dp
  */
-fun px2dp(px: Float): Int {
-    val scale = Common.getContext().resources.displayMetrics.density
-    return (px / scale + 0.5f).toInt()
+fun Context.pixelToDp(pixel: Int): Int {
+    val displayMetrics = this.resources.displayMetrics
+    return if (pixel < 0) pixel else Math.round(pixel / displayMetrics.density)
 }

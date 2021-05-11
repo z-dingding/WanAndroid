@@ -1,7 +1,8 @@
 package com.hxzk.main.ui.system
 
 import androidx.lifecycle.ViewModel
+import com.hxzk.main.data.source.Repository
 
-class SystemViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class SystemViewModel(repository: Repository) : ViewModel() {
+
 }

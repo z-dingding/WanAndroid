@@ -53,6 +53,10 @@
     <!-- 首页 -->
     <string name="home_tag_new">新</string>
 
+    <!--体系-->
+    <string name="system_title">体系</string>
+    <string name="system_navigation">导航</string>
+
     <!-- 我的-->
     <string name="mine_userid">ID:%d</string>
     <string name="mine_level">等级:%s</string>

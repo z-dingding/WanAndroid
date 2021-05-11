@@ -42,7 +42,7 @@ class MainActivity : BaseActivity() {
         val vpAdapter =  ViewPagerFragmentAdapter(this, frags)
         vp.apply {
             adapter = vpAdapter
-            //禁止左右滑动
+            //是否禁止左右滑动,true允许左右滑动
             isUserInputEnabled = true
             //如果允许滑动则默认不进行预加载
             //vp.offscreenPageLimit = 1
