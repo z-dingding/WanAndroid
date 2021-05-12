@@ -136,14 +136,13 @@ class HomeFragment : BaseFragment(), BannerItemListener {
                         activity, searchMenuView,
                         getString(R.string.transition_search_back)
                     ).toBundle()
-                    startActivityForResult(
+                    startActivity(
                         Intent(activity, SearchActivity::class.java),
-                        Const.Search.REQUEST_SEARCH, options
+                         options
                     )
                 } else {
-                    startActivityForResult(
-                        Intent(activity, SearchActivity::class.java),
-                        Const.Search.REQUEST_SEARCH
+                    startActivity(
+                        Intent(activity, SearchActivity::class.java)
                     )
                 }
             }

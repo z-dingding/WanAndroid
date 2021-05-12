@@ -24,6 +24,9 @@ class RemoteDataSource : DataSource {
     override suspend fun integralList(pageIndex : Int)= WanApi.get().integralListApi(pageIndex).await()
     //需要转成Deferred，answerList()则不需要添加suspend关键字
     override suspend fun answerList(pageIndex: Int)=WanApi.get().answerList(pageIndex).await()
+    override suspend fun treeList() = WanApi.get().treeList().await()
+    override suspend fun hotKeys() =WanApi.get().hotKeys().await()
+
     /**
      * Call的扩展函数(默认持有该对象的引用)
      */

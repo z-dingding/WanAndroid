@@ -12,6 +12,7 @@ import com.hxzk.main.ui.integral.IntegraViewModel
 import com.hxzk.main.ui.login.LoginViewModel
 import com.hxzk.main.ui.mine.MineViewModel
 import com.hxzk.main.ui.register.RegisterViewModel
+import com.hxzk.main.ui.search.SearchViewModel
 import com.hxzk.main.ui.system.child_nav.ChildNavigationViewModel
 import com.hxzk.main.ui.system.child_sys.ChildSystemViewModel
 import com.hxzk.main.ui.system.SystemViewModel
@@ -58,6 +59,10 @@ class ViewModelFactory constructor(
 
            isAssignableFrom(ChildNavigationViewModel::class.java) ->
                ChildNavigationViewModel(repository)
+
+           isAssignableFrom(SearchViewModel::class.java) ->
+               SearchViewModel(repository)
+
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

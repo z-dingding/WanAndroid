@@ -110,8 +110,17 @@ import retrofit2.http.*
     @GET("wenda/list/{index}/json")
      fun answerList(@Path("index") index: Int):Call<ApiResponse<AnswerModel>>
 
+    /**
+     * 体系列表
+     */
+    @GET("tree/json")
+    fun treeList():Call<ApiResponse<List<SystemModel>>>
 
-
+    /**
+     * 搜索热词
+     */
+     @GET("hotkey/json")
+     fun hotKeys():Call<ApiResponse<List<HotKeyModel>>>
 
 
 

@@ -63,6 +63,8 @@ dependencies {
     api dependencies['superTextView']
     //photoView,webview中的图片预览
     api dependencies['photoView']
+    //flexbox
+    api dependencies['flexbox']
 
 
     api project(path: ':tencentx5')

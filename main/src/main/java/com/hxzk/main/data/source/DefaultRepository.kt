@@ -8,11 +8,13 @@ import com.hxzk.network.Result
 import com.hxzk.network.model.ApiResponse
 import com.hxzk.network.model.ArticleListModel
 import com.hxzk.network.model.DataX
+import com.hxzk.network.model.SystemModel
 import com.hxzk.network.succeeded
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import retrofit2.Call
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -133,6 +135,16 @@ class DefaultRepository(
 
     override  fun answerList(pageIndex: Int): LiveData<Result<*>> = liveData {
         val result = romtat.answerList(pageIndex)
+        emit(result)
+    }
+
+    override fun treeList() : LiveData<Result<*>> = liveData {
+        val result = romtat.treeList()
+        emit(result)
+    }
+
+    override fun hotKeys(): LiveData<Result<*>> = liveData {
+        val result = romtat.hotKeys()
         emit(result)
     }
 

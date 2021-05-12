@@ -2,6 +2,10 @@ package com.hxzk.main.data.source
 
 import androidx.lifecycle.LiveData
 import com.hxzk.network.Result
+import com.hxzk.network.model.ApiResponse
+import com.hxzk.network.model.SystemModel
+import retrofit2.Call
+import retrofit2.http.GET
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -44,4 +48,13 @@ interface DataSource {
      */
     suspend  fun answerList(pageIndex: Int) :Result<*>
 
+    /**
+     * 体系列表
+     */
+
+    suspend fun treeList(): Result<*>
+    /**
+     * 搜索热词
+     */
+ suspend fun  hotKeys():Result<*>
 }

@@ -1,6 +1,7 @@
 package com.hxzk.main.ui.base
 
 import android.app.Activity
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -8,11 +9,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewStub
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.hxzk.base.extension.logWarn
 import com.hxzk.base.util.ActivityCollector
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.base.util.progressdialog.ProgressDialogUtil
@@ -69,6 +73,7 @@ open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
     }
 
 
+
     override fun onDestroy() {
         super.onDestroy()
         activity = null
@@ -103,7 +108,7 @@ open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
     open fun onMessageEvent(messageEvent: MessageEvent) {
     }
 
-    abstract fun setupViews()
+    open fun setupViews(){}
 
     protected fun setupToolbar() {
         toolbar = findViewById(R.id.toolbar)
@@ -194,6 +199,8 @@ open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
         }
     }
 
+
+
     /**
      * 检查和处理运行时权限，并将用户授权的结果通过PermissionListener进行回调。
      *
@@ -257,5 +264,42 @@ open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
                 }
             }
         }
+    }
+
+
+
+    /**
+     * 隐藏软键盘。
+     */
+    fun hideSoftKeyboard() {
+        try {
+            //获取当前activity中获得焦点的view
+            val view = currentFocus
+            if (view != null) {
+                //获取调用的view依附在哪个window的令牌
+                val binder = view.windowToken
+                val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                manager.hideSoftInputFromWindow(binder, InputMethodManager.HIDE_NOT_ALWAYS)
+            }
+        } catch (e: Exception) {
+            logWarn( e.message, e)
+        }
+
+    }
+
+    /**
+     * 显示软键盘。
+     */
+    fun showSoftKeyboard(editText: EditText?) {
+        try {
+            if (editText != null) {
+                editText.requestFocus()
+                val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                manager.showSoftInput(editText, 0)
+            }
+        } catch (e: Exception) {
+            logWarn( e.message, e)
+        }
+
     }
 }
