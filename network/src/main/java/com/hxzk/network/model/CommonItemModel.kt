@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 /**
  *作者：created by zjt on 2021/4/14
- *描述:通用的item
+ *描述:X5页面传参通用的item
  *
  */
 

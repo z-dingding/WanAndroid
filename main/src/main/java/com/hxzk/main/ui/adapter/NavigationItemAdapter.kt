@@ -8,46 +8,47 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hxzk.main.callback.BannerItemListener
 import com.hxzk.main.callback.FlexItemClickListener
-import com.hxzk.main.databinding.AdapterHomeitemBinding
-import com.hxzk.main.databinding.AdapterSysitemBinding
-import com.hxzk.main.databinding.BannerFragmentBinding
+import com.hxzk.main.callback.NavFlexItemClickListener
+import com.hxzk.main.databinding.*
 import com.hxzk.main.ui.home.HomeViewModel
+import com.hxzk.main.ui.system.child_nav.ChildNavigationViewModel
 import com.hxzk.main.ui.system.child_sys.ChildSystemViewModel
 import com.hxzk.network.model.DataX
 import com.hxzk.network.model.HomeBanner
+import com.hxzk.network.model.NavigationModel
 import com.hxzk.network.model.SystemModel
 
 /**
  *作者：created by zjt on 2021/4/6
- *描述:体系的adapter
+ *描述:体系的Adapter
  *
  */
-class SystemItemAdapter(private val viewModel: ChildSystemViewModel) :
-    ListAdapter<SystemModel, RecyclerView.ViewHolder>(SystemDiffCallback()) {
+class NavigationItemAdapter(private val viewModel: ChildNavigationViewModel) :
+    ListAdapter<NavigationModel, RecyclerView.ViewHolder>(NavDiffCallback()) {
 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-          return  NavItemViewHolder.from(parent)
+          return  ItemViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val item = getItem(position )
-            if (holder is NavItemViewHolder) {
+            if (holder is ItemViewHolder) {
                 holder.bind(viewModel, item,mListener)
             }
     }
 
-    private lateinit var mListener : FlexItemClickListener
-   fun  setFlexItemClickListener(listener : FlexItemClickListener){
+    private lateinit var mListener : NavFlexItemClickListener
+   fun  setNavFlexItemClickListener(listener : NavFlexItemClickListener){
         mListener= listener
     }
 }
 
-class NavItemViewHolder private constructor(private val binding: AdapterSysitemBinding) :
+class ItemViewHolder private constructor(private val binding: AdapterNavitemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(viewModel: ChildSystemViewModel, item: SystemModel,mListener : FlexItemClickListener) {
+    fun bind(viewModel: ChildNavigationViewModel, item: NavigationModel,mListener : NavFlexItemClickListener) {
         //此处将布局中的data赋值
         binding.viewModel = viewModel
         binding.item = item
@@ -59,20 +60,20 @@ class NavItemViewHolder private constructor(private val binding: AdapterSysitemB
     companion object {
         fun from(parent: ViewGroup): RecyclerView.ViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = AdapterSysitemBinding.inflate(layoutInflater, parent, false)
-            return NavItemViewHolder(binding)
+            val binding = AdapterNavitemBinding.inflate(layoutInflater, parent, false)
+            return ItemViewHolder(binding)
         }
     }
 }
 // DiffUtil将自动为我们处理然后进行调用，其功能 就是比较两个数据集，用newList和oldList进行比较
-class SystemDiffCallback : DiffUtil.ItemCallback<SystemModel>() {
-    override fun areItemsTheSame(oldItem: SystemModel, newItem: SystemModel): Boolean {
+class NavDiffCallback : DiffUtil.ItemCallback<NavigationModel>() {
+    override fun areItemsTheSame(oldItem: NavigationModel, newItem: NavigationModel): Boolean {
         //判断这个两个对象是否是同一个对象。
-        return oldItem.id == newItem.id
+        return oldItem.cid == newItem.cid
     }
 
     //判断两个对象的内容是否一致，如果不一致，那么 它就将对列表进行重绘和动画加载
-    override fun areContentsTheSame(oldItem: SystemModel, newItem: SystemModel): Boolean {
+    override fun areContentsTheSame(oldItem: NavigationModel, newItem: NavigationModel): Boolean {
         return oldItem == newItem
     }
 }

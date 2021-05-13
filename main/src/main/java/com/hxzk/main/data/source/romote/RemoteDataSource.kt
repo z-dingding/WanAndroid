@@ -25,6 +25,7 @@ class RemoteDataSource : DataSource {
     //需要转成Deferred，answerList()则不需要添加suspend关键字
     override suspend fun answerList(pageIndex: Int)=WanApi.get().answerList(pageIndex).await()
     override suspend fun treeList() = WanApi.get().treeList().await()
+    override suspend fun navigaiontList() =WanApi.get().navigaiontList().await()
     override suspend fun hotKeys() =WanApi.get().hotKeys().await()
 
     /**

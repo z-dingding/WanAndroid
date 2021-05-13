@@ -53,8 +53,13 @@ interface DataSource {
      */
 
     suspend fun treeList(): Result<*>
+
+    /**
+     * 导航列表
+     */
+    suspend fun navigaiontList():Result<*>
     /**
      * 搜索热词
      */
- suspend fun  hotKeys():Result<*>
+    suspend fun  hotKeys():Result<*>
 }

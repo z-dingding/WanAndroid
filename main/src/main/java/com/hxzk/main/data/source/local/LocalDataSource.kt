@@ -50,6 +50,10 @@ class LocalDataSource : DataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun navigaiontList(): Result<*> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun hotKeys(): Result<*> {
         TODO("Not yet implemented")
     }

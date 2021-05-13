@@ -115,7 +115,11 @@ import retrofit2.http.*
      */
     @GET("tree/json")
     fun treeList():Call<ApiResponse<List<SystemModel>>>
-
+    /**
+     * 导航列表
+     */
+    @GET("navi/json")
+    fun navigaiontList():Call<ApiResponse<List<NavigationModel>>>
     /**
      * 搜索热词
      */

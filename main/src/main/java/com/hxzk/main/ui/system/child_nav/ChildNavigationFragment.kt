@@ -5,23 +5,61 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.hxzk.base.extension.actionBundle
+import com.hxzk.base.extension.sToast
 import com.hxzk.main.R
+import com.hxzk.main.callback.NavFlexItemClickListener
+import com.hxzk.main.databinding.FragmentChildNavigationBinding
 import com.hxzk.main.extension.getViewModelFactory
+import com.hxzk.main.ui.adapter.NavigationItemAdapter
+import com.hxzk.main.ui.adapter.SystemItemAdapter
 import com.hxzk.main.ui.base.BaseFragment
+import com.hxzk.main.ui.main.MainActivity
+import com.hxzk.main.ui.x5Webview.X5MainActivity
+import com.hxzk.network.model.Article
+import com.hxzk.network.model.Children
+import com.hxzk.network.model.CommonItemModel
 
-class ChildNavigationFragment : BaseFragment() {
+class ChildNavigationFragment : BaseFragment() ,NavFlexItemClickListener {
 
-
-    private  val viewModel by viewModels<ChildNavigationViewModel> { getViewModelFactory() }
+    private  val navViewModel by viewModels<ChildNavigationViewModel> { getViewModelFactory() }
+    lateinit var binding : FragmentChildNavigationBinding
+    private lateinit var listAdapter: NavigationItemAdapter
+    lateinit var activity: MainActivity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_child_navigation, container, false)
+        binding= FragmentChildNavigationBinding.inflate(inflater, container, false).apply {
+            viewModel  = navViewModel
+        }
+        return super.onCreateView( binding.root)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        activity = getActivity() as MainActivity
+        binding.lifecycleOwner = viewLifecycleOwner
+        setupListAdapter()
+        listAdapter.setNavFlexItemClickListener(this)
     }
+
+    /**
+     * 设置RecyclerView的Adapter
+     */
+    private fun setupListAdapter() {
+        if (navViewModel != null) {
+            listAdapter = NavigationItemAdapter(navViewModel)
+            binding.recycler.adapter = listAdapter
+        }
+    }
+
+    override fun onItemClick(item: Article) {
+        val bean= CommonItemModel(item.id,item.link,item.title)
+        val mBundle =Bundle()
+        mBundle.putParcelable(X5MainActivity.KEY_ITEMBEAN,bean)
+        activity.actionBundle<X5MainActivity>(activity,mBundle)
+    }
+
+
 
 }

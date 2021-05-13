@@ -2,10 +2,7 @@ package com.hxzk.main.data.source
 
 import androidx.lifecycle.LiveData
 import com.hxzk.network.Result
-import com.hxzk.network.model.ApiResponse
-import com.hxzk.network.model.ArticleListModel
-import com.hxzk.network.model.HotKeyModel
-import com.hxzk.network.model.SystemModel
+import com.hxzk.network.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -52,12 +49,15 @@ interface Repository {
     /**
      * 体系列表
      */
-    @GET("tree/json")
     fun treeList(): LiveData<Result<*>>
 
     /**
      * 搜索热词
      */
-    @GET("hotkey/json")
     fun hotKeys():LiveData<Result<*>>
+
+    /**
+     * 导航列表
+     */
+    fun navigaiontList():LiveData<Result<*>>
 }

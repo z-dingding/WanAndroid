@@ -148,5 +148,10 @@ class DefaultRepository(
         emit(result)
     }
 
+    override fun navigaiontList(): LiveData<Result<*>>  = liveData {
+        val result = romtat.navigaiontList()
+        emit(result)
+    }
+
 
 }
