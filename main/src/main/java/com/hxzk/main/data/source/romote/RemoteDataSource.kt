@@ -27,6 +27,8 @@ class RemoteDataSource : DataSource {
     override suspend fun treeList() = WanApi.get().treeList().await()
     override suspend fun navigaiontList() =WanApi.get().navigaiontList().await()
     override suspend fun hotKeys() =WanApi.get().hotKeys().await()
+    override suspend fun wxPublic() =WanApi.get().wxPublic().await()
+    override suspend fun wxPublicArticle(publicId: Int, pageIndex: Int)=WanApi.get().wxPublicArticle(publicId,pageIndex).await()
 
     /**
      * Call的扩展函数(默认持有该对象的引用)

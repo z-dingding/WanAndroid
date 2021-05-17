@@ -5,6 +5,7 @@ import com.hxzk.network.Result
 import com.hxzk.network.model.*
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -60,4 +61,14 @@ interface Repository {
      * 导航列表
      */
     fun navigaiontList():LiveData<Result<*>>
+
+    /**
+     * 微信公众号列表
+     */
+    @GET("wxarticle/chapters/json")
+    fun  wxPublic():LiveData<Result<*>>
+    /**
+     * 查看某公众号列表
+     */
+     fun wxPublicArticle( lsit:List<Int>) : LiveData<List<Any>>
 }

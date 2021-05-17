@@ -6,6 +6,7 @@ import com.hxzk.network.model.ApiResponse
 import com.hxzk.network.model.SystemModel
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -62,4 +63,13 @@ interface DataSource {
      * 搜索热词
      */
     suspend fun  hotKeys():Result<*>
+    /**
+     * 微信公众号列表
+     */
+    @GET("wxarticle/chapters/json")
+    suspend fun  wxPublic():Result<*>
+    /**
+     * 查看某公众号列表
+     */
+   suspend fun wxPublicArticle( publicId: Int,  pageIndex: Int):Result<*>
 }

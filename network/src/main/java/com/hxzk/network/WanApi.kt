@@ -126,9 +126,15 @@ import retrofit2.http.*
      @GET("hotkey/json")
      fun hotKeys():Call<ApiResponse<List<HotKeyModel>>>
 
-
-
-
-
+    /**
+     * 微信公众号列表
+     */
+    @GET("wxarticle/chapters/json")
+    fun  wxPublic():Call<ApiResponse<List<Children>>>
+    /**
+     * 查看某公众号列表
+     */
+ @GET("wxarticle/list/{publicId}/{pageIndex}/json")
+ fun wxPublicArticle(@Path("publicId") publicId: Int,@Path("pageIndex") pageIndex: Int):Call<ApiResponse<ArticleListModel>>
 
 }

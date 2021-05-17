@@ -24,4 +24,8 @@
     <!--    授权页面alert上的文字颜色-->
     <color name="primary_text">#444444</color>
     <color name="loading">#e2e2e2</color>
+
+<!--    公众号左侧列表的背景颜色-->
+    <color name="public_leftrv_bg_sel">#FFFFFF</color>
+    <color name="public_leftrv_bg_nor">#F5F5F5</color>
 </resources>

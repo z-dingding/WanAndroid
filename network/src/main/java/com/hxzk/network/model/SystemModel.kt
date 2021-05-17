@@ -17,12 +17,15 @@ data class SystemModel(
 )
 
 data class Children(
-    val children: List<Any>,
-    val courseId: Int,
-    val id: Int,
-    val name: String,
-    val order: Int,
-    val parentChapterId: Int,
-    val userControlSetTop: Boolean,
-    val visible: Int
+        //var children: List<Any>,
+        var children: List<DataX>,
+        val courseId: Int,
+        val id: Int,
+        val name: String,
+        val order: Int,
+        val parentChapterId: Int,
+        val userControlSetTop: Boolean,
+        val visible: Int,
+       //人为增加一个isSelect属性
+        var isSelect :Boolean
 )

@@ -22,6 +22,8 @@ package com.hxzk.network.model
  * 首页置顶文章列表
  */
 data class DataX(
+   // 区分item类型,0为内容item,1为标题item
+     var itemType : Int,
     val apkLink: String,
     val audit: Int,
     val author: String,

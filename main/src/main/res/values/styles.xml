@@ -41,7 +41,7 @@
     </style>
 
 
-    <style name="SearchActivity"  parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="SearchActivity"  >
 <!--        <item name="android:windowBackground">#99323232</item>-->
 <!--        <item name="android:colorBackgroundCacheHint">@null</item>-->
 <!--        <item name="android:windowContentOverlay">@null</item>-->

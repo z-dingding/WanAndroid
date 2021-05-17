@@ -58,5 +58,13 @@ class LocalDataSource : DataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun wxPublic(): Result<*> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun wxPublicArticle(publicId: Int, pageIndex: Int): Result<*> {
+        TODO("Not yet implemented")
+    }
+
 
 }

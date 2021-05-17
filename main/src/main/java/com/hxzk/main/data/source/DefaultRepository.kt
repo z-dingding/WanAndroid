@@ -2,6 +2,7 @@ package com.hxzk.main.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.hxzk.base.extension.logDebug
 import com.hxzk.base.extension.sToast
 import com.hxzk.main.util.ResponseHandler
 import com.hxzk.network.Result
@@ -150,6 +151,22 @@ class DefaultRepository(
 
     override fun navigaiontList(): LiveData<Result<*>>  = liveData {
         val result = romtat.navigaiontList()
+        emit(result)
+    }
+
+    override fun wxPublic()= liveData {
+        val result = romtat.wxPublic()
+        emit(result)
+    }
+
+
+    lateinit var result:List<Any>
+    override  fun wxPublicArticle(lsit:List<Int>)= liveData{
+       result = ArrayList()
+        lsit.forEach {
+           //只请求第一页数据
+            (result as ArrayList<Any>).add(romtat.wxPublicArticle(it,1))
+        }
         emit(result)
     }
 

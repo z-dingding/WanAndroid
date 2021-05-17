@@ -11,6 +11,7 @@ import com.hxzk.main.ui.home.HomeViewModel
 import com.hxzk.main.ui.integral.IntegraViewModel
 import com.hxzk.main.ui.login.LoginViewModel
 import com.hxzk.main.ui.mine.MineViewModel
+import com.hxzk.main.ui.publics.PublicViewModel
 import com.hxzk.main.ui.register.RegisterViewModel
 import com.hxzk.main.ui.search.SearchViewModel
 import com.hxzk.main.ui.system.child_nav.ChildNavigationViewModel
@@ -32,7 +33,7 @@ class ViewModelFactory constructor(
         modelClass: Class<T>,
         handle: SavedStateHandle
     ) = with(modelClass){
-       when{
+         when{
             isAssignableFrom(LoginViewModel::class.java) ->
                  LoginViewModel(repository)
 
@@ -63,9 +64,11 @@ class ViewModelFactory constructor(
            isAssignableFrom(SearchViewModel::class.java) ->
                SearchViewModel(repository)
 
+           isAssignableFrom(PublicViewModel::class.java) ->
+               PublicViewModel(repository)
+
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
-
     } as T
 }
