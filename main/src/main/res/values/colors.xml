@@ -15,6 +15,8 @@
 
     <color name="wall">#fff5f5f5</color>
     <color name="secondary_text">#757575</color>
+    <color name="light_scrim">#11323232</color>
+    <color name="scrim">#99323232</color>
 
 <!--    首页bnv选择和不选中的文字颜色-->
     <color name="bnv_textcolor_checked">#FFF</color>
@@ -28,4 +30,8 @@
 <!--    公众号左侧列表的背景颜色-->
     <color name="public_leftrv_bg_sel">#FFFFFF</color>
     <color name="public_leftrv_bg_nor">#F5F5F5</color>
+
+<!--     个人信息修改页面-->
+    <color name="ripple_dark_grey">#77555555</color>
+    <color name="ripple_dark_grey_pressed">#77333333</color>
 </resources>

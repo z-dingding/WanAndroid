@@ -50,16 +50,14 @@
     <!--跳转到搜索界面的动画标识-->
     <string name="transition_search_back" translatable="false">transition_search_back</string>
     <string name="search_hint">请输入搜索关键字</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- 首页 -->
     <string name="home_tag_new">新</string>
 
-<!--    搜索页面-->
-<string name="search_title">搜索</string>
-<string name="search_hotkey_title">热门搜索</string>
-<string name="search_historykey_title">历史搜索</string>
-<string name="search_clear">清除</string>
+    <!--    搜索页面-->
+    <string name="search_title">搜索</string>
+    <string name="search_hotkey_title">热门搜索</string>
+    <string name="search_historykey_title">历史搜索</string>
+    <string name="search_clear">清除</string>
 
     <!--体系-->
     <string name="system_title">体系</string>
@@ -79,11 +77,29 @@
     <!--我的积分-->
     <string name="interal_title">我的积分</string>
 
-  <!--积分排行榜-->
+    <!--积分排行榜-->
     <string name="rank_title">积分排行榜</string>
 
+<!--    修改用户信息页面-->
+    <string name="save">保存</string>
+    <string name="ok">确定</string>
+    <string name="take_photo">拍照</string>
+    <string name="your_album">你的相册</string>
+    <string name="select_avatar">选择头像照片</string>
+    <string name="select_bg_image">选择个人封面照片</string>
+    <string name="operation_failed_without_sdcard">您的手机没有SD卡，无法完成操作</string>
 
 
-
+    <string name="confirm_to_abort_userinfo_modification">您已修改了个人信息，确定放弃保存吗？</string>
+    <string name="abort">放弃</string>
+    <string name="stay">留下</string>
+    <string name="crop">裁剪</string>
+    <string name="pick_image_intent_chooser_title">Select source</string>
+    <string name="crop_image_activity_title"></string>
+    <string name="crop_image_menu_rotate_left">Rotate counter clockwise</string>
+    <string name="crop_image_menu_crop">完成</string>
+    <string name="crop_image_activity_no_permissions">Cancelling, required permissions are not granted</string>
+    <string name="crop_failed">裁剪失败</string>
+    <string name="album_is_empty">您的相册空空如也</string>
 
 </resources>

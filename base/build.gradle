@@ -65,7 +65,8 @@ dependencies {
     api dependencies['photoView']
     //flexbox
     api dependencies['flexbox']
-
+    //鲁班压缩
+    api dependencies['luban']
 
     api project(path: ':tencentx5')
     api project(path: ':network')

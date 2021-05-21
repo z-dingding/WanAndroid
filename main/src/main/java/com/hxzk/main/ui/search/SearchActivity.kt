@@ -32,7 +32,6 @@ class SearchActivity : BaseActivity() {
 
     val viewModel by viewModels<SearchViewModel> { getViewModelFactory() }
     lateinit var binding : ActivitySearchBinding
-
     private lateinit var adapter: FlexItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,9 +65,9 @@ class SearchActivity : BaseActivity() {
 
     private fun setRecycler() {
         val flexboxLayoutManager = FlexboxLayoutManager(activity)
-        binding.searchResults.layoutManager = flexboxLayoutManager
+        binding.hotResults.layoutManager = flexboxLayoutManager
         adapter = FlexItemAdapter(viewModel,this)
-        binding.searchResults.adapter = adapter
+        binding.hotResults.adapter = adapter
         adapter.setFlexItemClickListener(object : HotFlexItemClickListener {
             override fun onItemClick(item: HotKeyModel) {
                 item.name.sToast()
@@ -142,4 +141,5 @@ class SearchActivity : BaseActivity() {
         binding.searchView.clearFocus()
         hideSoftKeyboard()
     }
+
 }

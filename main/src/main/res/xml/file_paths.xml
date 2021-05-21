@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+<!--    name 属性用于给 path 属性所指定的子目录名称取一个别名,
+后续生成 content:// URI 时，会使用这个别名代替真实目录名。这样做的目的，很显然是为了提高安全性-->
+<!--    path 属性用于指定当前子元素所代表目录下需要共享的子目录名称-->
+<!--    <external-path/> 代表Environment.getExternalStorageDirectory()-->
+    <external-path name="my_images" path="/" />
+</paths>

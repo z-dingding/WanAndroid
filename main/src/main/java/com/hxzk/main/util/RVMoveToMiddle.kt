@@ -21,10 +21,10 @@ object RVMoveToMiddle {
         val index :Int = if( (clickPos - middle) >= 0 ) (clickPos - middle)  else  -(clickPos - middle)
         if(clickPos < middle){
             //如果当前位置在中间位置的前面,往下移动
-            rv.scrollBy(0,-rv.getChildAt(index).top)
+            rv.scrollBy(0,-rv.getChildAt(index)?.top!!)
         }else{
             //如果当前位置在中间位置的后面,往上移动
-            rv.scrollBy(0,rv.getChildAt(index).top)
+            rv.getChildAt(index)?.top
         }
     }
 

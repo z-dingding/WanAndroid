@@ -1,6 +1,7 @@
 package com.hxzk.main.ui.mine
 
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,13 +16,18 @@ import com.hxzk.base.extension.action
 import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.extension.logDebug
 import com.hxzk.base.extension.sToast
+import com.hxzk.base.util.Preference
 import com.hxzk.main.R
 import com.hxzk.main.common.Const
+import com.hxzk.main.common.Const.ModifyUserInfo.Companion.KEY_USER_AVATAR
+import com.hxzk.main.common.Const.ModifyUserInfo.Companion.KEY_USER_BG
+import com.hxzk.main.common.Const.ModifyUserInfo.Companion.KEY_USER_NAME
 import com.hxzk.main.databinding.FragmentMineBinding
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.integral.IntegralActivity
 import com.hxzk.main.ui.main.MainActivity
+import com.hxzk.main.ui.modifyuserinfo.ModifyUserInfoActivity
 import com.hxzk.main.ui.rank.RankActivity
 import com.hxzk.main.util.CropCircleTransformation
 import com.hxzk.network.model.UserInfoModel
@@ -33,11 +39,10 @@ class MineFragment : BaseFragment() , View.OnClickListener {
     lateinit var databindding: FragmentMineBinding
     lateinit var activity: MainActivity
 
-    /**
-     * 获取本地的用户图片
-     */
-    val localUserPhoto
-    get() = ""
+
+    private var userAvatarUri: String? = null
+    private var userBgImageUri: String? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +60,6 @@ class MineFragment : BaseFragment() , View.OnClickListener {
         activity = requireActivity() as MainActivity
         //改变状态栏颜色
         activity.window.statusBarColor = ContextCompat.getColor(activity, R.color.colorPrimary)
-        initData()
         initEvent()
     }
 
@@ -63,18 +67,6 @@ class MineFragment : BaseFragment() , View.OnClickListener {
         iv_userPhoto.setOnClickListener(this)
         stv_integral.setOnClickListener(this)
         iv_integral.setOnClickListener(this)
-    }
-
-    private fun initData() {
-        if(localUserPhoto.isNotEmpty()){
-            Glide.with(this)
-                    .load(localUserPhoto)
-                    .apply(RequestOptions().transform(CropCircleTransformation(activity)))
-                    .placeholder(R.drawable.loading_bg_circle)
-                    .error(R.drawable.avatar_default)
-                    .into(iv_userPhoto)
-        }
-
     }
 
     override fun onClick(v: View?) {
@@ -88,17 +80,37 @@ class MineFragment : BaseFragment() , View.OnClickListener {
                     getString(R.string.common_tips_pleasewaiting).sToast()
                 }
 
-            R.id.iv_userPhoto -> checkPromission()
+            R.id.iv_userPhoto ->
+                activity.actionBundle<ModifyUserInfoActivity>(activity,Bundle().apply {
+                putString(KEY_USER_BG,userAvatarUri)
+                putString(KEY_USER_AVATAR,userBgImageUri)
+                putString(KEY_USER_NAME,viewModel.userInfo.value?.username)
+            })
 
             R.id.iv_integral -> activity.action<RankActivity>(activity)
         }
     }
 
-    /**
-     * 检查是否有访问图片的权限
-     */
-    private fun checkPromission() {
+    override fun onStart() {
+        super.onStart()
+        var saveUserAvatar by Preference(Const.ModifyUserInfo.KEY_USER_AVATAR,"")
+        userAvatarUri = saveUserAvatar
+        var saveUserBg by Preference(Const.ModifyUserInfo.KEY_USER_BG,"")
+        userBgImageUri = saveUserBg
 
+        Glide.with(this)
+                .load(userAvatarUri)
+                .apply(RequestOptions().transform(CropCircleTransformation(activity)))
+                .placeholder(R.drawable.loading_bg_circle)
+                .error(R.drawable.avatar_default)
+                .into(iv_userPhoto)
+
+        Glide.with(this)
+                .load(userBgImageUri)
+                .apply(RequestOptions().transform(CropCircleTransformation(activity)))
+                .placeholder(R.drawable.bg_wall)
+                .error(R.drawable.bg_wall)
+                .into(iv_bgWall)
     }
 
 }

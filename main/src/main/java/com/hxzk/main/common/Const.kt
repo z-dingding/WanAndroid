@@ -34,4 +34,14 @@ interface Const {
         }
     }
 
+
+    interface  ModifyUserInfo{
+        companion object{
+            const val KEY_USER_BG = "key_user_bg"
+            const val KEY_USER_AVATAR = "key_user_avatar"
+            const val KEY_USER_NAME = "key_user_name"
+        }
+    }
+
+
 }
