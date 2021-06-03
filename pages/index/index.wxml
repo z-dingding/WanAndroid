@@ -5,6 +5,7 @@
     <image class="search_img" src="../../images/home_search.png" mode="aspectFit"></image>
     <text class="search_text">搜索</text>
   </view>
+  <!-- 轮播区域 -->
   <swiper wx:if="{{banners.length > 0}}" indicator-dots="true" autoplay="true" circular="true" previous-margin="40rpx"
     next-margin="40rpx">
     <block wx:for="{{banners}}" wx:key="*this">
@@ -19,7 +20,7 @@
       <view class="topartical_toparea">
         <view class="topartical_toparea_left">
           <view class="artical_author artical_smallsize">{{item.author != ''? item.author : item.shareUser }}</view>
-          <view class="artical_fromsite artical_smallsize" wx:if="{{item.tags.length > 0}}">{{item.tags[0].name}}</view>
+          <view class="artical_fromsite artical_smallsize" wx:if="{{item.tags.length > 0}}" catchtap="tagClick" data-tag="{{item.tags[0].name}}">{{item.tags[0].name}}</view>
         </view>
         <view class="artical_date artical_smallsize">{{item.niceDate}}</view>
       </view>

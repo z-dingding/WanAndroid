@@ -100,6 +100,8 @@ Page({
           case 'release':
             if(accountInfo.miniProgram.version != null && accountInfo.miniProgram.version != ''){
                version=accountInfo.miniProgram.version
+            }else{
+              version = '正式版';
             }
             break
         }
@@ -119,7 +121,7 @@ Page({
         wx.showModal({
           showCancel: false,
           title: '提示',
-          contui出tent: '小程序将自动更新,无需用户操作',
+          content: '小程序将自动更新,无需用户操作',
         })
       },
       /**

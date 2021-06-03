@@ -61,6 +61,18 @@ Page({
       url: '../webview/webview?type=1&urlPath=' + e.currentTarget.dataset.url + '&title=' + e.currentTarget.dataset.title + '&articalId=' + e.currentTarget.dataset.articalid
     })
   },
+
+
+  /**
+   *item中的tag点击（本站发布按钮的点击）
+   */
+  tagClick:function(e){
+    let tag = e.currentTarget.dataset.tag
+     wx.showToast({
+       title: tag
+      })
+  },
+
   /**
    * banner的i的点击
    */
