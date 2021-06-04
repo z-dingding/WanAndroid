@@ -14,6 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+<!--        背景图-->
         <ImageView
             android:id="@+id/userBg"
             android:layout_width="match_parent"
@@ -40,6 +41,7 @@
                   android:textColor="@color/text_black"/>
         </LinearLayout>
 
+<!--   layout_alignTop将该控件的顶部边缘与给定ID的顶部边缘对齐-->
         <ImageView
             android:id="@+id/avatarCamera"
             android:layout_width="70dp"
@@ -64,7 +66,7 @@
             android:src="@drawable/ic_camera"
             />
     </RelativeLayout>
-
+<!--标题栏-->
     <com.hxzk.main.widget.TransparentToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

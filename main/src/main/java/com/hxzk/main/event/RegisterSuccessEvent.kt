@@ -5,4 +5,4 @@ package com.hxzk.main.event
  *描述:
  *
  */
-data class RegisterSuccessEvent constructor( val account: String, val  pwd : String) : MessageEvent()
+class RegisterSuccessEvent constructor( val account: String, val  pwd : String) : MessageEvent()

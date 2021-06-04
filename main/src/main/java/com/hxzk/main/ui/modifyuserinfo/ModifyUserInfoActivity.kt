@@ -3,6 +3,8 @@ package com.hxzk.main.ui.modifyuserinfo
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.DrawableWrapper
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -11,9 +13,16 @@ import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
+import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.hxzk.base.extension.logWarn
 import com.hxzk.base.extension.sToast
 import com.hxzk.base.util.AndroidVersion
@@ -25,9 +34,8 @@ import com.hxzk.main.callback.PermissionListener
 import com.hxzk.main.common.Const
 import com.hxzk.main.databinding.ActivityModifyUserInfoBinding
 import com.hxzk.main.ui.base.BaseActivity
-import com.hxzk.main.util.BlurTransformation
-import com.hxzk.main.util.CropCircleTransformation
-import com.hxzk.main.util.DeviceInfo
+import com.hxzk.main.util.*
+import com.hxzk.main.util.ColorUtil.isBitmapDark
 import com.hxzk.main.widget.cropper.CropImage
 import com.hxzk.main.widget.cropper.CropImageView
 import java.io.File
@@ -78,6 +86,62 @@ class ModifyUserInfoActivity : BaseActivity(), View.OnClickListener {
     private val isUserInfoChanged: Boolean
     get() = userAvatarUri != null  || userBgImageUri != null
 
+    private var userBgLoadListener: RequestListener<Bitmap> = object : RequestListener<Bitmap> {
+
+
+        override fun onResourceReady(bitmap: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+            if (bitmap == null) {
+                return false
+            }
+            val bitmapWidth = bitmap.width
+            val bitmapHeight = bitmap.height
+            if (bitmapWidth <= 0 || bitmapHeight <= 0) {
+                return false
+            }
+            Palette.from(bitmap)
+                    .maximumColorCount(3)
+                    .clearFilters()
+                    // 测量图片头部的颜色，以确定状态栏和导航栏的颜色
+                    .setRegion(0, 0, bitmapWidth - 1, (bitmapHeight * 0.1).toInt())
+                    .generate { palette ->
+                        val isDark = isBitmapDark(palette, bitmap)
+                        if (isDark) {
+                            binding.save.setTextColor(ContextCompat.getColorStateList(this@ModifyUserInfoActivity, R.color.save_bg_light))
+                            setToolbarAndStatusbarIconIntoLight()
+                        } else {
+                            binding.save.setTextColor(ContextCompat.getColorStateList(this@ModifyUserInfoActivity, R.color.save_bg_dark))
+                            setToolbarAndStatusbarIconIntoDark()
+                        }
+                    }
+
+            val left = (bitmapWidth * 0.2).toInt()
+            val right = bitmapWidth - left
+            val top = bitmapHeight / 2
+            val bottom = bitmapHeight - 1
+            Palette.from(bitmap)
+                    .maximumColorCount(3)
+                    .clearFilters()
+                    // 测量图片下半部分的颜色，以确定用户信息的颜色
+                    .setRegion(left, top, right, bottom)
+                    .generate { palette ->
+                        val isDark = isBitmapDark(palette, bitmap)
+                        val color: Int
+                        color = if (isDark) {
+                            ContextCompat.getColor(this@ModifyUserInfoActivity, R.color.text_white)
+                        } else {
+                            ContextCompat.getColor(this@ModifyUserInfoActivity, R.color.primary_text)
+                        }
+                        binding.userName.setTextColor(color)
+                    }
+            return false
+        }
+
+        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+            return false
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_modify_user_info)
@@ -97,12 +161,15 @@ class ModifyUserInfoActivity : BaseActivity(), View.OnClickListener {
 
         Glide.with(this)
                 .load(localUserAvatarPath)
+                //转化为圆型图
                 .transform(CropCircleTransformation(this))
                 .placeholder(R.drawable.loading_bg_circle)
                 .error(R.drawable.avatar_default)
                 .into(binding.userAvatar)
 
         Glide.with(this)
+                .asBitmap()
+                .listener(userBgLoadListener)
                 .load(localUserBgPath)
                 .transform(BlurTransformation(this, 15))
                 .placeholder(R.drawable.loading_bg_circle)
@@ -134,8 +201,12 @@ class ModifyUserInfoActivity : BaseActivity(), View.OnClickListener {
                        var saveUserBg by Preference(Const.ModifyUserInfo.KEY_USER_BG,"")
                        saveUserBg = userBgImageUri.toString()
                    }
-                   cleanExtrnalCacheFiles()
-                   finish()
+                   //如果不是首次选择就一定会有图片保存到本地,localUserAvatarPath为空说明是首次进入操作
+                   if(localUserAvatarPath.isNotBlank()){
+                       cleanExtrnalCacheFiles()
+                       clearInnerCacheFiles()
+                      finish()
+                   }
                }else{
                    finish()
                }
@@ -309,6 +380,7 @@ class ModifyUserInfoActivity : BaseActivity(), View.OnClickListener {
                 userBgImageUri = imageUri
                 Glide.with(this)
                         .asBitmap()
+                        .listener(userBgLoadListener)
                         .load(userAvatarUri)
                         .transform(BlurTransformation(this, 20))
                         .into(binding.userBg)
@@ -317,15 +389,32 @@ class ModifyUserInfoActivity : BaseActivity(), View.OnClickListener {
             userBgImageUri = imageUri
             Glide.with(this)
                     .asBitmap()
+                    .listener(userBgLoadListener)
                     .load(userBgImageUri)
                     .transform(BlurTransformation(this, 20))
                     .into(binding.userBg)
         }
     }
 
+    /**
+     * 设置Toolbar和状态栏上的图标为深色。
+     */
+    private fun setToolbarAndStatusbarIconIntoDark() {
+        ViewUtils.setLightStatusBar(window, binding.userBg)
+        binding.toolbar?.let { ViewUtils.setToolbarIconColor(this, it, true) }
+    }
 
     /**
-     * 清除拍照返回外部存储文件
+     * 设置Toolbar和状态栏上的图标颜色为浅色。
+     */
+    private fun setToolbarAndStatusbarIconIntoLight() {
+        ViewUtils.clearLightStatusBar(window, binding.userBg)
+        binding.toolbar?.let { ViewUtils.setToolbarIconColor(this, it, false) }
+    }
+
+
+    /**
+     * 清除拍照返回外部存储文件(作用仅仅是保存了原图)
      */
     private fun cleanExtrnalCacheFiles() {
         val outputImage = File(externalCacheDir, AVATAR_PHOTO)
@@ -335,7 +424,8 @@ class ModifyUserInfoActivity : BaseActivity(), View.OnClickListener {
     }
 
     /**
-     * 清除除当前内部所有存储裁剪的文件
+     *如果最终没有选择图片则不需要操作
+     * 清除除当前内部所有存储裁剪的文件(由于没有办法确定)
      */
    private fun clearInnerCacheFiles(){
        val croppedDir = File("$cacheDir/cropped")
@@ -343,7 +433,23 @@ class ModifyUserInfoActivity : BaseActivity(), View.OnClickListener {
            val files = croppedDir.listFiles()
            if (files != null) {
                for (file in files) {
-                       file.delete()
+                   if(userBgImageUri !=null && userAvatarUri != null){
+                       //如果替换头像和背景两张图片
+                       if(file.toUri().toString() != userBgImageUri.toString() && file.toUri().toString() != userAvatarUri.toString()){
+                           file.delete()
+                       }
+                   }else if (userBgImageUri !=null){
+                       //如果替换了头像
+                       if(file.toUri().toString() != userBgImageUri.toString() && file.toUri().toString() != localUserAvatarPath){
+                           file.delete()
+                       }
+                   }else if(userAvatarUri != null){
+                       //如果替换了背景
+                       if(file.toUri().toString() != userAvatarUri.toString() && file.toUri().toString() != localUserBgPath){
+                           file.delete()
+                       }
+                   }
+
                }
            }
        }

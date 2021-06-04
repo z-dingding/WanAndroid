@@ -17,12 +17,12 @@ import com.hxzk.main.ui.login.LoginActivity
 import com.hxzk.main.util.ResponseHandler
 import com.hxzk.network.Result
 import com.hxzk.network.model.ApiResponse
-import com.hxzk.network.succeeded
 import kotlinx.android.synthetic.main.fragment_rigister.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-
+import androidx.lifecycle.observe
+import com.hxzk.network.succeeded
 
 class RegisterFragment : BaseFragment() {
 
@@ -50,33 +50,35 @@ class RegisterFragment : BaseFragment() {
         }
 
 
-        registerViewModel.isStartLoading.observe(viewLifecycleOwner,{
-           if(it)  ProgressDialogUtil.getInstance().showDialog(context) else   ProgressDialogUtil.getInstance().dismissDialog()
-        })
+        registerViewModel.isStartLoading.observe(viewLifecycleOwner) {
+            if(it)  ProgressDialogUtil.getInstance().showDialog(context) else   ProgressDialogUtil.getInstance().dismissDialog()
+        }
 
-        registerViewModel.register?.observe(viewLifecycleOwner,{
+        registerViewModel.register?.observe(viewLifecycleOwner) {
             registerViewModel._isStartLoading.value = false
             if(it.succeeded){
                 val bean = (it as Result.Success<*>).res as ApiResponse<*>
-            if (bean.errorCode == 0) {
-                (activity as LoginActivity).switchFrag(0)
-                //将注册成功的账号密码发送给登录页面
-                val registerEvent = RegisterSuccessEvent(registerViewModel.account.value.toString(),registerViewModel.pwd.value.toString())
-                EventBus.getDefault().post(registerEvent)
-            } else {
-                bean.errorMsg.sToast()
-            }
+                if (bean.errorCode == 0) {
+                    (activity as LoginActivity).switchFrag(0)
+                    //将注册成功的账号密码发送给登录页面
+                    val registerEvent = RegisterSuccessEvent(registerViewModel.account.value.toString(),registerViewModel.pwd.value.toString())
+                    EventBus.getDefault().post(registerEvent)
+                } else {
+                    bean.errorMsg.sToast()
+                }
             }else{
                 val res = it as Result.Error
                 ResponseHandler.handleFailure(res.e)
             }
-        })
+        }
     }
 
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-     fun onMessageEvent(messageEvent: MessageEvent) {}
+     fun onMessageEvent(messageEvent: MessageEvent) {
+
+    }
 
 
 }

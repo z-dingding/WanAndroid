@@ -106,9 +106,11 @@ open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun onMessageEvent(messageEvent: MessageEvent) {
+
+
     }
 
-    open   fun setupViews(){}
+    open fun setupViews(){}
 
     protected fun setupToolbar() {
         toolbar = findViewById(R.id.toolbar)

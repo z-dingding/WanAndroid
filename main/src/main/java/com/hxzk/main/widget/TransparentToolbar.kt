@@ -40,5 +40,4 @@ class TransparentToolbar : Toolbar {
     override fun onTouchEvent(ev: MotionEvent): Boolean {
         return false
     }
-
 }
