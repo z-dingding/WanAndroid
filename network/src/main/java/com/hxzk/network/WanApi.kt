@@ -116,6 +116,11 @@ import retrofit2.http.*
     @GET("tree/json")
     fun treeList():Call<ApiResponse<List<SystemModel>>>
     /**
+     * 体系下单个ITEM的列表
+     */
+    @GET("article/list/{index}/json")
+    fun systemItemList(@Path("index") index: Int,@Query("cid") cid: Int):Call<ApiResponse<AnswerModel>>
+    /**
      * 导航列表
      */
     @GET("navi/json")

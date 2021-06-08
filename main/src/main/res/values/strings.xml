@@ -80,7 +80,7 @@
     <!--积分排行榜-->
     <string name="rank_title">积分排行榜</string>
 
-<!--    修改用户信息页面-->
+    <!--    修改用户信息页面-->
     <string name="save">保存</string>
     <string name="ok">确定</string>
     <string name="take_photo">拍照</string>

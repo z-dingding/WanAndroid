@@ -17,6 +17,7 @@ import com.hxzk.main.ui.search.SearchViewModel
 import com.hxzk.main.ui.system.child_nav.ChildNavigationViewModel
 import com.hxzk.main.ui.system.child_sys.ChildSystemViewModel
 import com.hxzk.main.ui.system.SystemViewModel
+import com.hxzk.main.ui.system.sysitem.SystemItemViewModel
 
 /**
  *作者：created by zjt on 2021/3/12
@@ -66,6 +67,9 @@ class ViewModelFactory constructor(
 
            isAssignableFrom(PublicViewModel::class.java) ->
                PublicViewModel(repository)
+
+             isAssignableFrom(SystemItemViewModel::class.java) ->
+                 SystemItemViewModel(repository)
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

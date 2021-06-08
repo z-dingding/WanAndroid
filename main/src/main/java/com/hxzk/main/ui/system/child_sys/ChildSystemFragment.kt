@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.hxzk.base.extension.sToast
+import com.hxzk.base.extension.actionBundle
 import com.hxzk.main.callback.FlexItemClickListener
+import com.hxzk.main.common.Const
 import com.hxzk.main.databinding.FragmentChildSystemBinding
 import com.hxzk.main.extension.getViewModelFactory
-import com.hxzk.main.ui.adapter.HomeItemAdapter
 import com.hxzk.main.ui.adapter.SystemItemAdapter
 import com.hxzk.main.ui.base.BaseFragment
+import com.hxzk.main.ui.main.MainActivity
+import com.hxzk.main.ui.system.sysitem.SystemItemActivity
 import com.hxzk.network.model.Children
 
 class ChildSystemFragment : BaseFragment(),FlexItemClickListener {
@@ -48,7 +50,11 @@ class ChildSystemFragment : BaseFragment(),FlexItemClickListener {
     }
 
     override fun onItemClick(item: Children) {
-       item.name.sToast()
+        val bundle =Bundle().apply {
+            putString(Const.SystemItem.KEY_TITLE, item.name)
+            putInt(Const.SystemItem.KEY_ID, item.id)
+        }
+        (activity as MainActivity).actionBundle<SystemItemActivity>(activity as MainActivity,bundle)
     }
 
 }

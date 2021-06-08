@@ -70,8 +70,6 @@ class MainActivity : BaseActivity() {
     override fun onMessageEvent(messageEvent: MessageEvent) {
         //接受注册页面注册成功的账号信息
         if (messageEvent is TransparentStatusBarEvent) {
-//            if (messageEvent.isTransparent) transparentStatusBar()
-//             else window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
             transparentStatusBar()
         }
     }

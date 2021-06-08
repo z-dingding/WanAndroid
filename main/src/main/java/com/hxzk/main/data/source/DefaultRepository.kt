@@ -144,6 +144,11 @@ class DefaultRepository(
         emit(result)
     }
 
+    override fun systemItemList(pageIndex : Int,cId:Int): LiveData<Result<*>> = liveData {
+        val result = romtat.systemItemList(pageIndex,cId)
+        emit(result)
+    }
+
     override fun hotKeys(): LiveData<Result<*>> = liveData {
         val result = romtat.hotKeys()
         emit(result)

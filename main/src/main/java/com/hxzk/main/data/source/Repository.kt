@@ -53,6 +53,10 @@ interface Repository {
     fun treeList(): LiveData<Result<*>>
 
     /**
+     * 体系下文章列表
+     */
+    fun systemItemList(pageIndex : Int,cId:Int):LiveData<Result<*>>
+    /**
      * 搜索热词
      */
     fun hotKeys():LiveData<Result<*>>
@@ -71,4 +75,6 @@ interface Repository {
      * 查看某公众号列表
      */
      fun wxPublicArticle( lsit:List<Int>) : LiveData<List<Any>>
+
+
 }

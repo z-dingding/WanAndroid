@@ -43,5 +43,12 @@ interface Const {
         }
     }
 
+    interface  SystemItem{
+        companion object{
+            const val KEY_TITLE = "key_title"
+            const val KEY_ID = "key_id"
+        }
+    }
+
 
 }
