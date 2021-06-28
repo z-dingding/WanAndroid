@@ -3,6 +3,7 @@ package com.hxzk.main.data.source
 import androidx.lifecycle.LiveData
 import com.hxzk.network.Result
 import com.hxzk.network.model.ApiResponse
+import com.hxzk.network.model.CommonItemModel
 import com.hxzk.network.model.SystemModel
 import retrofit2.Call
 import retrofit2.http.GET
@@ -76,4 +77,14 @@ interface DataSource {
      * 查看某公众号列表
      */
    suspend fun wxPublicArticle( publicId: Int,  pageIndex: Int):Result<*>
+
+    /**
+     * 插入单个阅读历史记录
+     */
+   suspend fun insertItem(model : CommonItemModel)
+
+    /**
+     * 查询阅读历史记录
+     */
+    suspend fun queryItems():Result<List<CommonItemModel>>
 }

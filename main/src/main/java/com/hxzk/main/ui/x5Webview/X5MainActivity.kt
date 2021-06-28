@@ -17,6 +17,8 @@ import com.hxzk.main.ui.base.BaseFragment
 
 class X5MainActivity : BaseActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_x5main)

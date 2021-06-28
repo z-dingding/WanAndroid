@@ -6,10 +6,7 @@ import com.hxzk.base.extension.logDebug
 import com.hxzk.base.extension.sToast
 import com.hxzk.main.util.ResponseHandler
 import com.hxzk.network.Result
-import com.hxzk.network.model.ApiResponse
-import com.hxzk.network.model.ArticleListModel
-import com.hxzk.network.model.DataX
-import com.hxzk.network.model.SystemModel
+import com.hxzk.network.model.*
 import com.hxzk.network.succeeded
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -173,6 +170,14 @@ class DefaultRepository(
             (result as ArrayList<Any>).add(romtat.wxPublicArticle(it,1))
         }
         emit(result)
+    }
+
+    override suspend fun insertItem(model: CommonItemModel) {
+        localSource.insertItem(model)
+    }
+
+    override suspend fun queryItems(): Result<List<CommonItemModel>> {
+        return localSource.queryItems()
     }
 
 

@@ -62,11 +62,12 @@ dependencies {
     //SuperTextView
     api dependencies['superTextView']
     //photoView,webview中的图片预览
-    api dependencies['photoView']
+   // api dependencies['photoView']
     //flexbox
     api dependencies['flexbox']
     //鲁班压缩
-    api dependencies['luban']
+   // api dependencies['luban']
+
 
     api project(path: ':tencentx5')
     api project(path: ':network')

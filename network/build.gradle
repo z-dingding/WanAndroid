@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+//room注解时需要
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -40,4 +42,8 @@ dependencies {
     api  dependencies["converter-gson"]
     api  dependencies["logging-interceptor"]
     api  dependencies["PersistentCookieJar"]
+    //room数据库
+    api dependencies['room-runtime']
+    kapt dependencies['room-compiler']
+    api dependencies['room-ktx']
 }

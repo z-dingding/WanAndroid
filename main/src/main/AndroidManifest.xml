@@ -8,13 +8,6 @@
         <activity android:name=".ui.modifyuserinfo.ModifyUserInfoActivity" />
         <activity android:name=".ui.rank.RankActivity" />
         <activity android:name=".ui.integral.IntegralActivity" />
-        <activity android:name=".ui.photoview.PhotoViewActivity">
-            <intent-filter>
-                <action android:name="com.hxzk.app.ACTION_PHOTOVIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.login.AuthActivity" />
         <activity

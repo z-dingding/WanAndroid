@@ -48,4 +48,6 @@ dependencies {
     def dependencies = rootProject.ext.dependencies
     api  dependencies["appcompat"]
     api  dependencies["constraintlayout"]
+
+    kapt dependencies['room-compiler']
 }

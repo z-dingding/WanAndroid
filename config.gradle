@@ -1,6 +1,7 @@
 ext {
     //架构组件扩展库的版本
     archLifecycleVersion = "2.2.0-rc02"
+    roomVersion = "2.2.0"
 
     android = [
             compileSdkVersion : 29,
@@ -50,11 +51,15 @@ ext {
             //SuperTextView
             'superTextView': 'com.github.lygttpod:SuperTextView:2.4.5',
             //PhotoView
-            photoView: 'com.github.chrisbanes:PhotoView:2.0.0',
+            //'photoView': 'com.github.chrisbanes:PhotoView:2.0.0',
             //flexbox
-            flexbox :'com.google.android:flexbox:2.0.1',
+            'flexbox' :'com.google.android:flexbox:2.0.1',
             //鲁班压缩图片
-            luban: 'top.zibin:Luban:1.1.8'
+            //'luban': 'top.zibin:Luban:1.1.8',
+            //room
+            'room-runtime' : "androidx.room:room-runtime:$roomVersion",
+            'room-compiler' : "androidx.room:room-compiler:$roomVersion",
+            'room-ktx' : "androidx.room:room-ktx:$roomVersion",
 
 
     ]

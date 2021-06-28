@@ -18,6 +18,7 @@ import com.hxzk.main.ui.system.child_nav.ChildNavigationViewModel
 import com.hxzk.main.ui.system.child_sys.ChildSystemViewModel
 import com.hxzk.main.ui.system.SystemViewModel
 import com.hxzk.main.ui.system.sysitem.SystemItemViewModel
+import com.hxzk.main.ui.x5Webview.X5FragViewModel
 
 /**
  *作者：created by zjt on 2021/3/12
@@ -70,6 +71,10 @@ class ViewModelFactory constructor(
 
              isAssignableFrom(SystemItemViewModel::class.java) ->
                  SystemItemViewModel(repository)
+
+             isAssignableFrom(X5FragViewModel::class.java) ->
+                 X5FragViewModel(repository)
+
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

@@ -75,6 +75,14 @@ interface Repository {
      * 查看某公众号列表
      */
      fun wxPublicArticle( lsit:List<Int>) : LiveData<List<Any>>
+    /**
+     * 插入单个阅读历史记录
+     */
+    suspend fun insertItem(model : CommonItemModel)
 
+    /**
+     * 查询阅读历史记录
+     */
+    suspend fun queryItems():Result<List<CommonItemModel>>
 
 }

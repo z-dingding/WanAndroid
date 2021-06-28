@@ -3,6 +3,7 @@ package com.hxzk.main.data.source.romote
 import com.hxzk.main.data.source.DataSource
 import com.hxzk.network.Result
 import com.hxzk.network.WanApi
+import com.hxzk.network.model.CommonItemModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +32,13 @@ class RemoteDataSource : DataSource {
     override suspend fun hotKeys() =WanApi.get().hotKeys().await()
     override suspend fun wxPublic() =WanApi.get().wxPublic().await()
     override suspend fun wxPublicArticle(publicId: Int, pageIndex: Int)=WanApi.get().wxPublicArticle(publicId,pageIndex).await()
+    override suspend fun insertItem(model: CommonItemModel) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun queryItems(): Result<List<CommonItemModel>> {
+        TODO("Not yet implemented")
+    }
 
     /**
      * Call的扩展函数(默认持有该对象的引用)

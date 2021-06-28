@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.hxzk.base.extension.sToast
 import com.hxzk.main.R
+import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.base.BaseFragment
+import com.hxzk.main.ui.publics.PublicViewModel
 import com.hxzk.network.model.CommonItemModel
 import com.hxzk.tencentx5.callback.WebViewProgress
 import com.tencent.smtt.sdk.WebView
@@ -15,6 +18,8 @@ import kotlinx.android.synthetic.main.fragment_x5.*
 
 
 class X5Fragment : BaseFragment(), WebViewProgress {
+
+    private val viewModel by viewModels<X5FragViewModel> { getViewModelFactory()}
 
     var model: CommonItemModel? = null
     lateinit var activity: X5MainActivity
@@ -39,6 +44,7 @@ class X5Fragment : BaseFragment(), WebViewProgress {
     }
 
 
+
     // 上次点击时间
     private var lastClickTime = 0L
 
@@ -59,6 +65,8 @@ class X5Fragment : BaseFragment(), WebViewProgress {
                 return false
             }
         })
+        //存储历史记录
+        model?.let { viewModel.insertItem(it) }
     }
 
     override fun onProgressChanged(view: WebView, newProgress: Int) {

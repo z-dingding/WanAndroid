@@ -1,6 +1,8 @@
 package com.hxzk.main.data.source
 
 import android.content.Context
+import androidx.room.Room
+import com.hxzk.main.data.source.local.ItemDataBase
 import com.hxzk.main.data.source.local.LocalDataSource
 import com.hxzk.main.data.source.romote.RemoteDataSource
 
@@ -12,6 +14,7 @@ import com.hxzk.main.data.source.romote.RemoteDataSource
  object  ServiceLocator {
 
     var tasksRepository: Repository? = null
+    var database : ItemDataBase? = null
 
     fun provideRepository(context: Context): Repository {
         synchronized(this) {
@@ -25,13 +28,19 @@ import com.hxzk.main.data.source.romote.RemoteDataSource
         tasksRepository = newRepo
         return newRepo
     }
-
-    /**
-     * 创建本地数据库
-     */
+    
     private fun createLocalDataSource(context: Context): DataSource {
-        //val database = database ?: createDataBase(context)
-        return LocalDataSource()
+        val database = database ?: createDataBase(context)
+        return LocalDataSource(database.taskDao())
+    }
+
+    private fun createDataBase(context: Context): ItemDataBase {
+        val result = Room.databaseBuilder(
+                context.applicationContext,
+                ItemDataBase::class.java, "item.db"
+        ).build()
+        database = result
+        return result
     }
 
 }
