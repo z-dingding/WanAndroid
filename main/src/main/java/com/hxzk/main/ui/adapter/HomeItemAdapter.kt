@@ -20,8 +20,8 @@ import com.hxzk.network.model.HomeBanner
 class HomeItemAdapter(private val homeViewModel: HomeViewModel) :
     ListAdapter<DataX, RecyclerView.ViewHolder>(IntegralDiffCallback()) {
 
-    val ITEM_TYEP_BANNER = 0
-    val ITEM_TYEP_NORMAL = 1
+     val ITEM_TYEP_BANNER = 0
+     val ITEM_TYEP_NORMAL = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ITEM_TYEP_BANNER){

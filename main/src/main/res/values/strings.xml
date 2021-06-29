@@ -89,7 +89,6 @@
     <string name="select_bg_image">选择个人封面照片</string>
     <string name="operation_failed_without_sdcard">您的手机没有SD卡，无法完成操作</string>
 
-
     <string name="confirm_to_abort_userinfo_modification">您已修改了个人信息，确定放弃保存吗？</string>
     <string name="abort">放弃</string>
     <string name="stay">留下</string>
@@ -101,5 +100,12 @@
     <string name="crop_image_activity_no_permissions">Cancelling, required permissions are not granted</string>
     <string name="crop_failed">裁剪失败</string>
     <string name="album_is_empty">您的相册空空如也</string>
+
+<!--    浏览记录-->
+    <string name="title_browsehistory">浏览记录</string>
+    <string name="browsehistory_clearall">清空所有</string>
+    <string name="browsehistory_cancel">取消</string>
+    <string name="browsehistory_sure">确定</string>
+    <string name="browsehistory_clearall_hint">您确定清除所有记录吗?</string>
 
 </resources>

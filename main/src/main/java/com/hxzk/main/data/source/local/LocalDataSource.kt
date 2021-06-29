@@ -1,5 +1,7 @@
 package com.hxzk.main.data.source.local
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.hxzk.main.data.source.DataSource
 import com.hxzk.network.Result
 import com.hxzk.network.model.CommonItemModel
@@ -81,13 +83,15 @@ class LocalDataSource(
         dao.insertItem(model)
     }
 
-    override suspend fun queryItems(): Result<List<CommonItemModel>> = withContext(ioDispatcher) {
-//        return@withContext try {
-//            Result.Success(dao.queryItems())
-//        } catch (e: Exception) {
-//            Result.Error(e)
-//        }
-         Result.Success(dao.queryItems())
+    override  fun queryBrowseItems(): LiveData<Result<List<CommonItemModel>>> {
+        return dao.queryItems().map {
+            Result.Success(it)
+        }
+
+    }
+
+    override  suspend fun delALLBrowsingHistory() {
+        dao.deleteAllBrowsingHistory()
     }
 
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.hxzk.base.extension.sToast
+import com.hxzk.base.util.GlobalUtil
 import com.hxzk.main.R
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.base.BaseFragment
@@ -66,6 +67,7 @@ class X5Fragment : BaseFragment(), WebViewProgress {
             }
         })
         //存储历史记录
+        model?.browseTime =GlobalUtil.currentDateString
         model?.let { viewModel.insertItem(it) }
     }
 

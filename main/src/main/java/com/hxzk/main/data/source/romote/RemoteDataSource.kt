@@ -1,5 +1,6 @@
 package com.hxzk.main.data.source.romote
 
+import androidx.lifecycle.LiveData
 import com.hxzk.main.data.source.DataSource
 import com.hxzk.network.Result
 import com.hxzk.network.WanApi
@@ -36,7 +37,11 @@ class RemoteDataSource : DataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun queryItems(): Result<List<CommonItemModel>> {
+    override  fun queryBrowseItems(): LiveData<Result<List<CommonItemModel>>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun delALLBrowsingHistory() {
         TODO("Not yet implemented")
     }
 

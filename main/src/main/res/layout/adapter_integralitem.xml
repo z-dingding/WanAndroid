@@ -19,7 +19,6 @@
     android:paddingTop="15dp"
     android:paddingBottom="15dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:stv="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <com.allen.library.SuperTextView
         android:id="@+id/stv_integral"
@@ -29,14 +28,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:sLeftTopTextString="签到积分10+18"
-        stv:stvLeftTopTextString="@{item.reason}"
+        app:stvLeftTopTextString="@{item.reason}"
         app:sLeftViewGravity="left_center"
         tools:sLeftBottomTextString="2021-04-28 10:15:20"
-        stv:stvLeftBottomTextString="@{item.desc}"
+        app:stvLeftBottomTextString="@{item.desc}"
         app:sLeftBottomTextColor="@color/text_gray"
         app:sLeftBottomTextSize="@dimen/textSize_samll"
         tools:sRightTextString="+28"
-        stv:stvRightTextString="@{Integer.toString(item.coinCount)}"
+        app:stvRightTextString="@{Integer.toString(item.coinCount)}"
         app:sRightTextColor="@color/colorPrimary"
         app:sRightTextSize="@dimen/textSize_large"
         />

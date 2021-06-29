@@ -84,7 +84,11 @@ interface DataSource {
    suspend fun insertItem(model : CommonItemModel)
 
     /**
-     * 查询阅读历史记录
+     * 查询浏览历史记录
      */
-    suspend fun queryItems():Result<List<CommonItemModel>>
+     fun queryBrowseItems():LiveData<Result<List<CommonItemModel>>>
+    /**
+     * 清空所有历史记录
+     */
+    suspend fun delALLBrowsingHistory()
 }

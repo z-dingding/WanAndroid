@@ -112,8 +112,11 @@ open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
 
     open fun setupViews(){}
 
-    protected fun setupToolbar() {
+    protected fun setupToolbar(title:String = "") {
         toolbar = findViewById(R.id.toolbar)
+        if (title.isNotBlank()){
+            toolbar?.title = title
+        }
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
         //true给左上角图标的左边加上一个返回的图标
@@ -188,7 +191,7 @@ open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
      * @param tip
      * 界面中的提示信息
      */
-    protected fun showNoContentView(tip: String) {
+    protected fun showNoContentView(tip: String = "暂无数据") {
         if (noContentView != null) {
             noContentView?.visibility = View.VISIBLE
             return

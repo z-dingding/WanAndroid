@@ -32,6 +32,8 @@ import com.hxzk.main.databinding.FragmentMineBinding
 import com.hxzk.main.event.TransparentStatusBarEvent
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.base.BaseFragment
+import com.hxzk.main.ui.browsehistroy.BrowseHistoryViewModel
+import com.hxzk.main.ui.browsehistroy.BrowsingHistoryActivity
 import com.hxzk.main.ui.integral.IntegralActivity
 import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.modifyuserinfo.ModifyUserInfoActivity
@@ -135,6 +137,7 @@ class MineFragment : BaseFragment() , View.OnClickListener {
         iv_userPhoto.setOnClickListener(this)
         stv_integral.setOnClickListener(this)
         iv_integral.setOnClickListener(this)
+        stv_readHistory.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -156,6 +159,8 @@ class MineFragment : BaseFragment() , View.OnClickListener {
             })
 
             R.id.iv_integral -> activity.action<RankActivity>(activity)
+
+            R.id.stv_readHistory-> activity.action<BrowsingHistoryActivity>(activity)
         }
     }
 

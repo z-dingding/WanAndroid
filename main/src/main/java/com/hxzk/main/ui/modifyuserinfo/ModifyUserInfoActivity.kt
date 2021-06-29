@@ -202,11 +202,11 @@ class ModifyUserInfoActivity : BaseActivity(), View.OnClickListener {
                        saveUserBg = userBgImageUri.toString()
                    }
                    //如果不是首次选择就一定会有图片保存到本地,localUserAvatarPath为空说明是首次进入操作
-                   if(localUserAvatarPath.isNotBlank()){
+                  // if(localUserAvatarPath.isNotBlank()){
                        cleanExtrnalCacheFiles()
                        clearInnerCacheFiles()
                       finish()
-                   }
+                 //  }
                }else{
                    finish()
                }

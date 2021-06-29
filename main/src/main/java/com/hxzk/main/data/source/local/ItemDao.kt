@@ -1,5 +1,6 @@
 package com.hxzk.main.data.source.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hxzk.network.model.CommonItemModel
 
@@ -11,7 +12,7 @@ import com.hxzk.network.model.CommonItemModel
 @Dao
 interface ItemDao {
     /**
-     * 插入数据
+     * 插入单条数据
      */
     //OnConflictStrategy.REPLACE表如已有数据，就覆盖掉。数据的判断通过主键进行匹配，也就是id
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,18 +22,14 @@ interface ItemDao {
      * 查询整个表
      */
     @Query("Select * From items")
-    suspend fun  queryItems() : List<CommonItemModel>
+     fun  queryItems() : LiveData<List<CommonItemModel>>
 
-    /**
-     * 删除单个数据
-     */
-    @Delete
-    suspend fun deleteItem(model: CommonItemModel) : Int
 
 
     /**
-     * 删除表中所有数据
+     * 删除表中所有数据(注意用的注解是Query)
+     * 删除需要在io线程中,报错:Cannot access database on the main thread
      */
-    @Delete
-    suspend fun  deleteItems( lists: List<CommonItemModel>) : Int
+    @Query("DELETE FROM items")
+     suspend fun  deleteAllBrowsingHistory()
 }

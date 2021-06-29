@@ -3,7 +3,8 @@
     package="com.hxzk.main">
 
     <application>
-        <activity android:name=".ui.system.sysitem.SystemItemActivity"></activity>
+        <activity android:name=".ui.browsehistroy.BrowsingHistoryActivity"/>
+        <activity android:name=".ui.system.sysitem.SystemItemActivity" />
         <activity android:name=".album.AlbumActivity" />
         <activity android:name=".ui.modifyuserinfo.ModifyUserInfoActivity" />
         <activity android:name=".ui.rank.RankActivity" />

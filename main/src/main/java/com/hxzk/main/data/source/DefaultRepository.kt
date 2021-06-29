@@ -176,8 +176,12 @@ class DefaultRepository(
         localSource.insertItem(model)
     }
 
-    override suspend fun queryItems(): Result<List<CommonItemModel>> {
-        return localSource.queryItems()
+    override  fun queryBrowseItems(): LiveData<Result<List<CommonItemModel>>> {
+        return localSource.queryBrowseItems()
+    }
+
+    override suspend fun delALLBrowsingHistory() {
+        localSource.delALLBrowsingHistory()
     }
 
 

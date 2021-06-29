@@ -22,4 +22,5 @@ data class  CommonItemModel  @JvmOverloads constructor(
         @PrimaryKey @ColumnInfo(name = "id")val id : Int,
         @ColumnInfo(name = "link") val link : String,
         @ColumnInfo(name = "title") val title : String,
+        @ColumnInfo(name ="browseTime") var browseTime : String = "" ,
         ) : Parcelable

@@ -26,19 +26,19 @@ fun setItems(listView: RecyclerView, items: List<DataItem>?) {
     }
 }
 
-@BindingAdapter("stv:stvLeftTopTextString")
+@BindingAdapter("stvLeftTopTextString")
 fun setstvLeftTopTextString(stv: SuperTextView, content : String) {
     content?.let {
         stv.setLeftTopString(content)
     }
 }
-@BindingAdapter("stv:stvLeftBottomTextString")
+@BindingAdapter("stvLeftBottomTextString")
 fun setstvLeftBottomTextString(stv: SuperTextView, content : String) {
     content?.let {
         stv.setLeftBottomString(content)
     }
 }
-@BindingAdapter("stv:stvRightTextString")
+@BindingAdapter("stvRightTextString")
 fun setstvRightTextString(stv: SuperTextView, content : String) {
     content?.let {
         stv.setRightString("+$content")

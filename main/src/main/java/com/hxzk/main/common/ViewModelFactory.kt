@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.hxzk.main.data.source.Repository
 import com.hxzk.main.ui.answer.AnswerViewModel
+import com.hxzk.main.ui.browsehistroy.BrowseHistoryViewModel
 import com.hxzk.main.ui.home.HomeViewModel
 import com.hxzk.main.ui.integral.IntegraViewModel
 import com.hxzk.main.ui.login.LoginViewModel
@@ -74,8 +75,8 @@ class ViewModelFactory constructor(
 
              isAssignableFrom(X5FragViewModel::class.java) ->
                  X5FragViewModel(repository)
-
-
+             isAssignableFrom(BrowseHistoryViewModel::class.java) ->
+                 BrowseHistoryViewModel(repository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

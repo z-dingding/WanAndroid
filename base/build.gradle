@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 
-
 android {
     def android = rootProject.ext.android
     compileSdkVersion android.compileSdkVersion

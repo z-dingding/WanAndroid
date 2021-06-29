@@ -75,7 +75,7 @@ object GlobalUtil {
      */
     val currentDateString: String
         get() {
-            val sdf = SimpleDateFormat("yyyyMMddHHmmss", Locale.US)
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.US)
             return sdf.format(Date())
         }
 
