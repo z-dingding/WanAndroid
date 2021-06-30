@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.hxzk.main.callback.PermissionListener
+import com.hxzk.main.ui.mine.MineFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.ArrayList
 
@@ -31,7 +32,6 @@ import java.util.ArrayList
      * @return  Fragment中inflate出来的View实例原封不动返回。
      */
     fun onCreateView(view: View): View {
-        rootView = view
         return view
     }
 
@@ -100,6 +100,9 @@ import java.util.ArrayList
             }
         }
     }
+
+
+
 
 
 }

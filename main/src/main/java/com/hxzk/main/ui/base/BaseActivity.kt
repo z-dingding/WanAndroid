@@ -95,6 +95,8 @@ open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
      * 将状态栏设置成透明。只适配Android 5.0以上系统的手机。
      */
     protected fun transparentStatusBar() {
+        //SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN:Activity全屏显示，但是状态栏不会被覆盖掉，而是正常显示，只是Activity顶端布   局会被覆盖住
+        //SYSTEM_UI_FLAG_LAYOUT_STABLE作用: 稳定布局
         if (AndroidVersion.hasLollipop()) {
             val decorView = window.decorView
             decorView.systemUiVisibility =

@@ -11,11 +11,13 @@ import com.hxzk.base.extension.actionBundle
 import com.hxzk.main.R
 import com.hxzk.main.databinding.FragmentAnswerBinding
 import com.hxzk.main.databinding.FragmentHomeBinding
+import com.hxzk.main.event.TransparentStatusBarEvent
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.adapter.AnswerAdapter
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.x5Webview.X5MainActivity
+import org.greenrobot.eventbus.EventBus
 
 
 class AnswerFragment : BaseFragment() {
@@ -45,6 +47,12 @@ class AnswerFragment : BaseFragment() {
         initObserve()
         smartListener()
         answerViewModel.requestData(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val message = TransparentStatusBarEvent(false)
+        EventBus.getDefault().post(message)
     }
 
     private fun smartListener() {

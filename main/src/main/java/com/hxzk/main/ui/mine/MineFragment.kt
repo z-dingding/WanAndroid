@@ -2,9 +2,7 @@ package com.hxzk.main.ui.mine
 
 
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.hxzk.base.extension.action
 import com.hxzk.base.extension.actionBundle
-import com.hxzk.base.extension.logDebug
 import com.hxzk.base.extension.sToast
 import com.hxzk.base.util.Preference
 import com.hxzk.main.R
@@ -32,7 +27,6 @@ import com.hxzk.main.databinding.FragmentMineBinding
 import com.hxzk.main.event.TransparentStatusBarEvent
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.base.BaseFragment
-import com.hxzk.main.ui.browsehistroy.BrowseHistoryViewModel
 import com.hxzk.main.ui.browsehistroy.BrowsingHistoryActivity
 import com.hxzk.main.ui.integral.IntegralActivity
 import com.hxzk.main.ui.main.MainActivity
@@ -41,10 +35,9 @@ import com.hxzk.main.ui.rank.RankActivity
 import com.hxzk.main.util.ColorUtil
 import com.hxzk.main.util.CropCircleTransformation
 import com.hxzk.main.util.ViewUtils
-import com.hxzk.network.model.UserInfoModel
 import kotlinx.android.synthetic.main.fragment_mine.*
 import org.greenrobot.eventbus.EventBus
-import java.nio.charset.StandardCharsets
+
 
 class MineFragment : BaseFragment() , View.OnClickListener {
     val viewModel by viewModels<MineViewModel> { getViewModelFactory()}
@@ -75,11 +68,13 @@ class MineFragment : BaseFragment() , View.OnClickListener {
                     .generate { palette ->
                         val isDark = ColorUtil.isBitmapDark(palette, bitmap)
                         if (isDark) {
+                            //设置状态栏颜色为透明,页面展示效果为内容沾满状态栏
                             val message = TransparentStatusBarEvent(true)
                              EventBus.getDefault().post(message)
+                            //状态栏为暗色模式（状态栏图标和文字变成白色）
                             ViewUtils.clearLightStatusBar(activity.window, databindding.ivBgWall)
                         } else {
-                            val message = TransparentStatusBarEvent(false)
+                            val message = TransparentStatusBarEvent(true)
                              EventBus.getDefault().post(message)
                             ViewUtils.setLightStatusBar(activity.window, databindding.ivBgWall)
                         }
@@ -131,6 +126,12 @@ class MineFragment : BaseFragment() , View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         activity = requireActivity() as MainActivity
         initEvent()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val message = TransparentStatusBarEvent(true)
+        EventBus.getDefault().post(message)
     }
 
     private fun initEvent() {

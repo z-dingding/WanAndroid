@@ -12,6 +12,7 @@ import com.hxzk.main.R
 import com.hxzk.main.callback.BannerItemListener
 import com.hxzk.main.common.Const
 import com.hxzk.main.databinding.FragmentHomeBinding
+import com.hxzk.main.event.TransparentStatusBarEvent
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.adapter.HomeItemAdapter
 import com.hxzk.main.ui.base.BaseFragment
@@ -22,6 +23,7 @@ import com.hxzk.network.model.HomeBanner
 import com.hxzk.main.ui.x5Webview.X5MainActivity
 import com.hxzk.main.ui.x5Webview.X5MainActivity.Companion.KEY_ITEMBEAN
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.greenrobot.eventbus.EventBus
 
 
 /**
@@ -57,7 +59,6 @@ class HomeFragment : BaseFragment(), BannerItemListener {
         smartListener()
         homeViewModel.forceUpdate(true)
     }
-
     private fun smartListener() {
         //刷新
         homeFragDataBinding.smartRefresh.setOnRefreshListener {
@@ -87,6 +88,11 @@ class HomeFragment : BaseFragment(), BannerItemListener {
         homeViewModel.itemList.observe(viewLifecycleOwner,{})
     }
 
+    override fun onResume() {
+        super.onResume()
+        val message = TransparentStatusBarEvent(false)
+        EventBus.getDefault().post(message)
+    }
     /**
      * 列表项的点击
      */

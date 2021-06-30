@@ -17,6 +17,7 @@
     <color name="secondary_text">#757575</color>
     <color name="light_scrim">#11323232</color>
     <color name="scrim">#99323232</color>
+    <color name="ripple_light_grey">#77bbbbbb</color>
 
 <!--    首页bnv选择和不选中的文字颜色-->
     <color name="bnv_textcolor_checked">#FFF</color>

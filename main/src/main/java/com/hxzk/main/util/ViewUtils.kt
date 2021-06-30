@@ -69,6 +69,9 @@ object ViewUtils {
 
     }
 
+    /**
+     * 状态栏为亮色模式（状态栏图标和文字变成黑色）
+     */
     fun setLightStatusBar(window: Window, view: View) {
         if (OSUtil.isMiUI8OrLower) {
             setMiUIStatusBarLightMode(window, true)
@@ -80,7 +83,9 @@ object ViewUtils {
             }
         }
     }
-
+    /**
+     * 状态栏为暗色模式（状态栏图标和文字变成白色）
+     */
     fun clearLightStatusBar(window: Window, view: View) {
         if (OSUtil.isMiUI8OrLower) {
             setMiUIStatusBarLightMode(window, false)

@@ -22,12 +22,14 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hxzk.base.extension.actionBundle
+import com.hxzk.main.event.TransparentStatusBarEvent
 import com.hxzk.main.ui.adapter.PublicRightAdapter
 import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.x5Webview.X5MainActivity
 import com.hxzk.main.util.RVMoveToMiddle
 import com.hxzk.network.model.CommonItemModel
 import com.hxzk.network.model.DataX
+import org.greenrobot.eventbus.EventBus
 
 class PublicFragment : Fragment(),View.OnClickListener{
 
@@ -57,6 +59,12 @@ class PublicFragment : Fragment(),View.OnClickListener{
         setupListAdapter()
         initEvent()
         setupListAdapter()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val message = TransparentStatusBarEvent(false)
+        EventBus.getDefault().post(message)
     }
 
     private fun initEvent() {

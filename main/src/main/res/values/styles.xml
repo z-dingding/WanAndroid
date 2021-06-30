@@ -42,4 +42,6 @@
 
 <!--   图片裁剪页面样式-->
     <style name="CropImageActivity" parent="Base.Theme.AppCompat"></style>
+
+
 </resources>

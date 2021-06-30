@@ -9,11 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 
 import com.hxzk.main.databinding.FragmentSystemBinding
+import com.hxzk.main.event.TransparentStatusBarEvent
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.adapter.ViewPagerFragmentAdapter
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.system.child_nav.ChildNavigationFragment
 import com.hxzk.main.ui.system.child_sys.ChildSystemFragment
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 class SystemFragment : BaseFragment(),View.OnClickListener{
@@ -40,6 +42,11 @@ class SystemFragment : BaseFragment(),View.OnClickListener{
         initVp()
     }
 
+    override fun onResume() {
+        super.onResume()
+        val message = TransparentStatusBarEvent(false)
+        EventBus.getDefault().post(message)
+    }
 
     private fun initVp() {
         val frags = LinkedList<Fragment>()
