@@ -53,7 +53,8 @@ class MainActivity : BaseActivity() {
             //是否禁止左右滑动,true允许左右滑动
             isUserInputEnabled = true
             //如果允许滑动则默认不进行预加载
-            //vp.offscreenPageLimit = 1
+            //ViewPager2最小offscreenPageLimit可以设置为0
+            //vp.offscreenPageLimit = 0
             //默认加载第一个Fragment,并隐藏中间页
             setCurrentItem(0,false)
         }
@@ -63,7 +64,6 @@ class MainActivity : BaseActivity() {
                val menuItem  = bnv.getMenu().getItem(position)
                 menuItem.isChecked = true
             }
-
         })
     }
 

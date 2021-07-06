@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.extension.sToast
+import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.R
 import com.hxzk.main.callback.NavFlexItemClickListener
 import com.hxzk.main.databinding.FragmentChildNavigationBinding
@@ -40,7 +42,12 @@ class ChildNavigationFragment : BaseFragment() ,NavFlexItemClickListener {
         activity = getActivity() as MainActivity
         binding.lifecycleOwner = viewLifecycleOwner
         setupListAdapter()
+        //实现Item点击接口回调
         listAdapter.setNavFlexItemClickListener(this)
+        navViewModel.dataLoading.observe(viewLifecycleOwner){
+            if (it) ProgressDialogUtil.getInstance().showDialog(activity)    else ProgressDialogUtil.getInstance().dismissDialog()
+        }
+        navViewModel.requestNavData()
     }
 
     /**

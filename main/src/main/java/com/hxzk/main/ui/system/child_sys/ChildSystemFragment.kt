@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import com.hxzk.base.extension.actionBundle
+import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.callback.FlexItemClickListener
 import com.hxzk.main.common.Const
 import com.hxzk.main.databinding.FragmentChildSystemBinding

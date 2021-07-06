@@ -15,6 +15,8 @@ import com.hxzk.network.succeeded
 
 class ChildSystemViewModel(private val repository: Repository) : ViewModel() {
 
+
+
     private val _sysItems = repository.treeList().switchMap {
         transitionBannerItem(it)
     }

@@ -13,7 +13,8 @@ import kotlinx.coroutines.launch
 class PublicViewModel(private val repository: Repository) : ViewModel() {
 
 
-
+    private val _dataLoading = MutableLiveData<Boolean>()
+    val dataLoading: LiveData<Boolean> = _dataLoading
 
     private val _leftItems = repository.wxPublic().switchMap {
         transitionLeftItem(it)
@@ -26,7 +27,7 @@ class PublicViewModel(private val repository: Repository) : ViewModel() {
             if (bean.errorCode == 0) {
                 result.value = bean.data as List<Children>
                 //将第一个item设为选中状态
-                result.value!!.get(0).isSelect = true
+                result.value!![0].isSelect = true
             } else {
                 bean.errorMsg.sToast()
             }
@@ -66,6 +67,7 @@ class PublicViewModel(private val repository: Repository) : ViewModel() {
      * 左边RV数据源获取后手动触发右侧数据请求
      */
     fun rightData(list:List<Int>){
+        _dataLoading.value = true
         parentId.value= list
     }
 
@@ -89,6 +91,7 @@ class PublicViewModel(private val repository: Repository) : ViewModel() {
             }
         }
         result.value = list
+        _dataLoading.value = false
         return result
     }
     /**

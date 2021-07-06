@@ -1,6 +1,7 @@
 package com.hxzk.main.ui.home
 
 import androidx.lifecycle.*
+import com.hxzk.base.extension.logDebug
 import com.hxzk.base.extension.sToast
 import com.hxzk.main.data.source.Repository
 import com.hxzk.main.util.ResponseHandler
@@ -16,10 +17,13 @@ import kotlinx.coroutines.launch
  */
 class HomeViewModel(private val repository: Repository) : ViewModel() {
 
+    private val _dataLoading = MutableLiveData<Boolean>()
+    val dataLoading: LiveData<Boolean> = _dataLoading
+
     /**
      * 是否进行更新的标识
      */
-    private val _forceUpdate = MutableLiveData(false)
+    private val _forceUpdate = MutableLiveData<Boolean>(false)
 
     /**
      * 是否正在刷新
@@ -29,6 +33,8 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
      * 是否正在加载更多
      */
      val isLoadMoreing =MutableLiveData(false)
+
+
 
     /**
      * 首页banner数据源(用_forceUpdate来控制，主要是因为livedata感知，只会在onResume和onPause)
@@ -70,8 +76,12 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
 
     /**
      * 刷新或加载更多的方法
+     * isFirstLoad 只有首次加载才显示loading,否则用smart自带的刷新或更多loading
      */
-    fun forceUpdate( isRefresh : Boolean) {
+    fun forceUpdate(isRefresh : Boolean,isFirstLoad : Boolean = false) {
+        if(isFirstLoad){
+            _dataLoading.value = true
+        }
         _forceUpdate.value = isRefresh
     }
 
@@ -105,7 +115,9 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
     }
     private fun itemList() :  LiveData<ArticleListModel> {
         val result =  MutableLiveData<ArticleListModel>()
+        logDebug("执行了请求")
         viewModelScope.launch {
+            logDebug("执行了请求2")
             //根据curPage是否为0判断是刷新还是加载更多
            val data =  repository.articleList(curPage,_itemList.value)
             //请求页码从0开始，返回curPage为1
@@ -113,6 +125,7 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
             pageCount =data.pageCount
             result.value = data
             _topArticleSize.value = data.datas.size
+            _dataLoading.value = false
         }
         isRefreshing.value = false
         isLoadMoreing.value = false

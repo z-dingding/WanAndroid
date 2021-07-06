@@ -29,8 +29,8 @@ class OpenSourceLoginActivity : LoginActivity() {
          intent?.let {
              isLoginAgain = it.getBooleanExtra(Const.Auth.KEY_ISLOGINAGAIN,false)
          }
-
     }
+
 
     override fun setupViews() {
         viewPager2 =vp2

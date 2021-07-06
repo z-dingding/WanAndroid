@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.util.AndroidVersion
+import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.R
 import com.hxzk.main.callback.BannerItemListener
 import com.hxzk.main.common.Const
@@ -57,7 +58,7 @@ class HomeFragment : BaseFragment(), BannerItemListener {
         setupListAdapter()
         onItemClick()
         smartListener()
-        homeViewModel.forceUpdate(true)
+
     }
     private fun smartListener() {
         //刷新
@@ -79,13 +80,17 @@ class HomeFragment : BaseFragment(), BannerItemListener {
                 homeFragDataBinding.smartRefresh.finishLoadMore()
             }
         }
+        homeViewModel.dataLoading.observe(viewLifecycleOwner){
+            if (it) ProgressDialogUtil.getInstance().showDialog(activity)    else ProgressDialogUtil.getInstance().dismissDialog()
+        }
     }
 
     override fun onStart() {
         super.onStart()
         //刷新数据(如果断点,会影响)
-        homeViewModel.banners.observe(viewLifecycleOwner,{})
-        homeViewModel.itemList.observe(viewLifecycleOwner,{})
+        homeViewModel.banners.observe(viewLifecycleOwner) {}
+        homeViewModel.itemList.observe(viewLifecycleOwner) {}
+        homeViewModel.forceUpdate(true,true)
     }
 
     override fun onResume() {

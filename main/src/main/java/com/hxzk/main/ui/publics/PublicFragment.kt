@@ -22,6 +22,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hxzk.base.extension.actionBundle
+import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.event.TransparentStatusBarEvent
 import com.hxzk.main.ui.adapter.PublicRightAdapter
 import com.hxzk.main.ui.main.MainActivity
@@ -40,8 +41,6 @@ class PublicFragment : Fragment(),View.OnClickListener{
     private lateinit var listAdapter: PublicLeftAdapter
     private lateinit var listRightAdapter: PublicRightAdapter
 
-    private  val indexMap = mutableMapOf<Int,Int>()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,7 +57,6 @@ class PublicFragment : Fragment(),View.OnClickListener{
         binding.lifecycleOwner = this
         setupListAdapter()
         initEvent()
-        setupListAdapter()
     }
 
     override fun onResume() {
@@ -85,7 +83,7 @@ class PublicFragment : Fragment(),View.OnClickListener{
             }
         }
         publicViewModel.leftItems.observe(viewLifecycleOwner){
-            //将需要的数据通过map()提取出来
+            //将需要的公众号id数据通过map()提取出来,用于请求公众号对应的右侧展示列表
             val parentId : List<Int> = it.map { children -> children.id }
             publicViewModel.rightData(parentId)
         }
@@ -95,26 +93,29 @@ class PublicFragment : Fragment(),View.OnClickListener{
             mBundle.putParcelable(X5MainActivity.KEY_ITEMBEAN,bean)
             activity.actionBundle<X5MainActivity>(activity,mBundle)
         }
-        publicViewModel.rightItems.observe(viewLifecycleOwner){
-         //将数据进行再处理
+        publicViewModel.rightItems.observe(viewLifecycleOwner) {
+            //将数据进行再处理
             val datas = ArrayList<DataX>()
             it.forEachIndexed { index, articleListModel ->
                 //将原list中每个公众号取出两个Item存储,算上标题是3个item
                 //将第一个item的ItemType为1其余默认为0
-                if(articleListModel.datas.size >= 2){
+                if (articleListModel.datas.size >= 2) {
                     var titleItem = articleListModel.datas[2]
                     titleItem.itemType = 1
                     datas.add(titleItem)
                     datas.add(articleListModel.datas[0])
                     datas.add(articleListModel.datas[1])
-                }else{
+                } else {
                     //如果有的公众号没有数据
                 }
             }
             //刷新Adatpter
-            if(datas.size>0){
+            if (datas.size > 0) {
                 listRightAdapter.submitList(datas)
             }
+        }
+        publicViewModel.dataLoading.observe(viewLifecycleOwner){
+             if (it) ProgressDialogUtil.getInstance().showDialog(activity)    else ProgressDialogUtil.getInstance().dismissDialog()
         }
     }
 
