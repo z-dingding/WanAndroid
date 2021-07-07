@@ -5,6 +5,7 @@ import com.hxzk.main.data.source.DataSource
 import com.hxzk.network.Result
 import com.hxzk.network.WanApi
 import com.hxzk.network.model.CommonItemModel
+import com.hxzk.network.model.HotKeyModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +43,18 @@ class RemoteDataSource : DataSource {
     }
 
     override suspend fun delALLBrowsingHistory() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun delAllHotwords() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertHotword(item: HotKeyModel) {
+        TODO("Not yet implemented")
+    }
+
+    override  fun queryAllHotwords(): Result<List<HotKeyModel>> {
         TODO("Not yet implemented")
     }
 

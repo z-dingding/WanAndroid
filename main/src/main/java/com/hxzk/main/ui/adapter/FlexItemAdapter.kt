@@ -34,7 +34,7 @@ import com.hxzk.main.ui.search.SearchViewModel
 /**
  * [RecyclerView.Adapter] implementation for [FlexItemViewHolder].
  */
-internal class FlexItemAdapter(private val viewModel :SearchViewModel,private val activity: AppCompatActivity)
+internal class FlexItemAdapter(private val viewModel :SearchViewModel)
     : RecyclerView.Adapter<FlexItemViewHolder>() {
 
     private val layoutParams = mutableListOf<FlexboxLayoutManager.LayoutParams>()
@@ -82,7 +82,6 @@ class FlexItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val textView: TextView = itemView.findViewById(R.id.tvHotKey)
 
     fun bindTo(params: RecyclerView.LayoutParams,tvHotKeys : String) {
-        val adapterPosition = adapterPosition
         textView.apply {
             text = tvHotKeys
             setBackgroundResource(R.drawable.shape_flex_item)

@@ -184,5 +184,17 @@ class DefaultRepository(
         localSource.delALLBrowsingHistory()
     }
 
+    override suspend fun insertHotword(item:HotKeyModel) {
+        localSource.insertHotword(item)
+    }
+
+    override suspend fun delAllHotwords() {
+        localSource.delAllHotwords()
+    }
+
+    override  fun queryAllHotwords(): Result<List<HotKeyModel>>{
+       return localSource.queryAllHotwords()
+    }
+
 
 }

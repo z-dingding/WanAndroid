@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.hxzk.network.Result
 import com.hxzk.network.model.ApiResponse
 import com.hxzk.network.model.CommonItemModel
+import com.hxzk.network.model.HotKeyModel
 import com.hxzk.network.model.SystemModel
 import retrofit2.Call
 import retrofit2.http.GET
@@ -91,4 +92,16 @@ interface DataSource {
      * 清空所有历史记录
      */
     suspend fun delALLBrowsingHistory()
+    /**
+     * 删除所有的热词表所有内容
+     */
+    suspend fun  delAllHotwords()
+    /**
+     * 插入单个热词条目
+     */
+    suspend fun  insertHotword(item: HotKeyModel)
+    /**
+     * 查询热词表所有的条目
+     */
+     fun queryAllHotwords():Result<List<HotKeyModel>>
 }

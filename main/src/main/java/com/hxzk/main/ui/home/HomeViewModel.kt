@@ -115,9 +115,7 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
     }
     private fun itemList() :  LiveData<ArticleListModel> {
         val result =  MutableLiveData<ArticleListModel>()
-        logDebug("执行了请求")
         viewModelScope.launch {
-            logDebug("执行了请求2")
             //根据curPage是否为0判断是刷新还是加载更多
            val data =  repository.articleList(curPage,_itemList.value)
             //请求页码从0开始，返回curPage为1

@@ -59,6 +59,10 @@ class HomeFragment : BaseFragment(), BannerItemListener {
         onItemClick()
         smartListener()
 
+        //刷新数据(如果断点,会影响)
+        homeViewModel.banners.observe(viewLifecycleOwner) {}
+        homeViewModel.itemList.observe(viewLifecycleOwner) {}
+        homeViewModel.forceUpdate(true,true)
     }
     private fun smartListener() {
         //刷新
@@ -85,13 +89,6 @@ class HomeFragment : BaseFragment(), BannerItemListener {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        //刷新数据(如果断点,会影响)
-        homeViewModel.banners.observe(viewLifecycleOwner) {}
-        homeViewModel.itemList.observe(viewLifecycleOwner) {}
-        homeViewModel.forceUpdate(true,true)
-    }
 
     override fun onResume() {
         super.onResume()

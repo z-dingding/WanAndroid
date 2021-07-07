@@ -1,7 +1,12 @@
 package com.hxzk.main.data.source
 
 import android.content.Context
+import android.provider.Contacts.SettingsColumns.KEY
+import androidx.room.ColumnInfo
+import androidx.room.PrimaryKey
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.hxzk.main.data.source.local.ItemDataBase
 import com.hxzk.main.data.source.local.LocalDataSource
 import com.hxzk.main.data.source.romote.RemoteDataSource
@@ -34,13 +39,22 @@ import com.hxzk.main.data.source.romote.RemoteDataSource
         return LocalDataSource(database.taskDao())
     }
 
+
     private fun createDataBase(context: Context): ItemDataBase {
         val result = Room.databaseBuilder(
                 context.applicationContext,
                 ItemDataBase::class.java, "item.db"
-        ).build()
+        ).fallbackToDestructiveMigration()
+        .build()
         database = result
         return result
     }
 
+
+    //.addMigrations(MIGRATION_1_2)
+    val MIGRATION_1_2 = object : Migration(1, 2) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("CREATE TABLE 'hotwords' ('id' INTEGER NOT NULL, 'link' TEXT, 'name' TEXT ,'order' INTEGER , 'visible' INTEGER ,PRIMARY KEY('id'))")
+        }
+    }
 }

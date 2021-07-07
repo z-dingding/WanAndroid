@@ -81,12 +81,26 @@ interface Repository {
     suspend fun insertItem(model : CommonItemModel)
 
     /**
-     * 查询浏览历史记录
+     * 查询浏览历史记录(查询不能用suspend,不然不能用Result)
      */
      fun queryBrowseItems():LiveData<Result<List<CommonItemModel>>>
     /**
      * 清空所有历史记录
      */
     suspend fun delALLBrowsingHistory()
+
+    /**
+     * 插入单个热词条目
+     */
+    suspend fun  insertHotword(item:HotKeyModel)
+    /**
+     * 删除所有的热词表所有内容
+     */
+    suspend fun  delAllHotwords()
+
+    /**
+     * 查询热词表所有的条目
+     */
+     fun queryAllHotwords():Result<List<HotKeyModel>>
 
 }

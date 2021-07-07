@@ -5,6 +5,7 @@ import androidx.lifecycle.map
 import com.hxzk.main.data.source.DataSource
 import com.hxzk.network.Result
 import com.hxzk.network.model.CommonItemModel
+import com.hxzk.network.model.HotKeyModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -92,6 +93,18 @@ class LocalDataSource(
 
     override  suspend fun delALLBrowsingHistory() {
         dao.deleteAllBrowsingHistory()
+    }
+
+    override suspend fun delAllHotwords() {
+        dao.deleteAllHotwords()
+    }
+
+    override suspend fun insertHotword(item: HotKeyModel) {
+        dao.insertHotword(item)
+    }
+
+    override  fun queryAllHotwords(): Result<List<HotKeyModel>> {
+         return  Result.Success(dao.queryAllHotwords())
     }
 
 

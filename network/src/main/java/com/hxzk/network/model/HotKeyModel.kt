@@ -1,14 +1,22 @@
 package com.hxzk.network.model
 
+import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
+
 /**
  * @author: hxzk_zjt
  * @date: 2021/5/12
  * 描述:
  */
-data class HotKeyModel(
-    val id: Int,
-    val link: String,
-    val name: String,
-    val order: Int,
-    val visible: Int
-)
+@Parcelize
+@Entity(tableName = "hotwords")
+data class HotKeyModel @JvmOverloads constructor(
+        @PrimaryKey @ColumnInfo(name = "id") val id: Int,
+        @ColumnInfo(name = "link")val link: String,
+        @ColumnInfo(name = "name")val name: String,
+        @ColumnInfo(name = "order") val order: Int,
+        @ColumnInfo(name = "visible") val visible: Int
+) : Parcelable

@@ -12,6 +12,7 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.core.os.postDelayed
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.hxzk.base.extension.logWarn
 import com.hxzk.base.extension.sToast
@@ -24,9 +25,16 @@ import com.hxzk.main.ui.adapter.FlexItemAdapter
 import com.hxzk.main.ui.base.BaseActivity
 import com.quxianggif.common.transitions.TransitionUtils
 import androidx.lifecycle.observe
+import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.extension.dpToPixel
 import com.hxzk.main.callback.HotFlexItemClickListener
+import com.hxzk.main.common.Const
+import com.hxzk.main.ui.main.MainActivity
+import com.hxzk.main.ui.system.sysitem.SystemItemActivity
+import com.hxzk.main.ui.x5Webview.X5MainActivity
+import com.hxzk.network.model.CommonItemModel
 import com.hxzk.network.model.HotKeyModel
+import kotlin.concurrent.thread
 
 class SearchActivity : BaseActivity() {
 
@@ -39,38 +47,55 @@ class SearchActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_search)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-    }
-
-    override fun onStart() {
-        super.onStart()
         setupSearchView()
         setupTransitions()
         setRecycler()
-        liveDataObserve()
-    }
-
-    private fun liveDataObserve() {
-        viewModel.hotKeys.observe(this){
-            for (index in it.iterator()){
-                var lp = FlexboxLayoutManager.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT)
-                val end = dpToPixel(15)
-                val top = dpToPixel(10)
-         lp.setMargins(0,0,end,top)
-                adapter.addItem(lp)
+        thread {
+            val localData = viewModel.queryKeywords()
+            if (localData != null && localData.isNotEmpty()) {
+                var liveData = MutableLiveData(localData)
+                viewModel.hotKeys =liveData
+                runOnUiThread {
+                    addItemToAdapter(localData)
+                }
+            }else{
+                runOnUiThread {
+                    viewModel.hotKeys.observe(this){
+                        addItemToAdapter(it)
+                    }
+                }
             }
         }
     }
 
+
+    /**
+     * 将请求的热词结果,添加到adatepr并刷新
+     */
+   fun addItemToAdapter(it: List<HotKeyModel>){
+       for (index in it.iterator()){
+           var lp = FlexboxLayoutManager.LayoutParams(
+                   ViewGroup.LayoutParams.WRAP_CONTENT,
+                   ViewGroup.LayoutParams.WRAP_CONTENT)
+           val right = dpToPixel(15)
+           val bottom = dpToPixel(10)
+           lp.setMargins(0,0,right,bottom)
+           adapter.addItem(lp)
+       }
+   }
+
     private fun setRecycler() {
         val flexboxLayoutManager = FlexboxLayoutManager(activity)
         binding.hotResults.layoutManager = flexboxLayoutManager
-        adapter = FlexItemAdapter(viewModel,this)
+        adapter = FlexItemAdapter(viewModel)
         binding.hotResults.adapter = adapter
         adapter.setFlexItemClickListener(object : HotFlexItemClickListener {
             override fun onItemClick(item: HotKeyModel) {
-                item.name.sToast()
+                val bundle =Bundle().apply {
+                    putString(Const.SystemItem.KEY_TITLE, item.name)
+                    putInt(Const.SystemItem.KEY_ID, item.id)
+                }
+                actionBundle<SystemItemActivity>(this@SearchActivity,bundle)
             }
         })
     }
@@ -141,5 +166,7 @@ class SearchActivity : BaseActivity() {
         binding.searchView.clearFocus()
         hideSoftKeyboard()
     }
+
+
 
 }
