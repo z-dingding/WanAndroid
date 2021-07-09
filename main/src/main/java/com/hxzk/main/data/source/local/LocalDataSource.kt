@@ -6,6 +6,7 @@ import com.hxzk.main.data.source.DataSource
 import com.hxzk.network.Result
 import com.hxzk.network.model.CommonItemModel
 import com.hxzk.network.model.HotKeyModel
+import com.hxzk.network.model.SearchKeyWord
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -105,6 +106,22 @@ class LocalDataSource(
 
     override  fun queryAllHotwords(): Result<List<HotKeyModel>> {
          return  Result.Success(dao.queryAllHotwords())
+    }
+
+    override suspend fun insertSearchKeyWord(item: SearchKeyWord) {
+        dao.insertSearchKey(item)
+    }
+
+    override  fun queryAllKeyWord(): LiveData<List<SearchKeyWord>> {
+    return   dao.queryAllKeyWord()
+    }
+
+    override suspend fun searchByKey(keyWord: String, pageIndex: Int): Result<*> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun delAllSearchKeys() {
+         dao.delAllSearchKeys()
     }
 
 

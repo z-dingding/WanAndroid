@@ -13,5 +13,6 @@ data class AnswerModel(
     val pageCount: Int,
     val size: Int,
     val total: Int
+
 )
 

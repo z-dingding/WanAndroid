@@ -3,11 +3,10 @@ package com.hxzk.main.ui.search
 import androidx.lifecycle.*
 import com.hxzk.base.extension.sToast
 import com.hxzk.main.data.source.Repository
+import com.hxzk.main.ui.home.HomeViewModel
 import com.hxzk.main.util.ResponseHandler
 import com.hxzk.network.Result
-import com.hxzk.network.model.ApiResponse
-import com.hxzk.network.model.HotKeyModel
-import com.hxzk.network.model.SystemModel
+import com.hxzk.network.model.*
 import com.hxzk.network.succeeded
 import kotlinx.coroutines.launch
 
@@ -48,7 +47,7 @@ class SearchViewModel(val repository: Repository) : ViewModel() {
 
 
     /**
-     * 刷新表中内容,先清除所有在添加
+     * 刷新热词表中内容,先清除所有在添加
      */
     fun allNotifiTable(it: List<HotKeyModel>) {
         //先删除在插入
@@ -80,4 +79,50 @@ class SearchViewModel(val repository: Repository) : ViewModel() {
         }
     }
 
+    /**
+     * 插如搜索历史记录
+     */
+    fun insertSearchKey(item : SearchKeyWord){
+        viewModelScope.launch {
+            repository.insertSearchKeyWord(item)
+        }
+    }
+
+    /**
+     * 查询所有的搜索历史记录
+     */
+      val searchKeyword:LiveData<List<SearchKeyWord>> = repository.queryAllKeyWord()
+
+    lateinit var searchResult:LiveData<List<ArticleListModel>>
+    /**
+     * 执行搜索的网络请求
+     */
+    fun searchDataBykey(keyWord : String,pageIndex:Int) =repository.searchByKey(keyWord,pageIndex).switchMap {
+            transition(it)
+    }
+    private fun transition(it: Result<*>): LiveData<List<DataX>> {
+        val result = MutableLiveData<List<DataX>>()
+        if (it.succeeded) {
+            val bean = (it as Result.Success<*>).res as ApiResponse<*>
+            if (bean.errorCode == 0) {
+                result.value = (bean.data as AnswerModel).datas
+            } else {
+                bean.errorMsg.sToast()
+            }
+        } else {
+            result.value = emptyList()
+            val res = it as Result.Error
+            ResponseHandler.handleFailure(res.e)
+        }
+        return result
+    }
+
+    /**
+     * 清空所有的搜索历史记录
+     */
+   fun clearAllSearchKeys(){
+       viewModelScope.launch {
+           repository.delAllSearchKeys()
+       }
+    }
 }

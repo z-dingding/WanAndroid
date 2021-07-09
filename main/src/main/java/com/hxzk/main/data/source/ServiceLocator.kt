@@ -50,11 +50,10 @@ import com.hxzk.main.data.source.romote.RemoteDataSource
         return result
     }
 
-
-    //.addMigrations(MIGRATION_1_2)
-    val MIGRATION_1_2 = object : Migration(1, 2) {
+    //.fallbackToDestructiveMigration()
+    val MIGRATION_3_4 = object : Migration(3, 4) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("CREATE TABLE 'hotwords' ('id' INTEGER NOT NULL, 'link' TEXT, 'name' TEXT ,'order' INTEGER , 'visible' INTEGER ,PRIMARY KEY('id'))")
+            database.execSQL("CREATE TABLE 'searchkeys' ('id' INTEGER NOT NULL, 'searchkey' TEXT NOT NULL,PRIMARY KEY ('id'))")
         }
     }
 }

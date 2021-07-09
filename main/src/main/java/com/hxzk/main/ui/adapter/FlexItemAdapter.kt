@@ -28,13 +28,14 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.hxzk.main.R
 import com.hxzk.main.callback.FlexItemClickListener
 import com.hxzk.main.callback.HotFlexItemClickListener
+import com.hxzk.main.callback.SearchFlexItemClickListener
 import com.hxzk.main.ui.search.SearchViewModel
 
 
 /**
  * [RecyclerView.Adapter] implementation for [FlexItemViewHolder].
  */
-internal class FlexItemAdapter(private val viewModel :SearchViewModel)
+internal class FlexItemAdapter(private val viewModel :SearchViewModel,val isHotKey: Boolean)
     : RecyclerView.Adapter<FlexItemViewHolder>() {
 
     private val layoutParams = mutableListOf<FlexboxLayoutManager.LayoutParams>()
@@ -47,24 +48,55 @@ internal class FlexItemAdapter(private val viewModel :SearchViewModel)
 
     override fun onBindViewHolder(holder: FlexItemViewHolder, position: Int) {
         val adapterPosition = holder.adapterPosition
-        holder.itemView.setOnClickListener {
-            mListener.onItemClick(viewModel.hotKeys.value!![adapterPosition])
-        }
-        holder.bindTo(layoutParams[position],viewModel.hotKeys.value!![adapterPosition].name)
-    }
+            if(isHotKey){
+                holder.itemView.setOnClickListener {
+                    mListener.onItemClick(viewModel.hotKeys.value!![adapterPosition])
+                }
+                holder.bindTo(layoutParams[position],viewModel.hotKeys.value!![adapterPosition].name)
+            }else{
+                holder.itemView.setOnClickListener {
+                    mSearchListener.onItemClick(viewModel.searchKeyword.value!![adapterPosition])
+                }
+                holder.bindTo(layoutParams[position],viewModel.searchKeyword.value!![adapterPosition].searchKey)
+            }
 
+    }
+    /**
+     * 增加单个item
+     */
     fun addItem(lp: FlexboxLayoutManager.LayoutParams) {
         layoutParams.add(lp)
         notifyItemInserted(layoutParams.size - 1)
     }
 
+    /**
+     * 移除单个item
+     */
     fun removeItem(position: Int) {
         if (position < 0 || position >= layoutParams.size) {
             return
         }
+        //把数据从list中remove掉
         layoutParams.removeAt(position)
+        //显示动画效果
         notifyItemRemoved(layoutParams.size)
+        //对于被删掉的位置及其后range大小范围内的view进行重新
         notifyItemRangeChanged(position, layoutParams.size)
+    }
+
+    /**
+     * 清空所有item
+     */
+    fun removeAllItem() {
+        if (layoutParams.size == 0) {
+            return
+        }
+        //把数据从list中remove掉
+        layoutParams.clear()
+        //显示动画效果
+        notifyItemRemoved(layoutParams.size)
+        //对于被删掉的位置及其后range大小范围内的view进行重新
+        notifyDataSetChanged()
     }
 
     val items get() = layoutParams
@@ -74,6 +106,11 @@ internal class FlexItemAdapter(private val viewModel :SearchViewModel)
     lateinit var mListener : HotFlexItemClickListener
     fun setFlexItemClickListener(listener:HotFlexItemClickListener){
         this.mListener = listener
+    }
+
+    lateinit var mSearchListener : SearchFlexItemClickListener
+    fun setSearchFexItemClickListener(listener:SearchFlexItemClickListener){
+        this.mSearchListener = listener
     }
 }
 

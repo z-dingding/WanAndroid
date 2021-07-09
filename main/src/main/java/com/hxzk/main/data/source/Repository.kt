@@ -6,6 +6,7 @@ import com.hxzk.network.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -102,5 +103,23 @@ interface Repository {
      * 查询热词表所有的条目
      */
      fun queryAllHotwords():Result<List<HotKeyModel>>
+
+    /**
+     * 插入历史搜索单条数据
+     */
+     suspend fun  insertSearchKeyWord(item : SearchKeyWord)
+
+    /**
+     * 查询历史搜索记录数据
+     */
+     fun queryAllKeyWord():LiveData<List<SearchKeyWord>>
+    /**
+     * 根据关键字进行网络请求
+     */
+    fun searchByKey(keyWord : String,pageIndex:Int):LiveData<Result<*>>
+    /**
+     * 清空本地所有的搜索记录
+     */
+    suspend fun delAllSearchKeys()
 
 }

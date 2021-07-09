@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout>
-
     <data>
-
         <variable
             name="viewModel"
             type="com.hxzk.main.ui.search.SearchViewModel" />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,12 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.search.SearchActivity">
-
         <View
             android:id="@+id/scrim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/light_scrim"/>
+            android:background="@color/light_scrim" />
 
         <FrameLayout
             android:id="@+id/serachll"
@@ -31,6 +27,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <View
                 android:id="@+id/searchBackground"
                 android:layout_width="match_parent"
@@ -38,30 +35,31 @@
                 android:background="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/searchBack"
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:background="?android:selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_arrow_back"
-                android:transitionName="@string/transition_search_back" />
 
-            <SearchView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:iconifiedByDefault="false"
-                android:queryBackground="@android:color/transparent"
-                android:searchIcon="@null"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                android:transitionGroup="true" />
+                <ImageView
+                    android:id="@+id/searchBack"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_arrow_back"
+                    android:transitionName="@string/transition_search_back" />
+
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="16dp"
+                    android:iconifiedByDefault="false"
+                    android:queryBackground="@android:color/transparent"
+                    android:searchIcon="@null"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    android:transitionGroup="true" />
             </LinearLayout>
         </FrameLayout>
 
@@ -97,7 +95,7 @@
             app:layout_constraintTop_toBottomOf="@id/hotkeyLL" />
 
         <RelativeLayout
-            android:id="@+id/historykeyLL"
+            android:id="@+id/searchkeyRL"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:orientation="horizontal"
@@ -114,33 +112,26 @@
                 android:text="@string/search_historykey_title"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/textSize_large" />
+
             <TextView
                 android:id="@+id/tvClearHistory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:text="@string/search_clear"
-                />
+                android:layout_centerVertical="true"
+                android:text="@string/search_clear" />
         </RelativeLayout>
-        <FrameLayout
-            android:id="@+id/resultsContainer"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchKeysRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchkeyRL" />
 
-            android:background="@color/wall"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/historykeyLL">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/searchResults"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="invisible" />
-
-        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -196,5 +196,21 @@ class DefaultRepository(
        return localSource.queryAllHotwords()
     }
 
+    override suspend fun insertSearchKeyWord(item: SearchKeyWord) {
+       localSource.insertSearchKeyWord(item)
+    }
+
+    override  fun queryAllKeyWord(): LiveData<List<SearchKeyWord>> {
+       return  localSource.queryAllKeyWord()
+    }
+
+    override fun searchByKey(keyWord: String, pageIndex: Int)= liveData {
+        val result = romtat.searchByKey(keyWord,pageIndex)
+        emit(result)
+    }
+
+    override suspend fun delAllSearchKeys() {
+       localSource.delAllSearchKeys()
+    }
 
 }

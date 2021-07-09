@@ -2,10 +2,7 @@ package com.hxzk.main.data.source
 
 import androidx.lifecycle.LiveData
 import com.hxzk.network.Result
-import com.hxzk.network.model.ApiResponse
-import com.hxzk.network.model.CommonItemModel
-import com.hxzk.network.model.HotKeyModel
-import com.hxzk.network.model.SystemModel
+import com.hxzk.network.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -104,4 +101,20 @@ interface DataSource {
      * 查询热词表所有的条目
      */
      fun queryAllHotwords():Result<List<HotKeyModel>>
+    /**
+     * 插入历史搜索单条数据
+     */
+    suspend fun  insertSearchKeyWord(item : SearchKeyWord)
+    /**
+     * 查询历史搜索记录数据
+     */
+     fun queryAllKeyWord():LiveData<List<SearchKeyWord>>
+    /**
+     * 根据关键字进行网络请求
+     */
+    suspend fun searchByKey(keyWord : String,pageIndex:Int):Result<*>
+    /**
+     * 清空本地所有的搜索记录
+     */
+    suspend fun delAllSearchKeys()
 }

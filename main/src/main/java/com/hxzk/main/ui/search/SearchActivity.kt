@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
 import android.transition.Transition
+import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -15,7 +16,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.hxzk.base.extension.logWarn
-import com.hxzk.base.extension.sToast
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.base.util.Common
 import com.hxzk.main.R
@@ -25,15 +25,11 @@ import com.hxzk.main.ui.adapter.FlexItemAdapter
 import com.hxzk.main.ui.base.BaseActivity
 import com.quxianggif.common.transitions.TransitionUtils
 import androidx.lifecycle.observe
-import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.extension.dpToPixel
 import com.hxzk.main.callback.HotFlexItemClickListener
-import com.hxzk.main.common.Const
-import com.hxzk.main.ui.main.MainActivity
-import com.hxzk.main.ui.system.sysitem.SystemItemActivity
-import com.hxzk.main.ui.x5Webview.X5MainActivity
-import com.hxzk.network.model.CommonItemModel
+import com.hxzk.main.callback.SearchFlexItemClickListener
 import com.hxzk.network.model.HotKeyModel
+import com.hxzk.network.model.SearchKeyWord
 import kotlin.concurrent.thread
 
 class SearchActivity : BaseActivity() {
@@ -41,6 +37,18 @@ class SearchActivity : BaseActivity() {
     val viewModel by viewModels<SearchViewModel> { getViewModelFactory() }
     lateinit var binding : ActivitySearchBinding
     private lateinit var adapter: FlexItemAdapter
+    private lateinit var keyWordAdapter: FlexItemAdapter
+
+    /**
+     * 热词搜索是否是首次进入
+     */
+    var isFirstShow : Boolean = true
+
+    /**
+     * 历史搜索是否是首次进入
+     */
+    var isSearchFirstShow : Boolean = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,53 +58,117 @@ class SearchActivity : BaseActivity() {
         setupSearchView()
         setupTransitions()
         setRecycler()
+        //先本地查询热词数据,没有就网络获取
         thread {
             val localData = viewModel.queryKeywords()
             if (localData != null && localData.isNotEmpty()) {
                 var liveData = MutableLiveData(localData)
                 viewModel.hotKeys =liveData
                 runOnUiThread {
-                    addItemToAdapter(localData)
+                    addItemToAdapter(localData.size,isFirstShow)
                 }
             }else{
                 runOnUiThread {
                     viewModel.hotKeys.observe(this){
-                        addItemToAdapter(it)
+                        addItemToAdapter(it.size,isFirstShow)
                     }
                 }
             }
+        }
+        //查询本地搜索记录
+        viewModel.searchKeyword.observe(this){
+            if(it.isNotEmpty()){
+                addSearchItemToAdapter(it.size,isSearchFirstShow)
+            }else{
+                keyWordAdapter.removeAllItem()
+            }
+        }
+        binding.tvClearHistory.setOnClickListener {
+            viewModel.clearAllSearchKeys()
         }
     }
 
 
     /**
-     * 将请求的热词结果,添加到adatepr并刷新
+     *  将请求的热词结果,添加到adatepr并刷新
      */
-   fun addItemToAdapter(it: List<HotKeyModel>){
-       for (index in it.iterator()){
-           var lp = FlexboxLayoutManager.LayoutParams(
-                   ViewGroup.LayoutParams.WRAP_CONTENT,
-                   ViewGroup.LayoutParams.WRAP_CONTENT)
-           val right = dpToPixel(15)
-           val bottom = dpToPixel(10)
-           lp.setMargins(0,0,right,bottom)
-           adapter.addItem(lp)
-       }
+    private fun addItemToAdapter(list: Int,isFirstShow :Boolean){
+        if(isFirstShow){
+            //首次进入页面,循环遍历
+            for( index in 0 until list){
+                var lp = generateFlexLayoutParams()
+                adapter.addItem(lp)
+            }
+            this.isFirstShow =false
+        }else{
+             //除首次进入以外,动态添加,一个个加入
+            var lp = generateFlexLayoutParams()
+                //热词搜索
+            adapter.addItem(lp)
+        }
+
    }
+    /**
+     *  将本地搜索历史结果,添加到adatepr并刷新
+     */
+    private fun addSearchItemToAdapter(list: Int,isSearchFirstShow :Boolean){
+        if(isSearchFirstShow){
+            //首次进入页面,循环遍历
+            for( index in 0 until list){
+                var lp = generateFlexLayoutParams()
+                    //历史搜索
+                    keyWordAdapter.addItem(lp)
+            }
+            this.isSearchFirstShow =false
+        }else{
+            //动态添加,一个个加入
+            var lp = generateFlexLayoutParams()
+                //历史搜索
+                keyWordAdapter.addItem(lp)
+        }
+
+    }
+
+    /**
+     * 生成adapter的每个item对应的LayoutParams
+     */
+    private fun generateFlexLayoutParams() :FlexboxLayoutManager.LayoutParams {
+        var lp = FlexboxLayoutManager.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT)
+        val right = dpToPixel(15)
+        val bottom = dpToPixel(10)
+        lp.setMargins(0,0,right,bottom)
+
+        return lp
+    }
 
     private fun setRecycler() {
         val flexboxLayoutManager = FlexboxLayoutManager(activity)
+        val flexboxLayoutManager2 = FlexboxLayoutManager(activity)
+
         binding.hotResults.layoutManager = flexboxLayoutManager
-        adapter = FlexItemAdapter(viewModel)
+        binding.searchKeysRv.layoutManager = flexboxLayoutManager2
+
+        adapter = FlexItemAdapter(viewModel,true)
+        keyWordAdapter = FlexItemAdapter(viewModel,false)
+
         binding.hotResults.adapter = adapter
+        binding.searchKeysRv.adapter = keyWordAdapter
+
         adapter.setFlexItemClickListener(object : HotFlexItemClickListener {
             override fun onItemClick(item: HotKeyModel) {
-                val bundle =Bundle().apply {
-                    putString(Const.SystemItem.KEY_TITLE, item.name)
-                    putInt(Const.SystemItem.KEY_ID, item.id)
-                }
-                actionBundle<SystemItemActivity>(this@SearchActivity,bundle)
+                binding.searchView.setQuery(item.name,false)
+                searchDataBykey(item.name,true)
             }
+        })
+
+        keyWordAdapter.setSearchFexItemClickListener(object : SearchFlexItemClickListener {
+            override fun onItemClick(item: SearchKeyWord) {
+                binding.searchView.setQuery(item.searchKey,false)
+                searchDataBykey(item.searchKey,false)
+            }
+
         })
     }
 
@@ -124,13 +196,17 @@ class SearchActivity : BaseActivity() {
                 EditorInfo.IME_FLAG_NO_EXTRACT_UI or EditorInfo.IME_FLAG_NO_FULLSCREEN
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-              query.sToast()
+                searchDataBykey(query,false)
                 return true
             }
 
             override fun onQueryTextChange(query: String): Boolean {
                 if (TextUtils.isEmpty(query)) {
                     //清空输入内容
+                    binding.searchKeysRv.visibility = View.VISIBLE
+                    binding.searchkeyRL.visibility = View.VISIBLE
+                    binding.hotResults.visibility =View.VISIBLE
+                    binding.hotkeyLL.visibility = View.VISIBLE
                 }
                 return true
             }
@@ -139,6 +215,35 @@ class SearchActivity : BaseActivity() {
         binding.searchBack.setOnClickListener {
             dismiss()
         }
+    }
+
+    /**
+     * 执行搜索请求
+     */
+    private fun searchDataBykey(keyWord : String ,isHotKey : Boolean) {
+        if(viewModel.searchKeyword.value.isNullOrEmpty()){
+           //如果没有历史搜索数据
+            if(!isHotKey) {
+                //如果不是热词搜索存入数据库
+                val item = SearchKeyWord(keyWord)
+                viewModel.insertSearchKey(item)
+            }
+        }else{
+            val ele = SearchKeyWord(keyWord)
+            if(!isHotKey && viewModel.searchKeyword.value!!.indexOf(ele) == -1) {
+                //如果不是热词搜索且历史搜索中不存在就存入数据库
+                val item = SearchKeyWord(keyWord)
+                viewModel.insertSearchKey(item)
+            }
+        }
+        //执行搜索请求
+       viewModel.searchDataBykey(keyWord,0).observe(this){
+
+           binding.searchKeysRv.visibility = View.GONE
+           binding.searchkeyRL.visibility = View.GONE
+           binding.hotResults.visibility = View.GONE
+           binding.hotkeyLL.visibility = View.GONE
+       }
     }
 
 
@@ -166,6 +271,8 @@ class SearchActivity : BaseActivity() {
         binding.searchView.clearFocus()
         hideSoftKeyboard()
     }
+
+
 
 
 

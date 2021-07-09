@@ -20,3 +20,10 @@ data class HotKeyModel @JvmOverloads constructor(
         @ColumnInfo(name = "order") val order: Int,
         @ColumnInfo(name = "visible") val visible: Int
 ) : Parcelable
+
+
+@Parcelize
+@Entity(tableName = "searchkeys")
+data class SearchKeyWord @JvmOverloads constructor(
+@PrimaryKey @ColumnInfo(name = "searchkey") val searchKey:String =""
+):Parcelable

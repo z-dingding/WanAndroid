@@ -6,6 +6,7 @@ import com.hxzk.network.Result
 import com.hxzk.network.WanApi
 import com.hxzk.network.model.CommonItemModel
 import com.hxzk.network.model.HotKeyModel
+import com.hxzk.network.model.SearchKeyWord
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +35,12 @@ class RemoteDataSource : DataSource {
     override suspend fun hotKeys() =WanApi.get().hotKeys().await()
     override suspend fun wxPublic() =WanApi.get().wxPublic().await()
     override suspend fun wxPublicArticle(publicId: Int, pageIndex: Int)=WanApi.get().wxPublicArticle(publicId,pageIndex).await()
+    override suspend fun searchByKey(keyWord: String, pageIndex: Int)= WanApi.get().searchByKey( pageIndex,keyWord).await()
+    override suspend fun delAllSearchKeys() {
+        TODO("Not yet implemented")
+    }
+
+
     override suspend fun insertItem(model: CommonItemModel) {
         TODO("Not yet implemented")
     }
@@ -57,6 +64,15 @@ class RemoteDataSource : DataSource {
     override  fun queryAllHotwords(): Result<List<HotKeyModel>> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun insertSearchKeyWord(item: SearchKeyWord) {
+        TODO("Not yet implemented")
+    }
+
+    override  fun queryAllKeyWord(): LiveData<List<SearchKeyWord>> {
+        TODO("Not yet implemented")
+    }
+
 
     /**
      * Call的扩展函数(默认持有该对象的引用)
