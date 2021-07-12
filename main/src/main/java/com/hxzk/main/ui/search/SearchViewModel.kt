@@ -93,7 +93,6 @@ class SearchViewModel(val repository: Repository) : ViewModel() {
      */
       val searchKeyword:LiveData<List<SearchKeyWord>> = repository.queryAllKeyWord()
 
-    lateinit var searchResult:LiveData<List<ArticleListModel>>
     /**
      * 执行搜索的网络请求
      */
@@ -124,5 +123,19 @@ class SearchViewModel(val repository: Repository) : ViewModel() {
        viewModelScope.launch {
            repository.delAllSearchKeys()
        }
+    }
+
+    /**
+     * 点击item的监听
+     */
+   private val _itemClick = MutableLiveData<CommonItemModel>()
+    val itemClick: LiveData<CommonItemModel> = _itemClick
+    /**
+     * 点击Item
+     */
+    fun clickItem(item: DataX) {
+        //将不同的数据bean,转化为公用的
+        val model = CommonItemModel(item.id, item.link, item.title)
+        _itemClick.value = model
     }
 }

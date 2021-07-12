@@ -35,7 +35,7 @@ class X5Fragment : BaseFragment(), WebViewProgress {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity = requireActivity() as X5MainActivity
-        model = activity.intent.getParcelableExtra<CommonItemModel>(X5MainActivity.KEY_ITEMBEAN)
+        model = activity.intent.getParcelableExtra(X5MainActivity.KEY_ITEMBEAN)
         //设置加载进度的回调
         x5WebView.x5WebChromeClient.setOnProgressChanged(this)
         x5WebView.loadWebUrl(model?.link)

@@ -25,9 +25,15 @@ import com.hxzk.main.ui.adapter.FlexItemAdapter
 import com.hxzk.main.ui.base.BaseActivity
 import com.quxianggif.common.transitions.TransitionUtils
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.extension.dpToPixel
 import com.hxzk.main.callback.HotFlexItemClickListener
 import com.hxzk.main.callback.SearchFlexItemClickListener
+import com.hxzk.main.ui.adapter.AnswerAdapter
+import com.hxzk.main.ui.adapter.SearchResultAdapter
+import com.hxzk.main.ui.x5Webview.X5MainActivity
+import com.hxzk.network.model.DataX
 import com.hxzk.network.model.HotKeyModel
 import com.hxzk.network.model.SearchKeyWord
 import kotlin.concurrent.thread
@@ -38,6 +44,7 @@ class SearchActivity : BaseActivity() {
     lateinit var binding : ActivitySearchBinding
     private lateinit var adapter: FlexItemAdapter
     private lateinit var keyWordAdapter: FlexItemAdapter
+    private lateinit var searchAdapter : SearchResultAdapter
 
     /**
      * 热词搜索是否是首次进入
@@ -170,6 +177,16 @@ class SearchActivity : BaseActivity() {
             }
 
         })
+        //设置搜索请求结果的Rv
+         val linearLayout = LinearLayoutManager(this)
+        binding.rvSearchResult.layoutManager = linearLayout
+         searchAdapter = SearchResultAdapter(viewModel)
+        binding.rvSearchResult.adapter= searchAdapter
+        viewModel.itemClick.observe(this){
+            val mBundle =Bundle()
+            mBundle.putParcelable(X5MainActivity.KEY_ITEMBEAN,it)
+            actionBundle<X5MainActivity>(this,mBundle)
+        }
     }
 
     @TargetApi(22)
@@ -207,6 +224,8 @@ class SearchActivity : BaseActivity() {
                     binding.searchkeyRL.visibility = View.VISIBLE
                     binding.hotResults.visibility =View.VISIBLE
                     binding.hotkeyLL.visibility = View.VISIBLE
+
+                    binding.rvSearchResult.visibility =View.GONE
                 }
                 return true
             }
@@ -221,31 +240,34 @@ class SearchActivity : BaseActivity() {
      * 执行搜索请求
      */
     private fun searchDataBykey(keyWord : String ,isHotKey : Boolean) {
-        if(viewModel.searchKeyword.value.isNullOrEmpty()){
-           //如果没有历史搜索数据
-            if(!isHotKey) {
+        if (viewModel.searchKeyword.value.isNullOrEmpty()) {
+            //如果没有历史搜索数据
+            if (!isHotKey) {
                 //如果不是热词搜索存入数据库
                 val item = SearchKeyWord(keyWord)
                 viewModel.insertSearchKey(item)
             }
-        }else{
+        } else {
             val ele = SearchKeyWord(keyWord)
-            if(!isHotKey && viewModel.searchKeyword.value!!.indexOf(ele) == -1) {
+            if (!isHotKey && viewModel.searchKeyword.value!!.indexOf(ele) == -1) {
                 //如果不是热词搜索且历史搜索中不存在就存入数据库
                 val item = SearchKeyWord(keyWord)
                 viewModel.insertSearchKey(item)
             }
         }
         //执行搜索请求
-       viewModel.searchDataBykey(keyWord,0).observe(this){
+        viewModel.searchDataBykey(keyWord, 0).observe(this) {
+            binding.searchKeysRv.visibility = View.GONE
+            binding.searchkeyRL.visibility = View.GONE
+            binding.hotResults.visibility = View.GONE
+            binding.hotkeyLL.visibility = View.GONE
 
-           binding.searchKeysRv.visibility = View.GONE
-           binding.searchkeyRL.visibility = View.GONE
-           binding.hotResults.visibility = View.GONE
-           binding.hotkeyLL.visibility = View.GONE
-       }
+            binding.rvSearchResult.visibility = View.VISIBLE
+            searchAdapter.submitList(it)
+            //搜索完,隐藏软键盘
+            hideKeyboard()
+        }
     }
-
 
     private fun dismiss() {
         //清除背景,否则返回上一页面动画会重叠，观感差
