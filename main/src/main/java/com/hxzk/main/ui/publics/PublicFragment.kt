@@ -59,11 +59,7 @@ class PublicFragment : Fragment(),View.OnClickListener{
         initEvent()
     }
 
-    override fun onResume() {
-        super.onResume()
-        val message = TransparentStatusBarEvent(false)
-        EventBus.getDefault().post(message)
-    }
+
 
     private fun initEvent() {
         binding.ibScan.setOnClickListener(this)

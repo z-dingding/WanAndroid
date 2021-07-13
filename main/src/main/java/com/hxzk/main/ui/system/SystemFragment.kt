@@ -42,11 +42,7 @@ class SystemFragment : BaseFragment(),View.OnClickListener{
         initVp()
     }
 
-    override fun onResume() {
-        super.onResume()
-        val message = TransparentStatusBarEvent(false)
-        EventBus.getDefault().post(message)
-    }
+
 
     private fun initVp() {
         val frags = LinkedList<Fragment>()

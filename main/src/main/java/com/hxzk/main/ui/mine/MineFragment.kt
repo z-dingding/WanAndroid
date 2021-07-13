@@ -128,11 +128,6 @@ class MineFragment : BaseFragment() , View.OnClickListener {
         initEvent()
     }
 
-    override fun onResume() {
-        super.onResume()
-        val message = TransparentStatusBarEvent(true)
-        EventBus.getDefault().post(message)
-    }
 
     private fun initEvent() {
         iv_userPhoto.setOnClickListener(this)

@@ -66,6 +66,8 @@ dependencies {
     api dependencies['flexbox']
     //鲁班压缩
    // api dependencies['luban']
+    //沉浸式状态栏
+    api dependencies['immersionbar']
 
 
     api project(path: ':tencentx5')

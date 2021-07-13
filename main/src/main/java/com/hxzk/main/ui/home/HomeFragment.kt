@@ -47,6 +47,7 @@ class HomeFragment : BaseFragment(), BannerItemListener {
         homeFragDataBinding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             this.viewModel = homeViewModel
         }
+        //使fragmeng中的toolbar菜单生效
         setHasOptionsMenu(true)
         return super.onCreateView(homeFragDataBinding.root)
     }
@@ -92,11 +93,7 @@ class HomeFragment : BaseFragment(), BannerItemListener {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        val message = TransparentStatusBarEvent(false)
-        EventBus.getDefault().post(message)
-    }
+
     /**
      * 列表项的点击
      */
