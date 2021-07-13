@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
 import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.util.AndroidVersion
@@ -23,6 +24,7 @@ import com.hxzk.network.model.CommonItemModel
 import com.hxzk.network.model.HomeBanner
 import com.hxzk.main.ui.x5Webview.X5MainActivity
 import com.hxzk.main.ui.x5Webview.X5MainActivity.Companion.KEY_ITEMBEAN
+import com.hxzk.network.model.ArticleListModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
 

@@ -42,7 +42,7 @@ fun Any.logVerbose(msg: String?) {
 
 fun Any.logDebug(msg: String?) {
     if (level <= DEBUG) {
-        Log.d(javaClass.simpleName, msg.toString())
+        Log.d("javaClass.simpleName", msg.toString())
     }
 }
 

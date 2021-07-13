@@ -34,6 +34,7 @@ class HomeItemAdapter(private val homeViewModel: HomeViewModel) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == ITEM_TYEP_BANNER) {
+            var aa = homeViewModel.banners.value?.size
             (holder as BannerViewHolder).bind(homeViewModel)
             return
         } else {
@@ -45,6 +46,7 @@ class HomeItemAdapter(private val homeViewModel: HomeViewModel) :
     }
 
     override fun getItemCount(): Int {
+        //如果列表数据不为空,则+1(banner轮播)
         return homeViewModel._topArticleSize.value?.plus(1) ?: 0
     }
 

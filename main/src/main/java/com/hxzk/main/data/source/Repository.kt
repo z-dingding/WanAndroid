@@ -32,7 +32,7 @@ interface Repository {
     /**
      * 首页文章列表
      */
-    suspend fun articleList(pageIndex: Int,origin: ArticleListModel?): ArticleListModel
+     fun articleList(pageIndex: Int,origin: ArticleListModel?):  LiveData<ArticleListModel>
     /**
      * 获取个人积分(信息)接口
      */

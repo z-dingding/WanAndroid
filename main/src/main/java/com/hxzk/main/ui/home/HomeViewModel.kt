@@ -28,12 +28,12 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
     /**
      * 是否正在刷新
      */
-     val isRefreshing =MutableLiveData(false)
+    val isRefreshing = MutableLiveData(false)
+
     /**
      * 是否正在加载更多
      */
-     val isLoadMoreing =MutableLiveData(false)
-
+    val isLoadMoreing = MutableLiveData(false)
 
 
     /**
@@ -41,8 +41,8 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
      */
     private val _banners: LiveData<List<HomeBanner>> = _forceUpdate.switchMap {
         val res = MutableLiveData<List<HomeBanner>>()
-        if(it){
-           return@switchMap repository.banner().switchMap {
+        if (it) {
+            return@switchMap repository.banner().switchMap {
                 transitionBannerItem(it)
             }
         }
@@ -78,8 +78,8 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
      * 刷新或加载更多的方法
      * isFirstLoad 只有首次加载才显示loading,否则用smart自带的刷新或更多loading
      */
-    fun forceUpdate(isRefresh : Boolean,isFirstLoad : Boolean = false) {
-        if(isFirstLoad){
+    fun forceUpdate(isRefresh: Boolean, isFirstLoad: Boolean = false) {
+        if (isFirstLoad) {
             _dataLoading.value = true
         }
         _forceUpdate.value = isRefresh
@@ -87,48 +87,47 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
 
 
     val _openItem = MutableLiveData<CommonItemModel>()
-    val openItem : LiveData<CommonItemModel> = _openItem
+    val openItem: LiveData<CommonItemModel> = _openItem
 
     /**
      * 点击Item
      */
     fun clickItem(item: DataX) {
         //将不同的数据bean,转化为公用的
-       val model =  CommonItemModel(item.id,item.link,item.title)
+        val model = CommonItemModel(item.id, item.link, item.title)
         _openItem.value = model
     }
 
     /**
      * 请求首页文章列表(包括置顶文章和一般文章列表)
      */
-     var curPage : Int = 0
-     var pageCount : Int =0
+    var curPage: Int = 0
+    var pageCount: Int = 0
 
-    private val _itemList :  LiveData<ArticleListModel> = _forceUpdate.switchMap {
-        if(it){
+    private val _itemList: LiveData<ArticleListModel> = _forceUpdate.switchMap {
+        if (it) {
             isRefreshing.value = true
             curPage = 0
-        }else{
+        } else {
             isLoadMoreing.value = true
         }
         itemList()
     }
-    private fun itemList() :  LiveData<ArticleListModel> {
-        val result =  MutableLiveData<ArticleListModel>()
-        viewModelScope.launch {
-            //根据curPage是否为0判断是刷新还是加载更多
-           val data =  repository.articleList(curPage,_itemList.value)
-            //请求页码从0开始，返回curPage为1
-            curPage =data.curPage
-            pageCount =data.pageCount
-            result.value = data
-            _topArticleSize.value = data.datas.size
-            _dataLoading.value = false
-        }
+    val itemList: LiveData<ArticleListModel> = _itemList
+
+    private fun itemList(): LiveData<ArticleListModel> = repository.articleList(curPage, _itemList.value).switchMap {
+        val result = MutableLiveData<ArticleListModel>()
+        //请求页码从0开始，返回curPage为1
+        curPage = it.curPage
+        pageCount = it.pageCount
+        result.value = it
+        _topArticleSize.value = it.datas.size
+        _dataLoading.value = false
+        //协程作用域外的代码比协程作用域的代码先执行
         isRefreshing.value = false
         isLoadMoreing.value = false
-        return  result
+        result
     }
-    val itemList :  LiveData<ArticleListModel>  = _itemList
-
 }
+
+
