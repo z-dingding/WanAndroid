@@ -22,25 +22,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/ib_scan"
-            android:layout_width="32dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:background="?android:selectableItemBackgroundBorderless"
-            android:src="@drawable/icon_vector_scan"
-           />
-
         <TextView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:text="@string/search_hint"
+            android:text="@string/tab_public"
             android:textSize="@dimen/textSize_large"
             android:background="@null"
-            android:gravity="center_vertical"
+           android:gravity="center"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     </LinearLayout>

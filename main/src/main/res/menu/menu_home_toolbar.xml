@@ -8,4 +8,10 @@
         android:icon="@drawable/ic_search"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/menu_scanCode"
+        android:title="@string/home_search"
+        android:icon="@drawable/icon_vector_scan"
+        app:showAsAction="always"/>
+
 </menu>

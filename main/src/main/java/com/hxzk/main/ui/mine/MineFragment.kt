@@ -132,7 +132,7 @@ class MineFragment : BaseFragment() , View.OnClickListener {
     private fun initEvent() {
         iv_userPhoto.setOnClickListener(this)
         stv_integral.setOnClickListener(this)
-        iv_integral.setOnClickListener(this)
+        iv_notify.setOnClickListener(this)
         stv_readHistory.setOnClickListener(this)
     }
 
@@ -154,7 +154,7 @@ class MineFragment : BaseFragment() , View.OnClickListener {
                 putString(KEY_USER_NAME,viewModel.userInfo.value?.username)
             })
 
-            R.id.iv_integral -> activity.action<RankActivity>(activity)
+            R.id.iv_notify ->  getString(R.string.common_tips_wating).sToast()
 
             R.id.stv_readHistory-> activity.action<BrowsingHistoryActivity>(activity)
         }

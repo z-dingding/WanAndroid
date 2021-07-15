@@ -7,4 +7,9 @@
         app:showAsAction="always"
        android:icon="@drawable/integral_introduces"
        android:title="" />
+    <item
+        android:id="@+id/menuitem_integral_rank"
+        app:showAsAction="always"
+        android:icon="@drawable/mine_integral"
+        android:title="" />
 </menu>

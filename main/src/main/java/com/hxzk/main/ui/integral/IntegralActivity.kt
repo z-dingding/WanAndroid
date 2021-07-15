@@ -8,7 +8,10 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.hxzk.base.extension.action
+import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.extension.sToast
+import com.hxzk.base.util.GlobalUtil
 import com.hxzk.main.R
 import com.hxzk.main.common.Const
 import com.hxzk.main.databinding.ActivityIntegralBinding
@@ -17,6 +20,10 @@ import com.hxzk.main.ui.adapter.HomeItemAdapter
 import com.hxzk.main.ui.adapter.IntegralItemAdapter
 import com.hxzk.main.ui.base.BaseActivity
 import com.hxzk.main.ui.mine.MineViewModel
+import com.hxzk.main.ui.rank.RankActivity
+import com.hxzk.main.ui.x5Webview.X5MainActivity
+import com.hxzk.network.WanApi
+import com.hxzk.network.model.CommonItemModel
 import kotlinx.android.synthetic.main.activity_integral.*
 
 class IntegralActivity : BaseActivity() {
@@ -29,13 +36,7 @@ class IntegralActivity : BaseActivity() {
          integralBinding = DataBindingUtil.setContentView(this,R.layout.activity_integral)
          integralBinding.viewmodel = viewModel
          integralBinding.lifecycleOwner = this
-    }
 
-
-    override fun setupViews() {}
-
-    override fun onStart() {
-        super.onStart()
         intent.extras?.let{
             val coinCount  = it.getInt(Const.IntegralList.KEY_COINCOUNT).toFloat()
             tv_iconCount.runWithAnimation(coinCount)
@@ -44,6 +45,7 @@ class IntegralActivity : BaseActivity() {
         title=resources.getString(R.string.interal_title)
         setupListAdapter()
     }
+
 
 
     /**
@@ -64,13 +66,17 @@ class IntegralActivity : BaseActivity() {
         when(item.itemId){
             android.R.id.home -> {
                 finish()
-                return true
             }
              R.id.menuitem_integral_introduces-> {
-                getString(R.string.common_tips_wating).sToast()
-                return true
+                 val model = CommonItemModel(123456,WanApi.baseUrl+GlobalUtil.getString(R.string.url_integral_instruction),GlobalUtil.getString(R.string.integral_instruction))
+                 val mBundle =Bundle()
+                 mBundle.putParcelable(X5MainActivity.KEY_ITEMBEAN,model)
+                 actionBundle<X5MainActivity>(this,mBundle)
+
             }
+
+            R.id.menuitem_integral_rank ->{ action<RankActivity>(this)}
         }
-        return super.onOptionsItemSelected(item)
+        return true
     }
 }

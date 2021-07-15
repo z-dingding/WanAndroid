@@ -52,7 +52,7 @@ class SystemFragment : BaseFragment(),View.OnClickListener{
         binding.vp.apply {
             adapter = vpAdapter
             //是否禁止左右滑动,true允许左右滑动
-            isUserInputEnabled = false
+            isUserInputEnabled = true
             //如果允许滑动则默认不进行预加载
             //vp.offscreenPageLimit = 1
             //默认加载第一个Fragment,并隐藏中间页
@@ -65,10 +65,6 @@ class SystemFragment : BaseFragment(),View.OnClickListener{
             }
 
         })
-
-
-
-
     }
 
    private  fun changeTVColor(index : Int){

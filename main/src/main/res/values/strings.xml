@@ -68,6 +68,7 @@
     <string name="mine_level">等级:%s</string>
     <string name="mine_ranking">排名:%d</string>
     <string name="mine_integral">我的积分</string>
+    <string name="integral_instruction">积分说明</string>
     <string name="mine_share">我的分享</string>
     <string name="mine_collection">我的收藏</string>
     <string name="mine_waitingRead">稍后阅读</string>

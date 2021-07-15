@@ -32,7 +32,7 @@ import com.hxzk.network.model.CommonItemModel
 import com.hxzk.network.model.DataX
 import org.greenrobot.eventbus.EventBus
 
-class PublicFragment : Fragment(),View.OnClickListener{
+class PublicFragment : Fragment(){
 
     private val publicViewModel by viewModels<PublicViewModel> { getViewModelFactory()  }
     private lateinit var binding : FragmentPublicBinding
@@ -62,8 +62,6 @@ class PublicFragment : Fragment(),View.OnClickListener{
 
 
     private fun initEvent() {
-        binding.ibScan.setOnClickListener(this)
-        binding.searchView.setOnClickListener(this)
         publicViewModel.leftItemClick.observe(viewLifecycleOwner){
             //改变左侧item的选中状态及颜色
             listAdapter.itemSelectSytle(it)
@@ -142,12 +140,6 @@ class PublicFragment : Fragment(),View.OnClickListener{
         }
     }
 
-    override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.ib_scan ->   getString(R.string.common_tips_wating).sToast()
-            R.id.searchView ->  startActivity(
-                    Intent(activity, SearchActivity::class.java))
-        }
-    }
+
 
 }
