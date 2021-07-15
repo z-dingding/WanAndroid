@@ -26,10 +26,6 @@ class SystemItemActivity : BaseActivity(){
         binding = DataBindingUtil.setContentView(this,R.layout.activity_system_item)
         binding.viewModel = viewmodel
         binding.lifecycleOwner = this
-    }
-
-    override fun onStart() {
-        super.onStart()
         intent.extras?.let {
             title=it.getString(Const.SystemItem.KEY_TITLE)
             id =it.getInt(Const.SystemItem.KEY_ID)
