@@ -28,6 +28,7 @@ import com.hxzk.main.event.TransparentStatusBarEvent
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.browsehistroy.BrowsingHistoryActivity
+import com.hxzk.main.ui.collection.CollectionActivity
 import com.hxzk.main.ui.integral.IntegralActivity
 import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.modifyuserinfo.ModifyUserInfoActivity
@@ -134,6 +135,7 @@ class MineFragment : BaseFragment() , View.OnClickListener {
         stv_integral.setOnClickListener(this)
         iv_notify.setOnClickListener(this)
         stv_readHistory.setOnClickListener(this)
+        stv_collection.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -157,6 +159,8 @@ class MineFragment : BaseFragment() , View.OnClickListener {
             R.id.iv_notify ->  getString(R.string.common_tips_wating).sToast()
 
             R.id.stv_readHistory-> activity.action<BrowsingHistoryActivity>(activity)
+
+            R.id.stv_collection -> activity.action<CollectionActivity>(activity)
         }
     }
 

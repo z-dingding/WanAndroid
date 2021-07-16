@@ -32,9 +32,6 @@ import java.net.UnknownHostException
 object ResponseHandler {
 
     private val TAG = "ResponseHandler"
-
-
-
     /**
      * 当网络请求没有正常响应的时候，根据异常类型进行相应的处理。
      * @param e
@@ -47,8 +44,8 @@ object ResponseHandler {
             is NoRouteToHostException -> GlobalUtil.getString(R.string.no_route_to_host).sMainToast()
             is UnknownHostException -> GlobalUtil.getString(R.string.network_no_host).sMainToast()
             else -> {
-                logWarn(TAG, "handleFailure exception is $e")
-                (GlobalUtil.getString(R.string.unknown_error)).sMainToast()
+                (e.message)?.sMainToast()
+                //(GlobalUtil.getString(R.string.unknown_error)).sMainToast()
             }
         }
     }

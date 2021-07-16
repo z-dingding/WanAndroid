@@ -61,7 +61,7 @@ class ChildNavigationFragment : BaseFragment() ,NavFlexItemClickListener {
     }
 
     override fun onItemClick(item: Article) {
-        val bean= CommonItemModel(item.id,item.link,item.title)
+        val bean= CommonItemModel(item.id,item.link,item.title,item.collect)
         val mBundle =Bundle()
         mBundle.putParcelable(X5MainActivity.KEY_ITEMBEAN,bean)
         activity.actionBundle<X5MainActivity>(activity,mBundle)

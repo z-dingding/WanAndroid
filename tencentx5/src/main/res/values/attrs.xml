@@ -4,8 +4,10 @@
 <declare-styleable name="web_progress">
 <!--    进度条的宽度-->
     <attr name="progress_border_width" format="dimension"/>
-<!--    进度条的宽度-->
+<!--    进度条的颜色-->
     <attr name="progress_border_color" format="color"/>
+    <!--    填充的颜色-->
+    <attr name="progress_bg_color" format="color"/>
 <!--    进度条的起始位置-->
     <attr name="progress_border_startPosition" format="enum">
        <enum name="left" value="1" />

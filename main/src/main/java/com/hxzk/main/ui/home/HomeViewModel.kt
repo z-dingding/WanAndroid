@@ -94,7 +94,7 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
      */
     fun clickItem(item: DataX) {
         //将不同的数据bean,转化为公用的
-        val model = CommonItemModel(item.id, item.link, item.title)
+        val model = CommonItemModel(item.id, item.link, item.title,item.collect)
         _openItem.value = model
     }
 

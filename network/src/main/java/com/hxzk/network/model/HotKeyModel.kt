@@ -12,6 +12,7 @@ import kotlinx.android.parcel.Parcelize
  * 描述:
  */
 @Parcelize
+//热门搜索表
 @Entity(tableName = "hotwords")
 data class HotKeyModel @JvmOverloads constructor(
         @PrimaryKey @ColumnInfo(name = "id") val id: Int,
@@ -23,6 +24,7 @@ data class HotKeyModel @JvmOverloads constructor(
 
 
 @Parcelize
+//搜索历史表
 @Entity(tableName = "searchkeys")
 data class SearchKeyWord @JvmOverloads constructor(
 @PrimaryKey @ColumnInfo(name = "searchkey") val searchKey:String =""

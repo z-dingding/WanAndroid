@@ -1,10 +1,9 @@
 package com.hxzk.main.ui.x5Webview
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.viewModels
 import com.hxzk.base.extension.sToast
 import com.hxzk.base.util.GlobalUtil
@@ -22,7 +21,7 @@ class X5Fragment : BaseFragment(), WebViewProgress {
 
     private val viewModel by viewModels<X5FragViewModel> { getViewModelFactory()}
 
-    var model: CommonItemModel? = null
+    lateinit var model: CommonItemModel
     lateinit var activity: X5MainActivity
 
     override fun onCreateView(
@@ -38,10 +37,12 @@ class X5Fragment : BaseFragment(), WebViewProgress {
         model = activity.intent.getParcelableExtra(X5MainActivity.KEY_ITEMBEAN)
         //设置加载进度的回调
         x5WebView.x5WebChromeClient.setOnProgressChanged(this)
-        x5WebView.loadWebUrl(model?.link)
+        x5WebView.loadWebUrl(model.link)
         webProgressView.setOnClickListener {
             activity.finish()
         }
+        //如果已经收藏设置返回按钮背景为红色
+        if(model.collect) webProgressView.setmBgColor(Color.RED)
     }
 
 
@@ -52,30 +53,29 @@ class X5Fragment : BaseFragment(), WebViewProgress {
     // 两次点击间隔时间（毫秒）
     private val FAST_CLICK_DELAY_TIME = 500
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onStart() {
         super.onStart()
-        x5WebView.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                if (MotionEvent.ACTION_DOWN == event?.getAction()) {
-                    if (System.currentTimeMillis() - lastClickTime >= FAST_CLICK_DELAY_TIME){
-                        lastClickTime = System.currentTimeMillis()
-                    }else{
-                        "双击了webview".sToast()
-                    }
+        x5WebView.setOnTouchListener { v, event ->
+            if (MotionEvent.ACTION_DOWN == event?.action) {
+                if (System.currentTimeMillis() - lastClickTime >= FAST_CLICK_DELAY_TIME){
+                    lastClickTime = System.currentTimeMillis()
+                }else{
+                    //执行收藏逻辑
+              viewModel.collecteArticle(model.id)
                 }
-                return false
             }
-        })
+            false
+        }
         //存储历史记录
-        model?.browseTime =GlobalUtil.currentDateString
-        model?.let { viewModel.insertItem(it) }
+        model.browseTime =GlobalUtil.currentDateString
+        model.let { viewModel.insertItem(it) }
     }
 
     override fun onProgressChanged(view: WebView, newProgress: Int) {
         if(webProgressView != null){
             webProgressView.setmCurrent(newProgress)
         }
-
     }
 
 }

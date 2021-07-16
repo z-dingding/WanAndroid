@@ -81,6 +81,10 @@
     <!--积分排行榜-->
     <string name="rank_title">积分排行榜</string>
 
+    <!-- 我的收藏-->
+    <string name="collection_title">我的收藏</string>
+    <string name="collection_success">收藏成功</string>
+
     <!--    修改用户信息页面-->
     <string name="save">保存</string>
     <string name="ok">确定</string>
@@ -102,7 +106,7 @@
     <string name="crop_failed">裁剪失败</string>
     <string name="album_is_empty">您的相册空空如也</string>
 
-<!--    浏览记录-->
+    <!--    浏览记录-->
     <string name="title_browsehistory">浏览记录</string>
     <string name="browsehistory_clearall">清空所有</string>
     <string name="browsehistory_cancel">取消</string>

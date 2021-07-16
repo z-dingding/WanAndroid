@@ -10,6 +10,7 @@ import com.hxzk.network.model.SearchKeyWord
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 
 /**
  *作者：created by zjt on 2021/3/11
@@ -122,6 +123,11 @@ class LocalDataSource(
 
     override suspend fun delAllSearchKeys() {
          dao.delAllSearchKeys()
+
+    }
+
+    override suspend fun collecteArticle(id: Int) : Result<ResponseBody> {
+        TODO("Not yet implemented")
     }
 
 

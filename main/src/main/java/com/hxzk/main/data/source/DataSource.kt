@@ -3,6 +3,7 @@ package com.hxzk.main.data.source
 import androidx.lifecycle.LiveData
 import com.hxzk.network.Result
 import com.hxzk.network.model.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -117,4 +118,9 @@ interface DataSource {
      * 清空本地所有的搜索记录
      */
     suspend fun delAllSearchKeys()
+    /**
+     * 收藏列表文章
+     */
+    suspend  fun collecteArticle(id : Int):Result<*>
+
 }

@@ -80,7 +80,6 @@ interface Repository {
      * 插入单个阅读历史记录
      */
     suspend fun insertItem(model : CommonItemModel)
-
     /**
      * 查询浏览历史记录(查询不能用suspend,不然不能用Result)
      */
@@ -122,4 +121,8 @@ interface Repository {
      */
     suspend fun delAllSearchKeys()
 
+    /**
+     * 收藏列表文章
+     */
+    suspend fun collecteArticle(id : Int): Result<*>
 }

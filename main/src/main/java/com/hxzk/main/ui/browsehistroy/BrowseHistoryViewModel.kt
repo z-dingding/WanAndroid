@@ -21,7 +21,7 @@ class BrowseHistoryViewModel(private val repository: Repository) : ViewModel() {
     /**
      * 查询数据库浏览记录列表
      */
-   private val _items: LiveData<List<CommonItemModel>> = repository.queryBrowseItems().switchMap {
+    private val _items: LiveData<List<CommonItemModel>> = repository.queryBrowseItems().switchMap {
         transitionBannerItem(it)
     }
     val items = _items
@@ -29,7 +29,7 @@ class BrowseHistoryViewModel(private val repository: Repository) : ViewModel() {
     private fun transitionBannerItem(it: Result<List<CommonItemModel>>): LiveData<List<CommonItemModel>> {
         val result = MutableLiveData<List<CommonItemModel>>()
         if (it.succeeded) {
-          result.value = (it as Result.Success<List<CommonItemModel>>).res
+            result.value = (it as Result.Success<List<CommonItemModel>>).res
         }
         return result
     }
@@ -38,9 +38,18 @@ class BrowseHistoryViewModel(private val repository: Repository) : ViewModel() {
     /**
      * 清空所有浏览记录的方法
      */
-   fun  clearAllHistory(){
+    fun clearAllHistory() {
         viewModelScope.launch {
             repository.delALLBrowsingHistory()
         }
+    }
+
+    private val _itemClick = MutableLiveData<CommonItemModel>()
+    val itemClick: LiveData<CommonItemModel> = _itemClick
+    /**
+     * item点击事件
+     */
+    fun clickItem(item: CommonItemModel) {
+        _itemClick.value = item
     }
 }

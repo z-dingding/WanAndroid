@@ -21,11 +21,11 @@ class WebProgressView constructor(
     /**
      * 进度边框的画笔
      */
-    lateinit var borderPrint: Paint
+     var borderPrint: Paint
     /**
      * 圆的画笔(实心圆)
      */
-    lateinit var circlePrint: Paint
+     var circlePrint: Paint
 
     /**
      * 边框宽度,默认为4dp
@@ -52,14 +52,21 @@ class WebProgressView constructor(
      */
     var currentProgress : Int = 0
 
+    /**
+     * 背景颜色
+     */
+    private var bgColor : Int =  Color.WHITE
+
 
     init {
         val typeArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.web_progress)
         boderWidth = typeArray.getDimension(
             R.styleable.web_progress_progress_border_width,
+                //默认值
             dip2px(context, boderWidth)
         )
         boderColor = typeArray.getColor(R.styleable.web_progress_progress_border_color, boderColor)
+        bgColor = typeArray.getColor(R.styleable.web_progress_progress_bg_color, bgColor)
         startLoaction = typeArray.getInt(R.styleable.web_progress_progress_border_startPosition, 1)
         when (startLoaction) {
             1 -> startAngle = 180
@@ -86,7 +93,7 @@ class WebProgressView constructor(
         circlePrint = Paint()
         //只填充不画线
         circlePrint.setStyle(Paint.Style.FILL)
-        circlePrint.setColor(Color.WHITE)
+        circlePrint.setColor(bgColor)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -104,6 +111,9 @@ class WebProgressView constructor(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        //动态设置背景颜色时触发
+        circlePrint.color = bgColor
+       // borderPrint.color = bgColor
 
         //绘制背景圆弧,因为画笔有一定的宽度，所有画圆弧的范围要比View本身的大小稍微小一些，不然画笔画出来的东西会显示不完整
         //两个点就可以确定一个矩形,在矩形中画圆
@@ -137,7 +147,7 @@ class WebProgressView constructor(
 
         if(currentProgress == 100){
             //如果加载完毕，隐藏进度条
-            borderPrint.color = Color.WHITE
+            borderPrint.color = bgColor
             canvas.drawArc(rectF, sweepAngle, sweepAngle, false, borderPrint)
         }
     }
@@ -147,6 +157,16 @@ class WebProgressView constructor(
      */
     fun setmCurrent(current: Int) {
         currentProgress = current
+        //不断的进行绘制界面
+        invalidate()
+    }
+
+    /**
+     * 设置背景颜色
+     * 注意函数的命名不能是setXXX的格式,会有冲突
+     */
+    fun setmBgColor(color : Int){
+        bgColor = color
         //不断的进行绘制界面
         invalidate()
     }

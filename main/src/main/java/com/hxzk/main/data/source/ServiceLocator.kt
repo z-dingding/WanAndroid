@@ -44,16 +44,24 @@ import com.hxzk.main.data.source.romote.RemoteDataSource
         val result = Room.databaseBuilder(
                 context.applicationContext,
                 ItemDataBase::class.java, "item.db"
-        ).fallbackToDestructiveMigration()
+        ).addMigrations(MIGRATION_1_2)
         .build()
         database = result
         return result
     }
 
     //.fallbackToDestructiveMigration()
-    val MIGRATION_3_4 = object : Migration(3, 4) {
+    //创建新表的语句
+    val MIGRATION_4_5= object : Migration(4, 5) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("CREATE TABLE 'searchkeys' ('id' INTEGER NOT NULL, 'searchkey' TEXT NOT NULL,PRIMARY KEY ('id'))")
+            database.execSQL("CREATE TABLE 'colitems' ('id' INTEGER NOT NULL, 'link' TEXT NOT NULL, 'title' TEXT NOT NULL, 'browseTime' TEXT NOT NULL,PRIMARY KEY ('id'))")
         }
     }
+    //增加表中字段，0为false，1为true
+    val MIGRATION_1_2= object : Migration(4, 5) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+    database.execSQL("ALTER TABLE 'items' ADD COLUMN 'collect' INTEGER  NOT NULL Default 0");
+        }
+    }
+
 }

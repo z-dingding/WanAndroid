@@ -82,7 +82,7 @@ class PublicFragment : Fragment(){
             publicViewModel.rightData(parentId)
         }
         publicViewModel.rightItemClick.observe(viewLifecycleOwner){
-            val bean= CommonItemModel(it.id,it.link,it.title)
+            val bean= CommonItemModel(it.id,it.link,it.title,it.collect)
             val mBundle =Bundle()
             mBundle.putParcelable(X5MainActivity.KEY_ITEMBEAN,bean)
             activity.actionBundle<X5MainActivity>(activity,mBundle)

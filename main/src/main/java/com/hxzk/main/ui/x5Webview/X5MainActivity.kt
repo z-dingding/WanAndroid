@@ -6,6 +6,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.hxzk.main.R
@@ -47,9 +49,9 @@ class X5MainActivity : BaseActivity() {
             }
         })
     }
-
+    lateinit var fragment : X5Fragment
     override fun permissionsGranted() {
-     val fragment = BaseFragment.getInstance<X5Fragment>(X5Fragment ::class.java,null)
+      fragment = BaseFragment.getInstance<X5Fragment>(X5Fragment ::class.java,null)
         replaceFragment(fragment)
     }
 
@@ -85,14 +87,10 @@ class X5MainActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             REQUEST_PERMISSION_SETTING -> refreshPermissionStatus()
-            else -> {
-            }
         }
     }
-
     companion object {
         const val KEY_ITEMBEAN = "key_itembean"
     }
-
 
 }

@@ -154,4 +154,9 @@ interface WanApi {
      */
     @POST("article/query/{pageIndex}/json")
      fun searchByKey(@Path("pageIndex") pageIndex: Int, @Query("k") keyWord: String): Call<ApiResponse<AnswerModel>>
+
+    @POST("lg/collect/{id}/json")
+    fun collectArticle(@Path("id") id : Int): Call<ResponseBody>
+
+
 }

@@ -20,7 +20,6 @@ interface ItemDao {
     //OnConflictStrategy.REPLACE表如已有数据，就覆盖掉。数据的判断通过主键进行匹配，也就是id
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(model: CommonItemModel)
-
     /**
      * 查询浏览记录整个表
      */

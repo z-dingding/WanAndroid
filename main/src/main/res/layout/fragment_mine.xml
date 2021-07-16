@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
@@ -9,7 +10,6 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -145,19 +145,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/stv_integral"
                 />
+
             <com.allen.library.SuperTextView
                 android:id="@+id/stv_collection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
-                app:sLeftTvDrawableLeft="@drawable/mine_icon_integral"
-                app:sLeftTextString="@string/mine_collection"
-                app:sRightTvDrawableRight="@drawable/mine_icon_enterdetail"
-                app:sRightTextColor="@color/text_hint"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/stv_share"
-                />
+                app:sLeftTextString="@string/mine_collection"
+                app:sLeftTvDrawableLeft="@drawable/mine_icon_integral"
+                app:sRightTextColor="@color/text_hint"
+                app:sRightTvDrawableRight="@drawable/mine_icon_enterdetail" />
+
             <com.allen.library.SuperTextView
                 android:id="@+id/stv_waitingRead"
                 android:layout_width="match_parent"

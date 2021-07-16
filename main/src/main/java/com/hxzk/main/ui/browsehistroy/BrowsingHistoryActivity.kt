@@ -7,12 +7,14 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.util.GlobalUtil
 import com.hxzk.main.R
 import com.hxzk.main.databinding.ActivityBrowsingHistoryBinding
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.adapter.BrowseHistoryAdapter
 import com.hxzk.main.ui.base.BaseActivity
+import com.hxzk.main.ui.x5Webview.X5MainActivity
 
 class BrowsingHistoryActivity : BaseActivity() {
 
@@ -26,6 +28,8 @@ class BrowsingHistoryActivity : BaseActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         initObserve()
+        setupToolbar(resources.getString(R.string.title_browsehistory))
+        setupListAdapter()
     }
 
     private fun initObserve() {
@@ -38,11 +42,6 @@ class BrowsingHistoryActivity : BaseActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        setupToolbar(resources.getString(R.string.title_browsehistory))
-        setupListAdapter()
-    }
 
     /**
      * 设置RecyclerView的Adapter
@@ -51,7 +50,13 @@ class BrowsingHistoryActivity : BaseActivity() {
         if (viewModel != null) {
             listAdapter = BrowseHistoryAdapter(viewModel)
             binding.recycler.adapter = listAdapter
+            viewModel.itemClick.observe(this){
+                val mBundle =Bundle()
+                mBundle.putParcelable(X5MainActivity.KEY_ITEMBEAN,it)
+                actionBundle<X5MainActivity>(this,mBundle)
+            }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

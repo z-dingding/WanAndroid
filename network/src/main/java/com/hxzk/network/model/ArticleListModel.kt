@@ -22,7 +22,7 @@ package com.hxzk.network.model
  * 首页置顶文章列表
  */
 data class DataX(
-   // 区分item类型,0为内容item,1为标题item
+    // 区分item类型,0为内容item,1为标题item
      var itemType : Int,
     val apkLink: String,
     val audit: Int,
@@ -30,6 +30,7 @@ data class DataX(
     val canEdit: Boolean,
     val chapterId: Int,
     val chapterName: String,
+     //是否收藏
     val collect: Boolean,
     val courseId: Int,
     val desc: String,

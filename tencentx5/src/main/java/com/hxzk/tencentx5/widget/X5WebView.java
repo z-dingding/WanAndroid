@@ -24,9 +24,10 @@ public class X5WebView extends WebView {
 	private  X5WebViewClient x5WebViewClient;
 
 	/**是否可以直接退出，还是返回到上一页(true:可以直接返回，默认；false：不可以直接返回)*/
-	private boolean canReturn = true;
+	private boolean canReturn = false;
 	/**当前Webview所处的上下文**/
 	private Activity mActivity;
+
 
 
 	/**在xml布局文件中定义的时候调用*/
@@ -126,7 +127,8 @@ public class X5WebView extends WebView {
 				goBack();
 				return true;
 			}else if((keyCode == KeyEvent.KEYCODE_BACK) && !canGoBack()){
-				//将操作返回到activity处理
+				//退出activity
+				mActivity.finish();
 				return mActivity == null;
 			}
 		}

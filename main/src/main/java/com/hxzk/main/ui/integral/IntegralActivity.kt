@@ -68,6 +68,7 @@ class IntegralActivity : BaseActivity() {
                 finish()
             }
              R.id.menuitem_integral_introduces-> {
+                 // TODO: 2021/7/16 要防止积分说明被收藏
                  val model = CommonItemModel(123456,WanApi.baseUrl+GlobalUtil.getString(R.string.url_integral_instruction),GlobalUtil.getString(R.string.integral_instruction))
                  val mBundle =Bundle()
                  mBundle.putParcelable(X5MainActivity.KEY_ITEMBEAN,model)

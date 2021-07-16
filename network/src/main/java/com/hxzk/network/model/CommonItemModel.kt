@@ -13,7 +13,7 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Parcelize
-//创建表
+//创建表(浏览记录)
 @Entity(tableName = "items")
 //JvmOverloads:方法的重载，类似于在java中对多个构造函数、多个方法的重载.
 data class  CommonItemModel  @JvmOverloads constructor(
@@ -22,5 +22,6 @@ data class  CommonItemModel  @JvmOverloads constructor(
         @PrimaryKey @ColumnInfo(name = "id")val id : Int,
         @ColumnInfo(name = "link") val link : String,
         @ColumnInfo(name = "title") val title : String,
+        @ColumnInfo(name="collect") val collect : Boolean = false,
         @ColumnInfo(name ="browseTime") var browseTime : String = ""
         ) : Parcelable

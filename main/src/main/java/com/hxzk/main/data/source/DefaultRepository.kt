@@ -210,4 +210,8 @@ class DefaultRepository(
        localSource.delAllSearchKeys()
     }
 
+    override suspend fun collecteArticle(id: Int): Result<*> {
+       return romtat.collecteArticle(id)
+    }
+
 }

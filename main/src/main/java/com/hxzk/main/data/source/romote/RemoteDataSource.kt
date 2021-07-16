@@ -36,10 +36,15 @@ class RemoteDataSource : DataSource {
     override suspend fun wxPublic() =WanApi.get().wxPublic().await()
     override suspend fun wxPublicArticle(publicId: Int, pageIndex: Int)=WanApi.get().wxPublicArticle(publicId,pageIndex).await()
     override suspend fun searchByKey(keyWord: String, pageIndex: Int)= WanApi.get().searchByKey( pageIndex,keyWord).await()
+    override suspend fun collecteArticle(id: Int) = WanApi.get().collectArticle(id).await()
+
+
+
+
+
     override suspend fun delAllSearchKeys() {
         TODO("Not yet implemented")
     }
-
 
     override suspend fun insertItem(model: CommonItemModel) {
         TODO("Not yet implemented")
