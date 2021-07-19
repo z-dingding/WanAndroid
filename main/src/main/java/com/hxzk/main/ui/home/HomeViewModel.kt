@@ -85,8 +85,7 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
         _forceUpdate.value = isRefresh
     }
 
-
-    val _openItem = MutableLiveData<CommonItemModel>()
+    private val _openItem = MutableLiveData<CommonItemModel>()
     val openItem: LiveData<CommonItemModel> = _openItem
 
     /**
@@ -97,7 +96,6 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
         val model = CommonItemModel(item.id, item.link, item.title,item.collect)
         _openItem.value = model
     }
-
     /**
      * 请求首页文章列表(包括置顶文章和一般文章列表)
      */

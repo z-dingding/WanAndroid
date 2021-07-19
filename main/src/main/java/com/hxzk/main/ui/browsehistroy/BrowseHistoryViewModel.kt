@@ -30,6 +30,10 @@ class BrowseHistoryViewModel(private val repository: Repository) : ViewModel() {
         val result = MutableLiveData<List<CommonItemModel>>()
         if (it.succeeded) {
             result.value = (it as Result.Success<List<CommonItemModel>>).res
+        } else {
+            result.value = null
+            val res = it as Result.Error
+            ResponseHandler.handleFailure(res.e)
         }
         return result
     }

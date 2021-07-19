@@ -37,9 +37,8 @@ class RemoteDataSource : DataSource {
     override suspend fun wxPublicArticle(publicId: Int, pageIndex: Int)=WanApi.get().wxPublicArticle(publicId,pageIndex).await()
     override suspend fun searchByKey(keyWord: String, pageIndex: Int)= WanApi.get().searchByKey( pageIndex,keyWord).await()
     override suspend fun collecteArticle(id: Int) = WanApi.get().collectArticle(id).await()
-
-
-
+    override suspend fun collectList(pageNum: Int): Result<*>  = WanApi.get().collectList(pageNum).await()
+    override suspend fun unCollection(id: Int, originId: Int): Result<*>   = WanApi.get().unCollection(id,originId).await()
 
 
     override suspend fun delAllSearchKeys() {

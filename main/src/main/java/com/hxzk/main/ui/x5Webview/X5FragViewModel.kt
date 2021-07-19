@@ -15,6 +15,7 @@ import com.hxzk.network.model.ApiResponse
 import com.hxzk.network.model.CommonItemModel
 import com.hxzk.network.model.HomeBanner
 import com.hxzk.network.succeeded
+import kotlinx.android.synthetic.main.fragment_x5.*
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -34,8 +35,12 @@ class X5FragViewModel(val repository: Repository) : ViewModel() {
         repository.insertItem(model)
     }
 
+
+    private val _isCollectionSuccess = MutableLiveData<Boolean>()
+    val isCollectionSuccess : LiveData<Boolean> = _isCollectionSuccess
+
     /**
-     * 将浏览历史数据插入本地数据库
+     * 收藏该文章
      */
     fun collecteArticle(id : Int) =viewModelScope.launch {
         transitionItem(repository.collecteArticle(id))
@@ -47,7 +52,7 @@ class X5FragViewModel(val repository: Repository) : ViewModel() {
             val responseBody = ((it as Result.Success<*>).res as ResponseBody).string()
             val obj  =JSONObject(responseBody)
             if (obj.getInt("errorCode") == 0) {
-               GlobalUtil.getString(R.string.collection_success).sToast()
+                _isCollectionSuccess.postValue(true)
             } else {
                 obj.getString("errorMsg").sToast()
             }

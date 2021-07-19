@@ -130,5 +130,13 @@ class LocalDataSource(
         TODO("Not yet implemented")
     }
 
+    override suspend fun collectList(pageNum: Int): Result<*> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun unCollection(id: Int, originId: Int): Result<*> {
+        TODO("Not yet implemented")
+    }
+
 
 }

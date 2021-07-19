@@ -214,4 +214,15 @@ class DefaultRepository(
        return romtat.collecteArticle(id)
     }
 
+    override fun collectList(pageNum: Int): LiveData<Result<*>> {
+        return liveData {
+            val result = romtat.collectList(pageNum)
+            emit(result)
+        }
+    }
+
+    override suspend fun unCollection(id: Int, originId: Int): Result<*> {
+       return  romtat.unCollection(id,originId)
+    }
+
 }

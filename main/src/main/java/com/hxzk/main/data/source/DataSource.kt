@@ -122,5 +122,13 @@ interface DataSource {
      * 收藏列表文章
      */
     suspend  fun collecteArticle(id : Int):Result<*>
+    /**
+     * 查询收藏列表
+     */
+     suspend  fun collectList(pageNum : Int) :Result<*>
+    /**
+     * 取消收藏
+     */
+    suspend fun unCollection(id : Int,originId : Int) : Result<*>
 
 }

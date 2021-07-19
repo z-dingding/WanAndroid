@@ -155,8 +155,22 @@ interface WanApi {
     @POST("article/query/{pageIndex}/json")
      fun searchByKey(@Path("pageIndex") pageIndex: Int, @Query("k") keyWord: String): Call<ApiResponse<AnswerModel>>
 
+    /**
+     * 收藏站内文章
+     */
     @POST("lg/collect/{id}/json")
     fun collectArticle(@Path("id") id : Int): Call<ResponseBody>
 
+    /**
+     * 查询收藏列表数据
+     */
+    @GET("lg/collect/list/{pageNum}/json")
+    fun collectList(@Path("pageNum") pageNum : Int) :Call<ApiResponse<ArticleListModel>>
+
+    /**
+     * 取消收藏
+     */
+    @POST("lg/uncollect/{id}/json")
+     fun unCollection(@Path("id")id : Int,@Query("originId")originId : Int) :Call<ResponseBody>
 
 }

@@ -84,6 +84,8 @@
     <!-- 我的收藏-->
     <string name="collection_title">我的收藏</string>
     <string name="collection_success">收藏成功</string>
+    <string name="collection_finalPage">已经是最后一页了</string>
+    <string name="uncollection_success">取消成功</string>
 
     <!--    修改用户信息页面-->
     <string name="save">保存</string>
