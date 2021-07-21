@@ -2,6 +2,7 @@ package com.hxzk.main.ui.home
 
 import androidx.lifecycle.*
 import com.hxzk.base.extension.logDebug
+import com.hxzk.base.extension.sMainToast
 import com.hxzk.base.extension.sToast
 import com.hxzk.main.data.source.Repository
 import com.hxzk.main.util.ResponseHandler
@@ -9,6 +10,8 @@ import com.hxzk.network.Result
 import com.hxzk.network.model.*
 import com.hxzk.network.succeeded
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
+import org.json.JSONObject
 
 /**
  *作者：created by zjt on 2021/4/2
@@ -69,12 +72,6 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
     val banners: LiveData<List<HomeBanner>> = _banners
 
     /**
-     * 获取item的条目,adapter中的getItemCount要用
-     */
-    val _topArticleSize = MutableLiveData<Int>()
-
-
-    /**
      * 刷新或加载更多的方法
      * isFirstLoad 只有首次加载才显示loading,否则用smart自带的刷新或更多loading
      */
@@ -96,12 +93,11 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
         val model = CommonItemModel(item.id, item.link, item.title,item.collect)
         _openItem.value = model
     }
+
+    private var curPage: Int = 0
     /**
      * 请求首页文章列表(包括置顶文章和一般文章列表)
      */
-    var curPage: Int = 0
-    var pageCount: Int = 0
-
     private val _itemList: LiveData<ArticleListModel> = _forceUpdate.switchMap {
         if (it) {
             isRefreshing.value = true
@@ -111,21 +107,66 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
         }
         itemList()
     }
-    val itemList: LiveData<ArticleListModel> = _itemList
 
-    private fun itemList(): LiveData<ArticleListModel> = repository.articleList(curPage, _itemList.value).switchMap {
-        val result = MutableLiveData<ArticleListModel>()
-        //请求页码从0开始，返回curPage为1
-        curPage = it.curPage
-        pageCount = it.pageCount
-        result.value = it
-        _topArticleSize.value = it.datas.size
-        _dataLoading.value = false
-        //协程作用域外的代码比协程作用域的代码先执行
-        isRefreshing.value = false
-        isLoadMoreing.value = false
+    var itemList: LiveData<List<DataX>> = _itemList.switchMap {
+        val result = MutableLiveData<List<DataX>>()
+        result.value = it.datas
         result
     }
+
+    private fun itemList(): LiveData<ArticleListModel> = repository.articleList(curPage, _itemList.value).switchMap {
+            val result = MutableLiveData<ArticleListModel>()
+            //请求页码从0开始，返回curPage为1
+            curPage = it.curPage
+            result.value = it
+            _dataLoading.value = false
+            //协程作用域外的代码比协程作用域的代码先执行
+            isRefreshing.value = false
+            isLoadMoreing.value = false
+            result
+        }
+
+    /**
+     * 取消收藏的索引
+     */
+    private  val _unCollectionPos =  MutableLiveData<Int>()
+    val unCollectionPos :LiveData<Int> = _unCollectionPos
+
+    /**
+     * 取消收藏
+     */
+    fun cancelCollection(item: DataX,pos : Int){
+        viewModelScope.launch {
+            transform(repository.unCollectionHomeList(item.id),pos)
+        }
+    }
+
+
+    private fun transform(it: Result<*>,pos : Int){
+        if (it.succeeded) {
+            val responseBody = ((it as Result.Success<ResponseBody>).res).string()
+            val obj  = JSONObject(responseBody)
+            val realPos = pos-1
+            if (obj.getInt("errorCode") == 0) {
+                //我目前想的方法是在set方法里先获取livedata持有的实体类，更新对应的字段后再重新setValue回去。我不知道这算不算好办法，但是暂时想不出其他办法了
+                val list = _itemList.value?.datas
+                if (list != null) {
+                    list[realPos].collect  = !list[realPos].collect
+                    //对应的itemList数据源自动改变
+                    _itemList.value?.datas = list
+                    _unCollectionPos.postValue(realPos)
+                }
+            } else {
+                obj.getString("errorMsg").sMainToast()
+            }
+        } else {
+            val res = it as Result.Error
+            ResponseHandler.handleFailure(res.e)
+        }
+
+    }
+
+
 }
 
 

@@ -14,10 +14,12 @@ import com.hxzk.network.model.DataX
  */
 
 
-@BindingAdapter("items")
+@BindingAdapter("colitems")
 fun setItems(rv: RecyclerView, items: List<DataX>?) {
     items?.let {
-        //submitList()更新现有列表
-        (rv.adapter as CollectionAdapter).submitList(items)
+        //submitList()更新现有列表,每次需要一个新的list
+        val newList = ArrayList<DataX>()
+        newList.addAll(items)
+        (rv.adapter as CollectionAdapter).submitList(newList)
     }
 }

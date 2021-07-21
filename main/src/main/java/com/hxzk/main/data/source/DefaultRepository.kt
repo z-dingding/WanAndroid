@@ -57,13 +57,14 @@ class DefaultRepository(
                 val bean = (res2 as Result.Success<*>).res as ApiResponse<*>
                 if (bean.errorCode == 0) {
                     val list = bean.data as ArrayList<DataX>
-                    articleListModel = ArticleListModel(0, list, 0, false, 0, 0, 0)
+                        articleListModel = ArticleListModel(0, list, 0, false, 0, 0, 0)
                 } else {
                     bean.errorMsg.sToast()
                 }
             } else {
                 ResponseHandler.handleFailure((res2 as Result.Error).e)
             }
+            //列表内容
             val res1 = result.await()
             if (res1.succeeded) {
                 val bean = (res1 as Result.Success<*>).res as ApiResponse<*>
@@ -75,8 +76,6 @@ class DefaultRepository(
                     articleListModel.pageCount = model.pageCount
                     articleListModel.size = model.size
                     articleListModel.total = model.total
-                    //两个集合相加
-                    //articleListModel.datas.plus(model.datas)
                     model.datas.forEach {
                         articleListModel.datas.add(it)
                     }
@@ -223,6 +222,10 @@ class DefaultRepository(
 
     override suspend fun unCollection(id: Int, originId: Int): Result<*> {
        return  romtat.unCollection(id,originId)
+    }
+
+    override suspend fun unCollectionHomeList(id: Int): Result<*> {
+       return  romtat.unCollectionHomeList(id)
     }
 
 }

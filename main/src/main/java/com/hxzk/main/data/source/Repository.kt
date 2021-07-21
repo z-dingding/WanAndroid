@@ -130,7 +130,11 @@ interface Repository {
   */
    fun collectList(pageNum : Int) : LiveData<Result<*>>
  /**
-  * 取消收藏
+  * 取消收藏(适用于我的收藏页面)
   */
  suspend fun unCollection(id : Int,originId : Int) : Result<*>
+ /**
+  * 取消收藏(适用于首页等列表页面)
+  */
+ suspend fun unCollectionHomeList(id : Int) : Result<*>
 }

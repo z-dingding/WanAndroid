@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.hxzk.base.extension.logDebug
 import com.hxzk.main.callback.BannerItemListener
 import com.hxzk.main.databinding.AdapterHomeitemBinding
 import com.hxzk.main.databinding.BannerFragmentBinding
@@ -17,8 +18,7 @@ import com.hxzk.network.model.HomeBanner
  *描述:首页Banner的Adapter
  *
  */
-class HomeItemAdapter(private val homeViewModel: HomeViewModel) :
-    ListAdapter<DataX, RecyclerView.ViewHolder>(IntegralDiffCallback()) {
+class HomeItemAdapter(private val homeViewModel: HomeViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
      val ITEM_TYEP_BANNER = 0
      val ITEM_TYEP_NORMAL = 1
@@ -26,28 +26,27 @@ class HomeItemAdapter(private val homeViewModel: HomeViewModel) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ITEM_TYEP_BANNER){
             BannerViewHolder.from(parent,mBannerItemListener)
-        }
-        else {
+        }else {
             ItemViewHolder.from(parent)
-        }
+       }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == ITEM_TYEP_BANNER) {
-            var aa = homeViewModel.banners.value?.size
             (holder as BannerViewHolder).bind(homeViewModel)
-            return
         } else {
-            val item = getItem(position - 1)
+            val item = homeViewModel.itemList.value?.get(position - 1)
             if (holder is ItemViewHolder) {
-                holder.bind(homeViewModel, item)
+                if (item != null) {
+                    holder.bind(homeViewModel, item,position)
+                }
             }
-        }
+      }
     }
 
     override fun getItemCount(): Int {
         //如果列表数据不为空,则+1(banner轮播)
-        return homeViewModel._topArticleSize.value?.plus(1) ?: 0
+     return homeViewModel.itemList.value?.size?.plus(1) ?: 0
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -59,18 +58,14 @@ class HomeItemAdapter(private val homeViewModel: HomeViewModel) :
         mBannerItemListener = listener
     }
 
-  //解决不及时刷新问题
-    override fun submitList(list: MutableList<DataX>?) {
-        super.submitList(if (list != null) ArrayList(list) else null)
-    }
-
-class ItemViewHolder private constructor(private val binding: AdapterHomeitemBinding) :
+  class ItemViewHolder private constructor(private val binding: AdapterHomeitemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(viewModel: HomeViewModel, item: DataX) {
+    fun bind(viewModel: HomeViewModel, item: DataX,pos : Int) {
         //此处将布局中的data赋值
         binding.viewModel = viewModel
         binding.topArticle = item
+        binding.pos = pos
         //executePendingBindings它使数据绑定刷新所有挂起的更改
         binding.executePendingBindings()
     }
@@ -112,16 +107,3 @@ class ItemViewHolder private constructor(private val binding: AdapterHomeitemBin
 
 }
 
-// DiffUtil将自动为我们处理然后进行调用，其功能 就是比较两个数据集，用newList和oldList进行比较
-class IntegralDiffCallback : DiffUtil.ItemCallback<DataX>() {
-    override fun areItemsTheSame(oldItem: DataX, newItem: DataX): Boolean {
-        //判断这个两个对象是否是同一个对象。
-        return oldItem.id == newItem.id
-    }
-
-    //判断两个对象的内容是否一致，如果不一致，那么 它就将对列表进行重绘和动画加载
-    override fun areContentsTheSame(oldItem: DataX, newItem: DataX): Boolean {
-        return oldItem == newItem
-    }
-
-}

@@ -172,5 +172,9 @@ interface WanApi {
      */
     @POST("lg/uncollect/{id}/json")
      fun unCollection(@Path("id")id : Int,@Query("originId")originId : Int) :Call<ResponseBody>
-
+    /**
+     * 取消收藏(适用于首页等列表页面)
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+     fun unCollectionHomeList(@Path("id")id : Int) :Call<ResponseBody>
 }

@@ -33,12 +33,6 @@ class CollectionAdapter(private val viewModel: CollectionViewModel) :
         return viewModel.colItems.value?.size ?: 0
     }
 
-
-    override fun submitList(list: List<DataX>?) {
-        super.submitList(list)
-    }
-
-
     class ItemViewHolder private constructor(private val binding: AdapterCollectionitemBinding) :
             RecyclerView.ViewHolder(binding.root) {
 

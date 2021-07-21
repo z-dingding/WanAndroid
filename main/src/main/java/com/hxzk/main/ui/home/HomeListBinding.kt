@@ -26,6 +26,7 @@ import com.hxzk.main.R
 import com.hxzk.main.ui.adapter.BannerImageAdapter
 import com.hxzk.main.ui.adapter.HomeItemAdapter
 import com.hxzk.network.model.ArticleListModel
+import com.hxzk.network.model.DataX
 import com.hxzk.network.model.HomeBanner
 import com.youth.banner.Banner
 
@@ -33,10 +34,12 @@ import com.youth.banner.Banner
  * 首页列表的展示数据源
  */
 @BindingAdapter("app:items")
- fun setItems(listView: RecyclerView, items: ArticleListModel?) {
+ fun setItems(listView: RecyclerView, items: List<DataX>?) {
     items?.let {
-        //submitList()更新现有列表
-        (listView.adapter as HomeItemAdapter).submitList(items.datas)
+        //submitList()更新现有列表,每次需要一个新的list
+        val newList = ArrayList<DataX>()
+        newList.addAll(items)
+       //(listView.adapter as HomeItemAdapter).submitList(newList)
     }
 }
 
@@ -52,17 +55,16 @@ fun setBannerItems(mBanner:Banner<HomeBanner, BannerImageAdapter>, items: List<H
     }
 }
 
-/**
- * 首页文章列表项是否收藏的属性
- */
-@BindingAdapter("app:isCollecte")
-fun setStyle(imageView: ImageView, enabled: Boolean) {
-    if (enabled) {
-        //imageView.setBackgroundResource()
+@BindingAdapter("collecte")
+fun setCollecte(imageView: ImageView, isCollection: Boolean){
+    if (isCollection) {
+        imageView.visibility = View.VISIBLE
+        imageView.setBackgroundResource(R.drawable.icon_collection)
     } else {
-        //imageView.setBackgroundResource()
+        imageView.visibility = View.GONE
     }
 }
+
 
 /**
  * 首页文章列表项的分类属性

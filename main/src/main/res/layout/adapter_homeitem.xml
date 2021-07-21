@@ -15,6 +15,9 @@
         <variable
             name="topArticle"
             type="com.hxzk.network.model.DataX" />
+        <variable
+            name="pos"
+            type="Integer"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -130,6 +133,17 @@
                 app:capterName="@{topArticle.superChapterName+'.'+topArticle.chapterName}"
                 app:type="@{topArticle.type}"
                 tools:text="问答.官方" />
+
+
+            <ImageView
+                android:id="@+id/iv_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:layout_alignParentRight="true"
+                app:collecte="@{topArticle.collect}"
+                android:onClick="@{() -> viewModel.cancelCollection(topArticle,pos)}"
+               />
         </RelativeLayout>
 
 

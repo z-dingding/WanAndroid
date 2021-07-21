@@ -62,8 +62,7 @@ ext {
             'room-ktx' : "androidx.room:room-ktx:$roomVersion",
              //沉浸式状态栏
             'immersionbar': 'com.gyf.immersionbar:immersionbar:3.0.0',
-            //czxing
-            'czxing':'io.github.devilsen:czxing:1.1.0',
+         
 
     ]
 

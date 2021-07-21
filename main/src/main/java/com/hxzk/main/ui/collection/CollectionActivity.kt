@@ -15,6 +15,7 @@ import com.hxzk.main.ui.adapter.CollectionAdapter
 import com.hxzk.main.ui.base.BaseActivity
 import com.hxzk.main.ui.x5Webview.X5MainActivity
 import com.hxzk.network.model.CommonItemModel
+import com.hxzk.network.model.DataX
 
 class CollectionActivity : BaseActivity() {
     val viewModel by viewModels<CollectionViewModel> { getViewModelFactory() }
@@ -48,13 +49,13 @@ class CollectionActivity : BaseActivity() {
         viewModel.isRefreshing.observe(this) {
             if (!it){
                 binding.smartRefresh.finishRefresh()
-                listAdapter.notifyDataSetChanged()
+                //listAdapter.notifyDataSetChanged()
             }
         }
         viewModel.isLoadMoreing.observe(this){
             if (!it){
                 binding.smartRefresh.finishLoadMore()
-                listAdapter.notifyDataSetChanged()
+               // listAdapter.notifyDataSetChanged()
             }
         }
 
@@ -69,7 +70,8 @@ class CollectionActivity : BaseActivity() {
             listAdapter = CollectionAdapter(viewModel)
             binding.recycler.adapter = listAdapter
             viewModel.itemClick.observe(this){
-                val model = CommonItemModel(it.id,it.link,it.title,it.collect)
+                //由于收藏列表没有collect字段,所以我们手动赋值collect为true
+                val model = CommonItemModel(it.id,it.link,it.title,collect = true)
                 val mBundle =Bundle()
                 mBundle.putParcelable(X5MainActivity.KEY_ITEMBEAN,model)
                 actionBundle<X5MainActivity>(this,mBundle)
@@ -80,7 +82,7 @@ class CollectionActivity : BaseActivity() {
 
     private fun initObserve() {
         viewModel.unCollectionPos.observe(this){
-            //先移除adapter中对应的索引,但不执行onBindViewHolder
+            //先移除adapter中对应的索引,但不执行onBindViewHolder，也就是索引还存在
             listAdapter.notifyItemRemoved(it)
             //移除数据源中对应的索引
             viewModel.colItems.value?.removeAt(it)
