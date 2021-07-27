@@ -161,19 +161,6 @@
                 app:sRightTvDrawableRight="@drawable/mine_icon_enterdetail" />
 
             <com.allen.library.SuperTextView
-                android:id="@+id/stv_waitingRead"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="40dp"
-                app:sLeftTvDrawableLeft="@drawable/mine_icon_integral"
-                app:sLeftTextString="@string/mine_waitingRead"
-                app:sRightTvDrawableRight="@drawable/mine_icon_enterdetail"
-                app:sRightTextColor="@color/text_hint"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/stv_collection"
-                />
-            <com.allen.library.SuperTextView
                 android:id="@+id/stv_readHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -184,7 +171,7 @@
                 app:sRightTextColor="@color/text_hint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/stv_waitingRead"
+                app:layout_constraintTop_toBottomOf="@id/stv_collection"
                 />
             <com.allen.library.SuperTextView
                 android:id="@+id/stv_setting"

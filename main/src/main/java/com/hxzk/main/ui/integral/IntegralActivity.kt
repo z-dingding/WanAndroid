@@ -19,7 +19,8 @@ import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.adapter.HomeItemAdapter
 import com.hxzk.main.ui.adapter.IntegralItemAdapter
 import com.hxzk.main.ui.base.BaseActivity
-import com.hxzk.main.ui.mine.MineViewModel
+import androidx.lifecycle.observe
+import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.ui.rank.RankActivity
 import com.hxzk.main.ui.x5Webview.X5MainActivity
 import com.hxzk.network.WanApi
@@ -44,6 +45,10 @@ class IntegralActivity : BaseActivity() {
         setupToolbar()
         title=resources.getString(R.string.interal_title)
         setupListAdapter()
+        viewModel.requstData.value = true
+        viewModel.dataLoading.observe(this){
+            if (it) ProgressDialogUtil.getInstance().showDialog(activity)    else ProgressDialogUtil.getInstance().dismissDialog()
+        }
     }
 
 

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import android.widget.CheckBox
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.hxzk.base.extension.sToast
 import com.hxzk.base.util.GlobalUtil
@@ -11,6 +13,8 @@ import com.hxzk.main.R
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.base.BaseFragment
 import androidx.lifecycle.observe
+import com.hxzk.base.util.Preference
+import com.hxzk.main.common.Const
 import com.hxzk.network.model.CommonItemModel
 import com.hxzk.tencentx5.callback.WebViewProgress
 import com.tencent.smtt.sdk.WebView
@@ -23,6 +27,11 @@ class X5Fragment : BaseFragment(), WebViewProgress {
 
     lateinit var model: CommonItemModel
     lateinit var activity: X5MainActivity
+
+    /**
+     * 是否选择了不在提醒
+     */
+    private var isForwardAndDoNotAlertAgainChecked = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +57,32 @@ class X5Fragment : BaseFragment(), WebViewProgress {
         model.let { viewModel.insertItem(it) }
 
         initEvent()
+        //提醒用户,双击可以收藏文章
+        showAlert()
+    }
+
+    private fun showAlert() {
+        var isSHowTip  by Preference(Const.X5Fragment.KEY_COLLECTIONTIPS,true)
+        if(isSHowTip){
+        val dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_alert_for_big_gif, null)
+        val checkBox = dialogView.findViewById<CheckBox>(R.id.checkbox)
+        val dialog = AlertDialog.Builder(activity, R.style.AlertDialogStyle)
+                .setTitle(GlobalUtil.getString(R.string.remind))
+                .setMessage(GlobalUtil.getString(R.string.you_are_playing_big_gif_with_roaming))
+                .setView(dialogView)
+                .setPositiveButton(GlobalUtil.getString(R.string.forward)) { _, _ ->
+                    if (isForwardAndDoNotAlertAgainChecked) {
+                        //选择不在提示,将值改为不在提示
+                        isSHowTip =false
+                    }
+
+                }.create()
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
+            isForwardAndDoNotAlertAgainChecked = isChecked
+        }
+        }
     }
 
 

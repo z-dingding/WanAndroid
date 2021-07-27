@@ -40,6 +40,7 @@ interface Const {
             const val KEY_USER_BG = "key_user_bg"
             const val KEY_USER_AVATAR = "key_user_avatar"
             const val KEY_USER_NAME = "key_user_name"
+            const val KEY_USERID="key_userid"
         }
     }
 
@@ -50,5 +51,15 @@ interface Const {
         }
     }
 
+   interface X5Fragment {
+       companion object{
+           const val KEY_COLLECTIONTIPS = "key_collectiontips"
+       }
+   }
 
+    interface ShareActivity{
+        companion object{
+            const val KEY_REQUESTCODE = 0X111
+        }
+    }
 }

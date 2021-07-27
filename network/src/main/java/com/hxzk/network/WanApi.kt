@@ -1,5 +1,6 @@
 package com.hxzk.network
 
+import androidx.lifecycle.LiveData
 import com.hxzk.network.interceptor.CookieInterceptor
 import com.hxzk.network.interceptor.LoginIntercepte
 import com.hxzk.network.model.*
@@ -7,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
@@ -153,28 +155,43 @@ interface WanApi {
      *  A @Path parameter must not come after a @Query. (parameter #2)
      */
     @POST("article/query/{pageIndex}/json")
-     fun searchByKey(@Path("pageIndex") pageIndex: Int, @Query("k") keyWord: String): Call<ApiResponse<AnswerModel>>
+    fun searchByKey(@Path("pageIndex") pageIndex: Int, @Query("k") keyWord: String): Call<ApiResponse<AnswerModel>>
 
     /**
      * 收藏站内文章
      */
     @POST("lg/collect/{id}/json")
-    fun collectArticle(@Path("id") id : Int): Call<ResponseBody>
+    fun collectArticle(@Path("id") id: Int): Call<ResponseBody>
 
     /**
      * 查询收藏列表数据
      */
     @GET("lg/collect/list/{pageNum}/json")
-    fun collectList(@Path("pageNum") pageNum : Int) :Call<ApiResponse<ArticleListModel>>
+    fun collectList(@Path("pageNum") pageNum: Int): Call<ApiResponse<ArticleListModel>>
 
     /**
      * 取消收藏
      */
     @POST("lg/uncollect/{id}/json")
-     fun unCollection(@Path("id")id : Int,@Query("originId")originId : Int) :Call<ResponseBody>
+    fun unCollection(@Path("id") id: Int, @Query("originId") originId: Int): Call<ResponseBody>
+
     /**
      * 取消收藏(适用于首页等列表页面)
      */
     @POST("lg/uncollect_originId/{id}/json")
-     fun unCollectionHomeList(@Path("id")id : Int) :Call<ResponseBody>
+    fun unCollectionHomeList(@Path("id") id: Int): Call<ResponseBody>
+
+    /**
+     * 查询自己分享的文章
+     */
+    @GET("user/{id}/share_articles/{pageNum}/json")
+     fun shareListArticle(@Path("pageNum") pageNum: Int,@Path("id") userId: Int):LiveData<ApiResponse<ShareListItemModel>>
+
+    /**
+     * 分享文章
+     */
+    @POST("lg/user_article/add/json")
+    suspend fun addShareArticle(@Query("title") title: String, @Query("link") link: String): ApiResponse<StringModel>
+
+
 }

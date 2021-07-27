@@ -26,13 +26,13 @@ import com.hxzk.main.common.Const.ModifyUserInfo.Companion.KEY_USER_NAME
 import com.hxzk.main.databinding.FragmentMineBinding
 import com.hxzk.main.event.TransparentStatusBarEvent
 import com.hxzk.main.extension.getViewModelFactory
+import com.hxzk.main.ui.share.ShareActivity
 import com.hxzk.main.ui.base.BaseFragment
 import com.hxzk.main.ui.browsehistroy.BrowsingHistoryActivity
 import com.hxzk.main.ui.collection.CollectionActivity
 import com.hxzk.main.ui.integral.IntegralActivity
 import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.modifyuserinfo.ModifyUserInfoActivity
-import com.hxzk.main.ui.rank.RankActivity
 import com.hxzk.main.util.ColorUtil
 import com.hxzk.main.util.CropCircleTransformation
 import com.hxzk.main.util.ViewUtils
@@ -50,8 +50,6 @@ class MineFragment : BaseFragment() , View.OnClickListener {
     private var userBgImageUri: String? = null
 
     private var userBgLoadListener: RequestListener<Bitmap> = object : RequestListener<Bitmap> {
-
-
         override fun onResourceReady(bitmap: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
             if (bitmap == null) {
                 return false
@@ -136,6 +134,7 @@ class MineFragment : BaseFragment() , View.OnClickListener {
         iv_notify.setOnClickListener(this)
         stv_readHistory.setOnClickListener(this)
         stv_collection.setOnClickListener(this)
+        stv_share.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -161,6 +160,16 @@ class MineFragment : BaseFragment() , View.OnClickListener {
             R.id.stv_readHistory-> activity.action<BrowsingHistoryActivity>(activity)
 
             R.id.stv_collection -> activity.action<CollectionActivity>(activity)
+
+            R.id.stv_share ->
+                if(viewModel.userInfo.value != null){
+                    var sUserId by Preference(Const.ModifyUserInfo.KEY_USERID,0)
+                    sUserId = viewModel.userInfo.value!!.userId
+                    activity.action<ShareActivity>(activity)
+                }else{
+                    getString(R.string.common_tips_pleasewaiting).sToast()
+                }
+
         }
     }
 

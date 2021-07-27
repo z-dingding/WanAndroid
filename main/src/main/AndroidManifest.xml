@@ -3,7 +3,9 @@
     package="com.hxzk.main">
 
     <application>
-        <activity android:name=".ui.collection.CollectionActivity"></activity>
+        <activity android:name=".ui.share.CreateShareActivity"></activity>
+        <activity android:name=".ui.share.ShareActivity" />
+        <activity android:name=".ui.collection.CollectionActivity" />
         <activity android:name=".ui.browsehistroy.BrowsingHistoryActivity" />
         <activity android:name=".ui.system.sysitem.SystemItemActivity" />
         <activity android:name=".album.AlbumActivity" />

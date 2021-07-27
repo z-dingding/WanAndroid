@@ -10,3 +10,8 @@ class ApiResponse<T>(
     var errorCode : Int,
     var errorMsg: String
 )
+
+
+data class StringModel(
+val data : String
+)

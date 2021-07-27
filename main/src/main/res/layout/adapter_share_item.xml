@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="pos"
+            type="Integer" />
+        <variable
+            name="item"
+            type="com.hxzk.network.model.DataX" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="20dp"
+        >
+
+
+        <RelativeLayout
+            android:id="@+id/item_toparea"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toTopOf="@id/item_centerarea"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!--作者-->
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@{item.shareUser.empty?  item.author: item.shareUser}"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/textSize_samll"
+                tools:text="张三" />
+            <!--标签 -->
+            <TextView
+                android:id="@+id/tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/author"
+                android:background="@drawable/shape_tag"
+                android:padding="2dp"
+                android:text="@{item.tags.size() > 0 ? item.tags.get(0).name : @string/home_tag_new }"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSize_samll"
+                app:tag="@{item.tags.size() > 0 ? true:false}"
+                tools:text="本站发布" />
+            <!--发布时间-->
+            <TextView
+                android:id="@+id/niceDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@{item.niceDate}"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/textSize_samll"
+                tools:text="刚刚" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/item_centerarea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toTopOf="@id/item_bottomarea"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_toparea">
+            <!--标题-->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{item.title}"
+                android:textSize="@dimen/textSize_normal"
+                android:textColor="@color/text_black"
+                tools:text="生命是nihao ddddd5645646545646546546464646464" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/item_bottomarea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_centerarea">
+            <!--分类 item.type == 1 说明是置顶的文章-->
+            <TextView
+                android:id="@+id/capterName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/textSize_samll"
+                app:capterName="@{item.superChapterName+'.'+item.chapterName}"
+                app:type="@{item.type}"
+                tools:text="问答.官方" />
+
+
+            <ImageView
+                android:id="@+id/iv_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:layout_alignParentRight="true"
+                app:collecte="@{item.collect}" />
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.hxzk.base.extension.logDebug
 import com.hxzk.base.extension.sToast
+import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.R
 import com.hxzk.main.ui.adapter.RankAdapter
 import com.hxzk.main.ui.base.BaseActivity
@@ -66,6 +67,7 @@ class RankActivity : BaseActivity() {
     }
 
     fun requstData(pageIndex:Int){
+        if(pageIndex == 1) ProgressDialogUtil.getInstance().showDialog(activity)
         scope.launch {
             try {
                 val result =  WanApi.get().rankApi(pageIndex)
@@ -79,11 +81,13 @@ class RankActivity : BaseActivity() {
                 }
                     smartRefresh.finishLoadMore()
                     smartRefresh.finishRefresh()
+
+                    if(pageIndex == 1)   ProgressDialogUtil.getInstance().dismissDialog()
                 }
             }catch (e:Exception){
+                if(pageIndex == 1)   ProgressDialogUtil.getInstance().dismissDialog()
                 ResponseHandler.handleFailure(e)
             }
-
         }
     }
 

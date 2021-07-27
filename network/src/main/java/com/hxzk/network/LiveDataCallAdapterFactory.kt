@@ -9,12 +9,13 @@ import java.lang.reflect.Type
 
 /**
  *作者：created by zjt on 2021/3/12
- *描述:
+ *描述: 参考https://juejin.cn/post/6844903917281607687
  *
  */
 class LiveDataCallAdapterFactory : CallAdapter.Factory() {
 
     override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
+        //如果要求的返回类型不是livedata那么直接返回结果
         if (getRawType(returnType) != LiveData::class.java) return null
         //获取第一个泛型类型
         val observableType = getParameterUpperBound(0, returnType as ParameterizedType)
