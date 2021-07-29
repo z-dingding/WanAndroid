@@ -86,7 +86,7 @@ class CollectionActivity : BaseActivity() {
             listAdapter.notifyItemRemoved(it)
             //移除数据源中对应的索引
             viewModel.colItems.value?.removeAt(it)
-            //对适配器重新绑定了一次数据,刷新当前索引到最后一个item索引的内容,注意要-1
+            //对适配器重新绑定了一次数据,刷新当前索引到最后一个item索引的内容
             //会重新执行onBindViewHolder
             viewModel.colItems.value?.size?.let { it1 -> listAdapter.notifyItemRangeChanged(it, it1) }
         }

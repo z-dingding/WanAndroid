@@ -192,6 +192,10 @@ interface WanApi {
      */
     @POST("lg/user_article/add/json")
     suspend fun addShareArticle(@Query("title") title: String, @Query("link") link: String): ApiResponse<StringModel>
-
+    /**
+     * 删除自己分享的文章
+     */
+    @POST("lg/user_article/delete/{id}/json")
+    suspend fun  delSharedArticle(@Path("id") id : Int) : ApiResponse<String>
 
 }

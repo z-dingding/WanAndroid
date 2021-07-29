@@ -124,8 +124,9 @@
 
     <!-- 我的分享-->
     <string name="title_share">我的分享</string>
+    <string name="share_del">删除</string>
 
-<!--    分享文章-->
+    <!--    分享文章-->
     <string name="title_createshare">分享文章</string>
     <string name="createshare_share">分享</string>
     <string name="createshare_hint_articletitle">文章标题</string>
@@ -137,4 +138,6 @@
     <string name="createshare_hint_instruction">"<ol><li>只要是任何好文都可以分享,并不一定要是原创!投递的文章都会进入广场Tab</li><li>CSDN,掘金，简书等官方博客站点会直接通过，不需要审核</li><li>其他个人站点会进入审核阶段，不要投递任何无效链接，否则可能会对你的账号产生影响</li></ol>"</string>
     <string name="createshare_notempty_articletitle">文章标题为必填</string>
     <string name="createshare_notempty_articlelink">文章链接为必填</string>
+
+
 </resources>

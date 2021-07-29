@@ -73,13 +73,6 @@ open abstract class BaseActivity : AppCompatActivity(), RequestLifecycle {
         setupViews()
     }
 
-    override fun setContentView(layoutView: View) {
-        //设置竖屏
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        super.setContentView(layoutView)
-        setupViews()
-    }
-
 
 
     override fun onDestroy() {

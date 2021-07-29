@@ -45,7 +45,7 @@ class NavigationItemAdapter(private val viewModel: ChildNavigationViewModel) :
     }
 }
 
-class ItemViewHolder private constructor(private val binding: AdapterNavitemBinding) :
+class ItemViewHolder(private val binding: AdapterNavitemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
     fun bind(viewModel: ChildNavigationViewModel, item: NavigationModel,mListener : NavFlexItemClickListener) {
