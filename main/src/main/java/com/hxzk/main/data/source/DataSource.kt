@@ -135,4 +135,8 @@ interface DataSource {
      */
     suspend fun unCollectionHomeList(id : Int) : Result<*>
 
+    /**
+     * 获取未读消息数
+     */
+    suspend fun unReadNum(): Result<*>
 }

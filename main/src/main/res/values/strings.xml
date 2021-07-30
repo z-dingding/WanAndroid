@@ -139,5 +139,10 @@
     <string name="createshare_notempty_articletitle">文章标题为必填</string>
     <string name="createshare_notempty_articlelink">文章链接为必填</string>
 
+<!--    消息通知-->
+    <string name="title_notify">消息通知</string>
+    <string name="notify_read">已读</string>
+    <string name="notify_unread">未读</string>
+
 
 </resources>

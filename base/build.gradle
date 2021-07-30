@@ -70,8 +70,12 @@ dependencies {
    // api dependencies['luban']
     //沉浸式状态栏
     api dependencies['immersionbar']
+    //material的Ui
+    api dependencies['material']
 
 
     api project(path: ':tencentx5')
     api project(path: ':network')
+
+
 }

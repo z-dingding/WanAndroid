@@ -197,5 +197,22 @@ interface WanApi {
      */
     @POST("lg/user_article/delete/{id}/json")
     suspend fun  delSharedArticle(@Path("id") id : Int) : ApiResponse<String>
+    /**
+     * 未读消息数量
+     */
+    @GET("message/lg/count_unread/json")
+     fun  unReadNum() :  Call<ApiResponse<Int>>
+
+    /**
+     * 已读消息列表
+     */
+    @GET("message/lg/readed_list/{pageNum}/json")
+    fun  readList(@Path("pageNum") pageNum : Int ) : LiveData<ApiResponse<NotifyModel>>
+
+    /**
+     * 未读消息列表
+     */
+    @GET("message/lg/unread_list/{pageNum}/json")
+    fun  unReadList(@Path("pageNum") pageNum : Int ) : LiveData<ApiResponse<NotifyModel>>
 
 }

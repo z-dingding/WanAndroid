@@ -11,6 +11,7 @@
     <color name="text_gray2">#E8E3E0</color>
     <color name="text_hint">#E784A2</color>
     <color name="text_black">#000</color>
+    <color name="text_red">#E11111</color>
 
 
     <color name="wall">#fff5f5f5</color>

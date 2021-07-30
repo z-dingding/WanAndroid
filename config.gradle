@@ -62,6 +62,8 @@ ext {
             'room-ktx' : "androidx.room:room-ktx:$roomVersion",
              //沉浸式状态栏
             'immersionbar': 'com.gyf.immersionbar:immersionbar:3.0.0',
+            //直接引入material UI
+            material :  "com.google.android.material:material:1.1.0"
          
 
     ]

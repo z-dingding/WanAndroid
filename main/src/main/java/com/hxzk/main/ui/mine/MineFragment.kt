@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -18,13 +19,17 @@ import com.hxzk.base.extension.action
 import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.extension.sToast
 import com.hxzk.base.util.Preference
+import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.R
 import com.hxzk.main.common.Const
 import com.hxzk.main.common.Const.ModifyUserInfo.Companion.KEY_USER_AVATAR
 import com.hxzk.main.common.Const.ModifyUserInfo.Companion.KEY_USER_BG
 import com.hxzk.main.common.Const.ModifyUserInfo.Companion.KEY_USER_NAME
 import com.hxzk.main.databinding.FragmentMineBinding
+import com.hxzk.main.event.FinishActivityEvent
+import com.hxzk.main.event.MessageEvent
 import com.hxzk.main.event.TransparentStatusBarEvent
+import com.hxzk.main.event.UnReadNumEvent
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.share.ShareActivity
 import com.hxzk.main.ui.base.BaseFragment
@@ -33,11 +38,14 @@ import com.hxzk.main.ui.collection.CollectionActivity
 import com.hxzk.main.ui.integral.IntegralActivity
 import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.modifyuserinfo.ModifyUserInfoActivity
+import com.hxzk.main.ui.notify.NotifyActivity
 import com.hxzk.main.util.ColorUtil
 import com.hxzk.main.util.CropCircleTransformation
 import com.hxzk.main.util.ViewUtils
 import kotlinx.android.synthetic.main.fragment_mine.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class MineFragment : BaseFragment() , View.OnClickListener {
@@ -125,6 +133,26 @@ class MineFragment : BaseFragment() , View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         activity = requireActivity() as MainActivity
         initEvent()
+        initObserve()
+    }
+
+    private fun initObserve() {
+        //进入就启动加载
+        ProgressDialogUtil.getInstance().showDialog(activity)
+        viewModel.dataLoading.observe(viewLifecycleOwner){
+            if (it) ProgressDialogUtil.getInstance().showDialog(activity)    else ProgressDialogUtil.getInstance().dismissDialog()
+        }
+
+
+        viewModel.unReadNum.observe(viewLifecycleOwner){
+             if(it == 0){
+                tv_notifyNum.visibility = View.GONE
+             }else {
+                  val num =   if (it > 99) "99+" else  it.toString()
+                 tv_notifyNum.visibility =View.VISIBLE
+                 tv_notifyNum.text = num
+             }
+        }
     }
 
 
@@ -132,10 +160,12 @@ class MineFragment : BaseFragment() , View.OnClickListener {
         iv_userPhoto.setOnClickListener(this)
         stv_integral.setOnClickListener(this)
         iv_notify.setOnClickListener(this)
+        tv_notifyNum.setOnClickListener(this)
         stv_readHistory.setOnClickListener(this)
         stv_collection.setOnClickListener(this)
         stv_share.setOnClickListener(this)
-    }
+        }
+
 
     override fun onClick(v: View?) {
         when(v?.id){
@@ -155,11 +185,13 @@ class MineFragment : BaseFragment() , View.OnClickListener {
                 putString(KEY_USER_NAME,viewModel.userInfo.value?.username)
             })
 
-            R.id.iv_notify ->  getString(R.string.common_tips_wating).sToast()
+            R.id.iv_notify , R.id.tv_notifyNum ->  activity.action<NotifyActivity>(activity)
 
             R.id.stv_readHistory-> activity.action<BrowsingHistoryActivity>(activity)
 
-            R.id.stv_collection -> activity.action<CollectionActivity>(activity)
+            R.id.stv_collection -> if(viewModel.userInfo.value != null){ activity.action<CollectionActivity>(activity) }else{
+            getString(R.string.common_tips_pleasewaiting).sToast()
+        }
 
             R.id.stv_share ->
                 if(viewModel.userInfo.value != null){
@@ -175,9 +207,9 @@ class MineFragment : BaseFragment() , View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        var saveUserAvatar by Preference(Const.ModifyUserInfo.KEY_USER_AVATAR,"")
+        var saveUserAvatar by Preference(KEY_USER_AVATAR,"")
         userAvatarUri = saveUserAvatar
-        var saveUserBg by Preference(Const.ModifyUserInfo.KEY_USER_BG,"")
+        var saveUserBg by Preference(KEY_USER_BG,"")
         userBgImageUri = saveUserBg
 
         Glide.with(this)
@@ -195,4 +227,15 @@ class MineFragment : BaseFragment() , View.OnClickListener {
                 .into(iv_bgWall)
     }
 
+
+    //监听是否进入到了未读消息的Fragment，需要将未读消息数目设置为0
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(messageEvent: UnReadNumEvent) {
+        if (messageEvent is UnReadNumEvent) {
+            //说明进入了未读消息Fragment,将消息数控件隐藏
+            if(messageEvent.notifyNum == 0 ){
+                tv_notifyNum.visibility = View.GONE
+            }
+        }
+    }
 }

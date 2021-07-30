@@ -15,6 +15,7 @@ import com.hxzk.main.ui.base.BaseFragment
 import androidx.lifecycle.observe
 import com.hxzk.base.util.Preference
 import com.hxzk.main.common.Const
+import com.hxzk.network.WanApi
 import com.hxzk.network.model.CommonItemModel
 import com.hxzk.tencentx5.callback.WebViewProgress
 import com.tencent.smtt.sdk.WebView
@@ -46,7 +47,12 @@ class X5Fragment : BaseFragment(), WebViewProgress {
         model = activity.intent.getParcelableExtra(X5MainActivity.KEY_ITEMBEAN)
         //设置加载进度的回调
         x5WebView.x5WebChromeClient.setOnProgressChanged(this)
-        x5WebView.loadWebUrl(model.link)
+        if(model.link.contains("http")){
+            x5WebView.loadWebUrl(model.link)
+        }else{
+            x5WebView.loadWebUrl(WanApi.baseUrl+model.link)
+        }
+
         webProgressView.setOnClickListener {
             activity.finish()
         }

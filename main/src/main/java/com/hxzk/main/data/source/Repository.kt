@@ -137,4 +137,9 @@ interface Repository {
   * 取消收藏(适用于首页等列表页面)
   */
  suspend fun unCollectionHomeList(id : Int) : Result<*>
+
+ /**
+  * 获取未读消息数
+  */
+ fun unReadNum(): LiveData<Result<*>>
 }

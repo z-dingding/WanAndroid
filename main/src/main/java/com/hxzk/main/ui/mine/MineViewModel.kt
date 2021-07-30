@@ -14,6 +14,8 @@ import com.hxzk.network.succeeded
 
 class MineViewModel(private val repository: Repository) : ViewModel() {
 
+    private val _dataLoading = MutableLiveData<Boolean>()
+    val dataLoading: LiveData<Boolean> = _dataLoading
 
     private  val _userInfo :LiveData<UserInfoModel> = repository.integral().switchMap {
          transition(it)
@@ -31,8 +33,30 @@ class MineViewModel(private val repository: Repository) : ViewModel() {
             val res = it as Result.Error
             ResponseHandler.handleFailure(res.e)
         }
+        _dataLoading.value =false
         return result
     }
 
     val userInfo : LiveData<UserInfoModel> = _userInfo
+
+
+    private  val _unReadNum = repository.unReadNum().switchMap {
+        transForm(it)
+    }
+    private fun transForm(it : Result<*>) : LiveData<Int> {
+        val result =MutableLiveData<Int>()
+        if (it.succeeded) {
+            val bean = (it as Result.Success<*>).res as ApiResponse<*>
+            if (bean.errorCode == 0) {
+                result.value =  bean.data as Int
+            } else {
+                bean.errorMsg.sToast()
+            }
+        } else {
+            val res = it as Result.Error
+            ResponseHandler.handleFailure(res.e)
+        }
+        return result
+    }
+    val  unReadNum : LiveData<Int> = _unReadNum
 }

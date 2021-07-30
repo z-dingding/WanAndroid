@@ -228,4 +228,8 @@ class DefaultRepository(
        return  romtat.unCollectionHomeList(id)
     }
 
+    override fun unReadNum(): LiveData<Result<*>> {
+        return  liveData { emit(romtat.unReadNum())  }
+    }
+
 }

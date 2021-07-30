@@ -3,7 +3,8 @@
     package="com.hxzk.main">
 
     <application>
-        <activity android:name=".ui.share.TestActivity"></activity>
+        <activity android:name=".ui.notify.NotifyActivity"></activity>
+        <activity android:name=".ui.share.TestActivity" />
         <activity android:name=".ui.share.CreateShareActivity" />
         <activity android:name=".ui.share.ShareActivity" />
         <activity android:name=".ui.collection.CollectionActivity" />

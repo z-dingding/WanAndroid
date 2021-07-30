@@ -20,7 +20,7 @@ import com.hxzk.network.model.DataX
  * @date: 2021/7/27
  * 描述:
  */
-class ShareAdapter constructor( val context: Context,val datas : ArrayList<DataX>) : RecyclerView.Adapter<RecyclerView.ViewHolder >() {
+class ShareAdapter constructor( val context: Context,val datas : ArrayList<DataX>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     val  mContext: Context = context
@@ -57,8 +57,7 @@ class ShareAdapter constructor( val context: Context,val datas : ArrayList<DataX
 
 }
 
- class ShareViewHolder(val binding: View) :
-        RecyclerView.ViewHolder(binding) {
+ class ShareViewHolder(val binding: View) : RecyclerView.ViewHolder(binding) {
     val rootView: ConstraintLayout = binding.findViewById(R.id.rootView)
     val cbDel: AppCompatCheckBox = binding.findViewById(R.id.cb_delitem)
     val author: TextView = binding.findViewById(R.id.author)
