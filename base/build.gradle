@@ -72,6 +72,8 @@ dependencies {
     api dependencies['immersionbar']
     //material的Ui
     api dependencies['material']
+    //华为扫码服务
+    api dependencies['scanplus']
 
 
     api project(path: ':tencentx5')

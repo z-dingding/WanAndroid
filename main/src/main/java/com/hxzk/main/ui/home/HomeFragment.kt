@@ -1,20 +1,30 @@
 package com.hxzk.main.ui.home
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.view.*
+import android.widget.CheckBox
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
+import com.huawei.hms.hmsscankit.ScanUtil
+import com.huawei.hms.ml.scan.HmsScan
+import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions
 import com.hxzk.base.extension.actionBundle
 import com.hxzk.base.extension.sToast
 import com.hxzk.base.util.AndroidVersion
+import com.hxzk.base.util.GlobalUtil
+import com.hxzk.base.util.Preference
 import com.hxzk.base.util.progressdialog.ProgressDialogUtil
 import com.hxzk.main.R
 import com.hxzk.main.callback.BannerItemListener
+import com.hxzk.main.common.Const
 import com.hxzk.main.databinding.FragmentHomeBinding
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.adapter.HomeItemAdapter
@@ -171,11 +181,57 @@ class HomeFragment : BaseFragment(), BannerItemListener {
             }
             R.id.menu_scanCode ->{
                 // TODO: 2021/7/15  需要增加权限判断
-               resources.getString(R.string.common_tips_pleasewaiting).sToast()
+                startDefaultMode()
             }
         }
         return true
     }
+
+    /**
+     * 启动扫描服务
+     */
+    private fun startDefaultMode() {
+        // 扫码选项参数
+        val options = HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.ALL_SCAN_TYPE).create()
+        ScanUtil.startScan(activity, REQUEST_CODE_SCAN_DEFAULT_MODE, options)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != RESULT_OK || data == null) {
+            return
+        }
+        when (requestCode) {
+            REQUEST_CODE_SCAN_DEFAULT_MODE -> {
+                val hmsScan: HmsScan? = data.getParcelableExtra(ScanUtil.RESULT)
+                // 获取扫码结果 ScanUtil.RESULT
+                if (!TextUtils.isEmpty(hmsScan?.getOriginalValue())) {
+                    if(hmsScan?.getOriginalValue() != null){
+                        showAlert(hmsScan.getOriginalValue())
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showAlert(copyStr : String) {
+            val dialog = AlertDialog.Builder(activity, R.style.AlertDialogStyle)
+                    .setTitle(GlobalUtil.getString(R.string.sacnCode_title))
+                    .setMessage(copyStr)
+                    .setPositiveButton(GlobalUtil.getString(R.string.sacnCode_copy)) { _, _ ->
+                       if(GlobalUtil.copy(copyStr,activity)){
+                           GlobalUtil.getString(R.string.sacnCode_clip_success).sToast()
+                       }else{
+                           GlobalUtil.getString(R.string.sacnCode_clip_failure).sToast()
+                       }
+                    }.setNegativeButton(GlobalUtil.getString(R.string.sacnCode_cancel)){ _, _ ->
+
+                    }
+                    .create()
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.show()
+
+        }
 
 
 
@@ -188,5 +244,6 @@ class HomeFragment : BaseFragment(), BannerItemListener {
     
     companion object{
         const val CODE_SELECT_IMAGE = 0x1111;
+        const val REQUEST_CODE_SCAN_DEFAULT_MODE = 0x222
     }
 }

@@ -17,12 +17,16 @@
 
 package com.hxzk.base.util
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import com.hxzk.base.extension.logWarn
 import java.text.SimpleDateFormat
 import java.util.*
@@ -266,6 +270,24 @@ object GlobalUtil {
      * */
     fun isWeiboInstalled() = isInstalled("com.sina.weibo")
 
-
+    /**
+     * 复制内容到剪切板
+     *
+     * @param copyStr
+     * @return
+     */
+     fun copy(copyStr : String, context: Context) : Boolean {
+        try {
+            //获取剪贴板管理器
+            val cm = (context.getSystemService(Context.CLIPBOARD_SERVICE)) as ClipboardManager
+            // 创建普通字符型ClipData
+            val mClipData = ClipData.newPlainText("Label", copyStr);
+            // 将ClipData内容放到系统剪贴板里。
+            cm.setPrimaryClip(mClipData);
+            return true
+        } catch ( e : Exception) {
+            return false
+        }
+    }
 
 }

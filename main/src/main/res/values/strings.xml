@@ -52,6 +52,11 @@
     <string name="search_hint">请输入搜索关键字</string>
     <!-- 首页 -->
     <string name="home_tag_new">新</string>
+    <string name="sacnCode_title">扫码结果</string>
+    <string name="sacnCode_copy">复制</string>
+    <string name="sacnCode_cancel">取消</string>
+    <string name="sacnCode_clip_success">复制成功</string>
+    <string name="sacnCode_clip_failure">复制失败</string>
 
     <!--    搜索页面-->
     <string name="search_title">搜索</string>
