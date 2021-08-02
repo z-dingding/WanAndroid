@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.setting.SettingActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/stv_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp"
+        app:sLeftTextString="@string/setting_version"
+        app:sRightTvDrawableRight="@drawable/mine_icon_enterdetail"
+        tools:sRightTextString="1.0.0"
+        app:sRightTextColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:sDividerLineType="bottom"
+        app:sDividerLineHeight="3dp"
+        app:sDividerLineColor="@color/text_gray2"
+        app:sBottomDividerLineMarginLR="10dp"
+        />
+    <com.allen.library.SuperTextView
+    android:id="@+id/stv_author"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="60dp"
+    app:sLeftTextString="@string/setting_author"
+    app:sRightTvDrawableRight="@drawable/mine_icon_enterdetail"
+    app:sRightTextColor="@color/colorPrimary"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/stv_version"
+    app:sDividerLineType="bottom"
+    app:sDividerLineHeight="3dp"
+    app:sDividerLineColor="@color/text_gray2"
+    app:sBottomDividerLineMarginLR="10dp"
+    />
+    <com.allen.library.SuperButton
+        android:id="@+id/stv_loginout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp"
+         app:sCornersRadius="15dp"
+        app:sSolidColor="@color/colorPrimary"
+        android:text="@string/setting_logout"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/textSize_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stv_author"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

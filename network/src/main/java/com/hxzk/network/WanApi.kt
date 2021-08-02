@@ -214,5 +214,10 @@ interface WanApi {
      */
     @GET("message/lg/unread_list/{pageNum}/json")
     fun  unReadList(@Path("pageNum") pageNum : Int ) : LiveData<ApiResponse<NotifyModel>>
+    /**
+     * 退出登录
+     */
+    @GET("user/logout/json")
+    suspend fun loginOut(): ApiResponse<String>
 
 }

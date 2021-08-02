@@ -39,6 +39,7 @@ import com.hxzk.main.ui.integral.IntegralActivity
 import com.hxzk.main.ui.main.MainActivity
 import com.hxzk.main.ui.modifyuserinfo.ModifyUserInfoActivity
 import com.hxzk.main.ui.notify.NotifyActivity
+import com.hxzk.main.ui.setting.SettingActivity
 import com.hxzk.main.util.ColorUtil
 import com.hxzk.main.util.CropCircleTransformation
 import com.hxzk.main.util.ViewUtils
@@ -164,6 +165,7 @@ class MineFragment : BaseFragment() , View.OnClickListener {
         stv_readHistory.setOnClickListener(this)
         stv_collection.setOnClickListener(this)
         stv_share.setOnClickListener(this)
+        stv_setting.setOnClickListener(this)
         }
 
 
@@ -201,6 +203,8 @@ class MineFragment : BaseFragment() , View.OnClickListener {
                 }else{
                     getString(R.string.common_tips_pleasewaiting).sToast()
                 }
+
+            R.id.stv_setting ->   activity.action<SettingActivity>(activity)
 
         }
     }
