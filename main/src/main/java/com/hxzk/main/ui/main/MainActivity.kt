@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.gyf.immersionbar.ImmersionBar
 import com.hxzk.base.util.AndroidVersion
 import com.hxzk.main.R
+import com.hxzk.main.event.ClearUserMessage
 import com.hxzk.main.event.MessageEvent
 import com.hxzk.main.event.TransparentStatusBarEvent
 import com.hxzk.main.event.UnReadNumEvent
@@ -80,11 +81,14 @@ class MainActivity : BaseActivity() {
     }
 
     //先Activity监听到了未读消息的Fragment的事件,然后给自己的Fragment处理
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(messageEvent: UnReadNumEvent) {
+    override fun onMessageEvent(messageEvent: MessageEvent) {
         if (messageEvent is UnReadNumEvent) {
             //说明进入了未读消息Fragment,将消息数控件隐藏
             if (messageEvent.notifyNum == 0) {
+                mineFragment.onMessageEvent(messageEvent)
+            }
+        }else if(messageEvent is ClearUserMessage){
+            if (messageEvent.isClear) {
                 mineFragment.onMessageEvent(messageEvent)
             }
         }

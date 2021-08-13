@@ -14,12 +14,14 @@ import com.hxzk.main.R
 import com.hxzk.main.common.Const
 import com.hxzk.main.databinding.ActivitySearchBinding
 import com.hxzk.main.databinding.ActivitySettingBinding
+import com.hxzk.main.event.ClearUserMessage
 import com.hxzk.main.generated.callback.OnClickListener
 import com.hxzk.main.ui.base.BaseActivity
 import com.hxzk.main.util.ResponseHandler
 import com.hxzk.network.NetWork
 import com.hxzk.network.WanApi
 import kotlinx.coroutines.*
+import org.greenrobot.eventbus.EventBus
 import kotlin.coroutines.CoroutineContext
 
 class SettingActivity : BaseActivity() , View.OnClickListener {
@@ -73,6 +75,8 @@ class SettingActivity : BaseActivity() , View.OnClickListener {
                             putString(NetWork.KEY_COOKIES,"")
                             apply()
                             }
+                            //将我的页面的用户信息清空
+                            EventBus.getDefault().post(ClearUserMessage(true))
                         } else {
                             result.errorMsg.sToast()
                         }

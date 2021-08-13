@@ -40,6 +40,7 @@ class MineViewModel(private val repository: Repository) : ViewModel() {
     val userInfo : LiveData<UserInfoModel> = _userInfo
 
 
+
     private  val _unReadNum = repository.unReadNum().switchMap {
         transForm(it)
     }

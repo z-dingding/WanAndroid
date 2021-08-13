@@ -7,8 +7,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
-
-import com.hxzk.base.extension.LogKt;
 import com.hxzk.tencentx5.R;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
@@ -78,7 +76,6 @@ public class X5WebViewClient extends WebViewClient {
             } else if (url.contains("http") || url.contains("https")) {
                 //如果连接中包含淘宝等字眼则不跳转
                 if(url.contains("taobao") || url.contains("api.interactive.xianyujoy.cn")){
-                    LogKt.logDebug(TAG, "拦截到植入广告，广告的url——"+url);
                     Toast.makeText(context, "拦截到植入广告，广告的url",Toast.LENGTH_LONG).show();
                 }
                 //如果是跳转到webview的预览则拦截
@@ -97,9 +94,7 @@ public class X5WebViewClient extends WebViewClient {
      */
     @Override
     public void onPageStarted(WebView webView, String url, Bitmap bitmap) {
-        super.onPageStarted(webView, url, bitmap);
-        LogKt.logDebug(TAG, "{onPageStarted}url=" + url);
-    }
+        super.onPageStarted(webView, url, bitmap); }
 
     /**
      * 网页加载完成时调用，比如：隐藏加载提示旋转进度条
@@ -107,7 +102,6 @@ public class X5WebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(final WebView webView, String url) {
         super.onPageFinished(webView, url);
-        LogKt.logDebug(TAG, "{onPageFinished}url=" + url);
         //android调用js
         webView.post(new Runnable() {
             @Override
@@ -126,7 +120,6 @@ public class X5WebViewClient extends WebViewClient {
     public void onReceivedError(WebView webView, int errorCode,
                                 String description, String failingUrl) {
         super.onReceivedError(webView, errorCode, description, failingUrl);
-        LogKt.logDebug(TAG, "{onReceivedError}failingUrl=" + failingUrl);
     }
 
 

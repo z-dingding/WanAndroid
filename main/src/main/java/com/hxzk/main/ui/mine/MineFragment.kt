@@ -26,10 +26,7 @@ import com.hxzk.main.common.Const.ModifyUserInfo.Companion.KEY_USER_AVATAR
 import com.hxzk.main.common.Const.ModifyUserInfo.Companion.KEY_USER_BG
 import com.hxzk.main.common.Const.ModifyUserInfo.Companion.KEY_USER_NAME
 import com.hxzk.main.databinding.FragmentMineBinding
-import com.hxzk.main.event.FinishActivityEvent
-import com.hxzk.main.event.MessageEvent
-import com.hxzk.main.event.TransparentStatusBarEvent
-import com.hxzk.main.event.UnReadNumEvent
+import com.hxzk.main.event.*
 import com.hxzk.main.extension.getViewModelFactory
 import com.hxzk.main.ui.share.ShareActivity
 import com.hxzk.main.ui.base.BaseFragment
@@ -234,11 +231,18 @@ class MineFragment : BaseFragment() , View.OnClickListener {
 
     //监听是否进入到了未读消息的Fragment，需要将未读消息数目设置为0
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(messageEvent: UnReadNumEvent) {
+    fun onMessageEvent(messageEvent: MessageEvent) {
         if (messageEvent is UnReadNumEvent) {
             //说明进入了未读消息Fragment,将消息数控件隐藏
             if(messageEvent.notifyNum == 0 ){
                 tv_notifyNum.visibility = View.GONE
+            }
+        }else if(messageEvent is ClearUserMessage){
+            if(messageEvent.isClear){
+                databindding.tvLevel.text = resources.getString(R.string.mine_userid)
+                databindding.tvUserName.text = ""
+                databindding.tvUserId.text = resources.getString(R.string.mine_userid)
+                databindding.tvRanking.text = resources.getString(R.string.mine_ranking)
             }
         }
     }

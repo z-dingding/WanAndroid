@@ -2,7 +2,6 @@ package com.hxzk.tencentx5
 
 import android.app.Application
 import android.content.Context
-import com.hxzk.base.extension.logDebug
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
 
@@ -23,7 +22,6 @@ open class X5Application : Application(){
         //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
         val cb: QbSdk.PreInitCallback = object : QbSdk.PreInitCallback {
             override fun onViewInitFinished(arg0: Boolean) {
-                logDebug("x5內核初始化完成的回调==$arg0")
             }
 
             override fun onCoreInitFinished() {}

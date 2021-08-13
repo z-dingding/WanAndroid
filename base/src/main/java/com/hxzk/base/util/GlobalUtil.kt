@@ -26,7 +26,6 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import com.hxzk.base.extension.logWarn
 import java.text.SimpleDateFormat
 import java.util.*
